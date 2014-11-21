@@ -17,7 +17,8 @@ public class CurrentConfig {
     
     public CurrentConfig(){
         avroraZCommands = new HashMap();
-        avroraZCommands.put("action", new Triplet(false, "some grong", null));
+        String[] actionInputs = {"analyze-stack", "cfg", "dbbc", "gui", "isdl", "isea", "odpp", "simulate", "tests"};
+        avroraZCommands.put("action", new Triplet(false, actionInputs, null));
         avroraZCommands.put("banner", new Triplet(false, true, null));
         avroraZCommands.put("colors", new Triplet(false, true, null));
         avroraZCommands.put("html", new Triplet(false, true, null));
