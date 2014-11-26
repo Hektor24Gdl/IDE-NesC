@@ -27,180 +27,193 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jSeparator1" alignment="0" pref="732" max="32767" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jSeparator2" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="btnResetLicense" min="-2" pref="35" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="btnHelpLicense" min="-2" pref="35" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="btnResetStatus" min="-2" pref="35" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="btnHelpStatus" min="-2" pref="35" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="btnResetVerbose" min="-2" pref="35" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="btnHelpVerbose" min="-2" pref="35" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                  <Component id="btnResetColors" alignment="1" min="-2" pref="35" max="-2" attributes="0"/>
-                                                  <Component id="btnResetBanner" alignment="1" min="-2" pref="35" max="-2" attributes="0"/>
-                                                  <Component id="btnResetAction" alignment="1" min="-2" pref="35" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="btnHelpBanner" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
-                                                  <Component id="btnHelpAction" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
-                                                  <Component id="btnHelpColors" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="btnResetHtml" min="-2" pref="35" max="-2" attributes="0"/>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="btnHelpHtml" min="-2" pref="35" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="btnResetInput" min="-2" pref="35" max="-2" attributes="0"/>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="btnHelpInput" min="-2" pref="35" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="btnResetExtra" min="-2" pref="35" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="btnHelpExtra" min="-2" pref="35" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jSeparator1" alignment="0" pref="732" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jSeparator2" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="cbExtra" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="cbVerbose" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="cbLicense" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="cbInput" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="cbConfigFile" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lbPlatform" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jScrollPane1" max="32767" attributes="0"/>
-                                          <Group type="102" attributes="0">
-                                              <Component id="txtVerbose" pref="199" max="32767" attributes="0"/>
-                                              <EmptySpace min="-2" pref="252" max="-2" attributes="0"/>
-                                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="btnResetLicense" min="-2" pref="35" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="btnHelpLicense" min="-2" pref="35" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
+                                          <Component id="btnResetStatus" min="-2" pref="35" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="btnHelpStatus" min="-2" pref="35" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="btnResetVerbose" min="-2" pref="35" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="btnHelpVerbose" min="-2" pref="35" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
                                           <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="txtConfigFile" min="-2" pref="327" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="lbRealTime" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="lbSecondsPrecision" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="lbSeconds" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="lbSimulation" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="lbNodecount" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="lbReportSeconds" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
+                                              <Component id="btnResetColors" alignment="1" min="-2" pref="35" max="-2" attributes="0"/>
+                                              <Component id="btnResetBanner" alignment="1" min="-2" pref="35" max="-2" attributes="0"/>
+                                              <Component id="btnResetAction" alignment="1" min="-2" pref="35" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                                          <Component id="btnOpenConfigFile" min="-2" pref="36" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="btnEditConfigFile" min="-2" pref="54" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="btnResetConfigFile" min="-2" pref="35" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="btnHelpConfigFile" min="-2" pref="35" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="cbColors" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cbBanner" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cbAction" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cbStatus" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cbHtml" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="49" pref="49" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="rbTLicense" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="rbFLicense" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Component id="rbTBanner" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="rbFBanner" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" attributes="0">
-                                                  <Component id="rbTHtml" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="rbFHtml" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="rbTColors" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="rbFColors" min="-2" max="-2" attributes="0"/>
-                                              </Group>
+                                              <Component id="btnHelpBanner" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+                                              <Component id="btnHelpAction" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+                                              <Component id="btnHelpColors" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <Component id="cboxInput" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
-                                      <Group type="102" attributes="0">
-                                          <Component id="rbTStatus" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="rbFStatus" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="btnResetHtml" min="-2" pref="35" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="btnHelpHtml" min="-2" pref="35" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="btnResetInput" min="-2" pref="35" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="btnHelpInput" min="-2" pref="35" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
-                                      <Component id="actionComboBox" alignment="1" min="-2" pref="199" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="btnResetExtra" min="-2" pref="35" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="btnHelpExtra" min="-2" pref="35" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
                       </Group>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lbTopology" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbNoise" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbUpdateNodeId" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbStaggerStart" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbMonitors" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbExtra" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="cbVerbose" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbLicense" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbInput" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="cbConfigFile" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbMonitors" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbPlatform" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbTopology" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbNoise" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbUpdateNodeId" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbStaggerStart" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jScrollPane1" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="txtVerbose" pref="199" max="32767" attributes="0"/>
+                                          <EmptySpace min="-2" pref="252" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="txtConfigFile" min="-2" pref="327" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="tfMonitors" max="32767" attributes="0"/>
+                                                  <Component id="tfPlatform" max="32767" attributes="0"/>
+                                                  <Component id="tfNoise" max="32767" attributes="0"/>
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="rbTUpdateNodeId" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                      <Component id="rbFUpdateNodeId" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="tfStaggerStart" alignment="0" pref="176" max="32767" attributes="0"/>
+                                                  <Component id="tfTopology" alignment="0" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="cbReportSeconds" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="cbRealTime" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="cbSecondsPrecision" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="cbSeconds" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="cbSimulation" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="cbNodecount" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Component id="btnOpenConfigFile" min="-2" pref="36" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="btnEditConfigFile" min="-2" pref="54" max="-2" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Component id="btnResetConfigFile" min="-2" pref="35" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="tfSecondsPrecision" max="32767" attributes="0"/>
+                                          <Component id="tfSeconds" max="32767" attributes="0"/>
+                                          <Component id="tfSimulation" max="32767" attributes="0"/>
+                                          <Component id="tfNodecount" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="btnHelpConfigFile" min="-2" pref="35" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="cbColors" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbBanner" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbAction" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbStatus" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbHtml" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="49" pref="49" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="rbTLicense" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="rbFLicense" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="cboxInput" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="rbTStatus" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="rbFStatus" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="actionComboBox" alignment="1" min="-2" pref="199" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="rbTBanner" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="rbFBanner" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="rbTHtml" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="rbFHtml" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="rbTColors" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="rbFColors" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
@@ -274,34 +287,37 @@
                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                               <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="cbAction" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="cbBanner" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="rbFBanner" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="rbTBanner" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="cbBanner" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                              <Component id="cbColors" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                              <Component id="cbHtml" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="actionComboBox" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="rbFBanner" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rbTBanner" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="rbTColors" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rbFColors" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="rbTHtml" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rbFHtml" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="cbColors" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="rbTColors" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="rbFColors" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="cbHtml" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="rbTHtml" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="rbFHtml" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -346,35 +362,48 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lbMonitors" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lbReportSeconds" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfMonitors" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbMonitors" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbReportSeconds" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lbPlatform" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lbRealTime" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfPlatform" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbPlatform" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbRealTime" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lbTopology" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lbSecondsPrecision" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfTopology" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbTopology" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbSecondsPrecision" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfSecondsPrecision" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lbNoise" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lbSeconds" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfNoise" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbNoise" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbSeconds" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfSeconds" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lbUpdateNodeId" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lbSimulation" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbUpdateNodeId" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbSimulation" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                      <Component id="rbFUpdateNodeId" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rbTUpdateNodeId" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="tfSimulation" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lbStaggerStart" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lbNodecount" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbStaggerStart" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbNodecount" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfStaggerStart" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfNodecount" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="0" pref="55" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="7" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -464,7 +493,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtConfigFile">
       <Properties>
-        <Property name="text" type="java.lang.String" value="src\u005cconfigurations\u005cdefault.txt" containsInvalidXMLChars="true"/>
+        <Property name="text" type="java.lang.String" value="\u005cconfigurations\u005cdefault.txt" containsInvalidXMLChars="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnResetConfigFile">
@@ -716,98 +745,94 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lbPlatform">
+    <Component class="javax.swing.JTextField" name="tfMonitors">
+    </Component>
+    <Component class="javax.swing.JTextField" name="tfPlatform">
+    </Component>
+    <Component class="javax.swing.JTextField" name="tfTopology">
+    </Component>
+    <Component class="javax.swing.JTextField" name="tfNoise">
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="cbMonitors">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="monitors"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="cbPlatform">
       <Properties>
         <Property name="text" type="java.lang.String" value="platform"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lbTopology">
+    <Component class="javax.swing.JCheckBox" name="cbTopology">
       <Properties>
         <Property name="text" type="java.lang.String" value="topology"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="lbTopology"/>
-      </AccessibilityProperties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lbNoise">
+    <Component class="javax.swing.JCheckBox" name="cbNoise">
       <Properties>
         <Property name="text" type="java.lang.String" value="noise"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="lbNoise"/>
-      </AccessibilityProperties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lbUpdateNodeId">
+    <Component class="javax.swing.JCheckBox" name="cbUpdateNodeId">
       <Properties>
         <Property name="text" type="java.lang.String" value="update-node-id"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="lbUpdateNodeId"/>
-      </AccessibilityProperties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lbStaggerStart">
+    <Component class="javax.swing.JCheckBox" name="cbStaggerStart">
       <Properties>
         <Property name="text" type="java.lang.String" value="stagger-start"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="lbStaggerStart"/>
-      </AccessibilityProperties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lbMonitors">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="monitors"/>
-      </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="lbMonitors"/>
-      </AccessibilityProperties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lbReportSeconds">
+    <Component class="javax.swing.JCheckBox" name="cbReportSeconds">
       <Properties>
         <Property name="text" type="java.lang.String" value="report-seconds"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="lbReportSeconds"/>
-      </AccessibilityProperties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lbRealTime">
+    <Component class="javax.swing.JCheckBox" name="cbRealTime">
       <Properties>
         <Property name="text" type="java.lang.String" value="real-time"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="lbRealTime"/>
-      </AccessibilityProperties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lbSecondsPrecision">
+    <Component class="javax.swing.JCheckBox" name="cbSecondsPrecision">
       <Properties>
         <Property name="text" type="java.lang.String" value="seconds-precision"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="lbSecondsPrecision"/>
-      </AccessibilityProperties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lbSeconds">
+    <Component class="javax.swing.JCheckBox" name="cbSeconds">
       <Properties>
         <Property name="text" type="java.lang.String" value="seconds"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="lbSeconds"/>
-      </AccessibilityProperties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lbSimulation">
+    <Component class="javax.swing.JCheckBox" name="cbSimulation">
       <Properties>
         <Property name="text" type="java.lang.String" value="simulation"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="lbSimulation"/>
-      </AccessibilityProperties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lbNodecount">
+    <Component class="javax.swing.JCheckBox" name="cbNodecount">
       <Properties>
         <Property name="text" type="java.lang.String" value="nodecount"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="lbNodecount"/>
-      </AccessibilityProperties>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="rbTUpdateNodeId">
+      <Properties>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="True"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="rbFUpdateNodeId">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="False"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="tfStaggerStart">
+    </Component>
+    <Component class="javax.swing.JTextField" name="tfSecondsPrecision">
+    </Component>
+    <Component class="javax.swing.JTextField" name="tfSeconds">
+    </Component>
+    <Component class="javax.swing.JTextField" name="tfSimulation">
+    </Component>
+    <Component class="javax.swing.JTextField" name="tfNodecount">
     </Component>
   </SubComponents>
 </Form>

@@ -185,18 +185,29 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         btnResetAction = new javax.swing.JButton();
         cbStatus = new javax.swing.JCheckBox();
         actionComboBox = new javax.swing.JComboBox();
-        lbPlatform = new javax.swing.JLabel();
-        lbTopology = new javax.swing.JLabel();
-        lbNoise = new javax.swing.JLabel();
-        lbUpdateNodeId = new javax.swing.JLabel();
-        lbStaggerStart = new javax.swing.JLabel();
-        lbMonitors = new javax.swing.JLabel();
-        lbReportSeconds = new javax.swing.JLabel();
-        lbRealTime = new javax.swing.JLabel();
-        lbSecondsPrecision = new javax.swing.JLabel();
-        lbSeconds = new javax.swing.JLabel();
-        lbSimulation = new javax.swing.JLabel();
-        lbNodecount = new javax.swing.JLabel();
+        tfMonitors = new javax.swing.JTextField();
+        tfPlatform = new javax.swing.JTextField();
+        tfTopology = new javax.swing.JTextField();
+        tfNoise = new javax.swing.JTextField();
+        cbMonitors = new javax.swing.JCheckBox();
+        cbPlatform = new javax.swing.JCheckBox();
+        cbTopology = new javax.swing.JCheckBox();
+        cbNoise = new javax.swing.JCheckBox();
+        cbUpdateNodeId = new javax.swing.JCheckBox();
+        cbStaggerStart = new javax.swing.JCheckBox();
+        cbReportSeconds = new javax.swing.JCheckBox();
+        cbRealTime = new javax.swing.JCheckBox();
+        cbSecondsPrecision = new javax.swing.JCheckBox();
+        cbSeconds = new javax.swing.JCheckBox();
+        cbSimulation = new javax.swing.JCheckBox();
+        cbNodecount = new javax.swing.JCheckBox();
+        rbTUpdateNodeId = new javax.swing.JRadioButton();
+        rbFUpdateNodeId = new javax.swing.JRadioButton();
+        tfStaggerStart = new javax.swing.JTextField();
+        tfSecondsPrecision = new javax.swing.JTextField();
+        tfSeconds = new javax.swing.JTextField();
+        tfSimulation = new javax.swing.JTextField();
+        tfNodecount = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(500, 429));
@@ -243,7 +254,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
 
         cbColors.setText("-colors:");
 
-        txtConfigFile.setText("src\\configurations\\default.txt");
+        txtConfigFile.setText("\\configurations\\default.txt");
 
         btnResetConfigFile.setText(" ");
         btnResetConfigFile.addActionListener(new java.awt.event.ActionListener() {
@@ -380,170 +391,187 @@ public class commandsAvroraZ extends javax.swing.JDialog {
 
         actionComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        lbPlatform.setText("platform");
+        cbMonitors.setText("monitors");
 
-        lbTopology.setText("topology");
+        cbPlatform.setText("platform");
 
-        lbNoise.setText("noise");
+        cbTopology.setText("topology");
 
-        lbUpdateNodeId.setText("update-node-id");
+        cbNoise.setText("noise");
 
-        lbStaggerStart.setText("stagger-start");
+        cbUpdateNodeId.setText("update-node-id");
 
-        lbMonitors.setText("monitors");
+        cbStaggerStart.setText("stagger-start");
 
-        lbReportSeconds.setText("report-seconds");
+        cbReportSeconds.setText("report-seconds");
 
-        lbRealTime.setText("real-time");
+        cbRealTime.setText("real-time");
 
-        lbSecondsPrecision.setText("seconds-precision");
+        cbSecondsPrecision.setText("seconds-precision");
 
-        lbSeconds.setText("seconds");
+        cbSeconds.setText("seconds");
 
-        lbSimulation.setText("simulation");
+        cbSimulation.setText("simulation");
 
-        lbNodecount.setText("nodecount");
+        cbNodecount.setText("nodecount");
+
+        rbTUpdateNodeId.setSelected(true);
+        rbTUpdateNodeId.setText("True");
+
+        rbFUpdateNodeId.setText("False");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jSeparator2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jLabel5)
-                                    .addGap(2, 2, 2))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addGap(5, 5, 5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jSeparator2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel5)
+                                .addGap(2, 2, 2))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(btnResetLicense, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(btnHelpLicense, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(btnResetStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(btnHelpStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(btnResetVerbose, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(btnHelpVerbose, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(btnResetColors, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(btnResetBanner, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(btnResetAction, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGap(18, 18, 18)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(btnHelpBanner, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(btnHelpAction, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(btnHelpColors, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addComponent(btnResetHtml, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGap(18, 18, 18)
-                                                    .addComponent(btnHelpHtml, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addComponent(btnResetInput, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGap(18, 18, 18)
-                                                    .addComponent(btnHelpInput, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(btnResetExtra, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(btnResetLicense, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(18, 18, 18)
-                                            .addComponent(btnHelpExtra, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cbExtra)
-                                .addComponent(jLabel1)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addGap(66, 66, 66)
-                                    .addComponent(jLabel3))
-                                .addComponent(cbVerbose)
-                                .addComponent(cbLicense)
-                                .addComponent(cbInput)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(cbConfigFile)
-                                        .addComponent(lbPlatform))
-                                    .addGap(30, 30, 30)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jScrollPane1)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(txtVerbose, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
-                                                .addGap(252, 252, 252)))
+                                            .addComponent(btnHelpLicense, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
+                                            .addComponent(btnResetStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(btnHelpStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(btnResetVerbose, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(btnHelpVerbose, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(txtConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(lbRealTime)
-                                                    .addComponent(lbSecondsPrecision)
-                                                    .addComponent(lbSeconds)
-                                                    .addComponent(lbSimulation)
-                                                    .addComponent(lbNodecount)
-                                                    .addComponent(lbReportSeconds)))
-                                            .addGap(26, 26, 26)
-                                            .addComponent(btnOpenConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(btnEditConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(btnResetConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(btnResetColors, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(btnResetBanner, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(btnResetAction, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGap(18, 18, 18)
-                                            .addComponent(btnHelpConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(cbColors)
-                                        .addComponent(cbBanner)
-                                        .addComponent(cbAction)
-                                        .addComponent(cbStatus)
-                                        .addComponent(cbHtml))
-                                    .addGap(49, 49, 49)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(rbTLicense)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(rbFLicense))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(50, 50, 50)
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addComponent(rbTBanner)
-                                                    .addGap(18, 18, 18)
-                                                    .addComponent(rbFBanner))
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addComponent(rbTHtml)
-                                                    .addGap(18, 18, 18)
-                                                    .addComponent(rbFHtml))
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                    .addComponent(rbTColors)
-                                                    .addGap(18, 18, 18)
-                                                    .addComponent(rbFColors))))
-                                        .addComponent(cboxInput, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(rbTStatus)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(rbFStatus))
-                                        .addComponent(actionComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                                .addComponent(btnHelpBanner, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(btnHelpAction, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(btnHelpColors, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(btnResetHtml, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(btnHelpHtml, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(btnResetInput, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(btnHelpInput, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnResetExtra, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnHelpExtra, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbTopology)
-                            .addComponent(lbNoise)
-                            .addComponent(lbUpdateNodeId)
-                            .addComponent(lbStaggerStart)
-                            .addComponent(lbMonitors))))
+                            .addComponent(cbExtra)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(66, 66, 66)
+                                .addComponent(jLabel3))
+                            .addComponent(cbVerbose)
+                            .addComponent(cbLicense)
+                            .addComponent(cbInput)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbConfigFile)
+                                    .addComponent(cbMonitors)
+                                    .addComponent(cbPlatform)
+                                    .addComponent(cbTopology)
+                                    .addComponent(cbNoise)
+                                    .addComponent(cbUpdateNodeId)
+                                    .addComponent(cbStaggerStart))
+                                .addGap(28, 28, 28)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jScrollPane1)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(txtVerbose, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                                            .addGap(252, 252, 252)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(txtConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(tfMonitors)
+                                                    .addComponent(tfPlatform)
+                                                    .addComponent(tfNoise)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(rbTUpdateNodeId)
+                                                        .addGap(18, 18, 18)
+                                                        .addComponent(rbFUpdateNodeId))
+                                                    .addComponent(tfStaggerStart, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                                                    .addComponent(tfTopology))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(cbReportSeconds)
+                                                    .addComponent(cbRealTime)
+                                                    .addComponent(cbSecondsPrecision)
+                                                    .addComponent(cbSeconds)
+                                                    .addComponent(cbSimulation)
+                                                    .addComponent(cbNodecount))))
+                                        .addGap(26, 26, 26)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(btnOpenConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(btnEditConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(btnResetConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(tfSecondsPrecision)
+                                            .addComponent(tfSeconds)
+                                            .addComponent(tfSimulation)
+                                            .addComponent(tfNodecount))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnHelpConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbColors)
+                                    .addComponent(cbBanner)
+                                    .addComponent(cbAction)
+                                    .addComponent(cbStatus)
+                                    .addComponent(cbHtml))
+                                .addGap(49, 49, 49)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(rbTLicense)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(rbFLicense))
+                                    .addComponent(cboxInput, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(rbTStatus)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(rbFStatus))
+                                    .addComponent(actionComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(rbTBanner)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(rbFBanner))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(rbTHtml)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(rbFHtml))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(rbTColors)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(rbFColors))))))))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -606,23 +634,26 @@ public class commandsAvroraZ extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(cbAction)
                                 .addGap(8, 8, 8)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cbBanner)
-                                    .addComponent(rbFBanner)
-                                    .addComponent(rbTBanner)))
+                                .addComponent(cbBanner)
+                                .addGap(8, 8, 8)
+                                .addComponent(cbColors)
+                                .addGap(8, 8, 8)
+                                .addComponent(cbHtml))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(actionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(8, 8, 8)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbColors)
-                            .addComponent(rbTColors)
-                            .addComponent(rbFColors))
-                        .addGap(8, 8, 8)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbHtml)
-                            .addComponent(rbTHtml)
-                            .addComponent(rbFHtml))
+                                .addComponent(actionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(rbFBanner)
+                                    .addComponent(rbTBanner))
+                                .addGap(8, 8, 8)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(rbTColors)
+                                    .addComponent(rbFColors))
+                                .addGap(8, 8, 8)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(rbTHtml)
+                                    .addComponent(rbFHtml))))
                         .addGap(2, 2, 2)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbInput)
@@ -657,42 +688,42 @@ public class commandsAvroraZ extends javax.swing.JDialog {
                     .addComponent(btnHelpConfigFile))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbMonitors)
-                    .addComponent(lbReportSeconds))
+                    .addComponent(tfMonitors, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbMonitors)
+                    .addComponent(cbReportSeconds))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbPlatform)
-                    .addComponent(lbRealTime))
+                    .addComponent(tfPlatform, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbPlatform)
+                    .addComponent(cbRealTime))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbTopology)
-                    .addComponent(lbSecondsPrecision))
+                    .addComponent(tfTopology, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbTopology)
+                    .addComponent(cbSecondsPrecision)
+                    .addComponent(tfSecondsPrecision, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbNoise)
-                    .addComponent(lbSeconds))
+                    .addComponent(tfNoise, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbNoise)
+                    .addComponent(cbSeconds)
+                    .addComponent(tfSeconds, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbUpdateNodeId)
-                    .addComponent(lbSimulation))
+                    .addComponent(cbUpdateNodeId)
+                    .addComponent(cbSimulation)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(rbFUpdateNodeId)
+                        .addComponent(rbTUpdateNodeId))
+                    .addComponent(tfSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbStaggerStart)
-                    .addComponent(lbNodecount))
-                .addGap(0, 55, Short.MAX_VALUE))
+                    .addComponent(cbStaggerStart)
+                    .addComponent(cbNodecount)
+                    .addComponent(tfStaggerStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfNodecount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 7, Short.MAX_VALUE))
         );
-
-        lbTopology.getAccessibleContext().setAccessibleName("lbTopology");
-        lbNoise.getAccessibleContext().setAccessibleName("lbNoise");
-        lbUpdateNodeId.getAccessibleContext().setAccessibleName("lbUpdateNodeId");
-        lbStaggerStart.getAccessibleContext().setAccessibleName("lbStaggerStart");
-        lbMonitors.getAccessibleContext().setAccessibleName("lbMonitors");
-        lbReportSeconds.getAccessibleContext().setAccessibleName("lbReportSeconds");
-        lbRealTime.getAccessibleContext().setAccessibleName("lbRealTime");
-        lbSecondsPrecision.getAccessibleContext().setAccessibleName("lbSecondsPrecision");
-        lbSeconds.getAccessibleContext().setAccessibleName("lbSeconds");
-        lbSimulation.getAccessibleContext().setAccessibleName("lbSimulation");
-        lbNodecount.getAccessibleContext().setAccessibleName("lbNodecount");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -975,7 +1006,19 @@ public class commandsAvroraZ extends javax.swing.JDialog {
     private javax.swing.JCheckBox cbHtml;
     private javax.swing.JCheckBox cbInput;
     private javax.swing.JCheckBox cbLicense;
+    private javax.swing.JCheckBox cbMonitors;
+    private javax.swing.JCheckBox cbNodecount;
+    private javax.swing.JCheckBox cbNoise;
+    private javax.swing.JCheckBox cbPlatform;
+    private javax.swing.JCheckBox cbRealTime;
+    private javax.swing.JCheckBox cbReportSeconds;
+    private javax.swing.JCheckBox cbSeconds;
+    private javax.swing.JCheckBox cbSecondsPrecision;
+    private javax.swing.JCheckBox cbSimulation;
+    private javax.swing.JCheckBox cbStaggerStart;
     private javax.swing.JCheckBox cbStatus;
+    private javax.swing.JCheckBox cbTopology;
+    private javax.swing.JCheckBox cbUpdateNodeId;
     private javax.swing.JCheckBox cbVerbose;
     private javax.swing.JComboBox cboxInput;
     private javax.swing.JLabel jLabel1;
@@ -986,28 +1029,27 @@ public class commandsAvroraZ extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel lbMonitors;
-    private javax.swing.JLabel lbNodecount;
-    private javax.swing.JLabel lbNoise;
-    private javax.swing.JLabel lbPlatform;
-    private javax.swing.JLabel lbRealTime;
-    private javax.swing.JLabel lbReportSeconds;
-    private javax.swing.JLabel lbSeconds;
-    private javax.swing.JLabel lbSecondsPrecision;
-    private javax.swing.JLabel lbSimulation;
-    private javax.swing.JLabel lbStaggerStart;
-    private javax.swing.JLabel lbTopology;
-    private javax.swing.JLabel lbUpdateNodeId;
     private javax.swing.JRadioButton rbFBanner;
     private javax.swing.JRadioButton rbFColors;
     private javax.swing.JRadioButton rbFHtml;
     private javax.swing.JRadioButton rbFLicense;
     private javax.swing.JRadioButton rbFStatus;
+    private javax.swing.JRadioButton rbFUpdateNodeId;
     private javax.swing.JRadioButton rbTBanner;
     private javax.swing.JRadioButton rbTColors;
     private javax.swing.JRadioButton rbTHtml;
     private javax.swing.JRadioButton rbTLicense;
     private javax.swing.JRadioButton rbTStatus;
+    private javax.swing.JRadioButton rbTUpdateNodeId;
+    private javax.swing.JTextField tfMonitors;
+    private javax.swing.JTextField tfNodecount;
+    private javax.swing.JTextField tfNoise;
+    private javax.swing.JTextField tfPlatform;
+    private javax.swing.JTextField tfSeconds;
+    private javax.swing.JTextField tfSecondsPrecision;
+    private javax.swing.JTextField tfSimulation;
+    private javax.swing.JTextField tfStaggerStart;
+    private javax.swing.JTextField tfTopology;
     private javax.swing.JTextField txtConfigFile;
     private javax.swing.JTextArea txtExtra;
     private javax.swing.JTextField txtVerbose;
