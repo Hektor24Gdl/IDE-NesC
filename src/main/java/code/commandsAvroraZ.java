@@ -42,8 +42,8 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         for (String input : (String[]) ((Triplet)currentConfig.avroraZCommands.get("action")).get2()) {
             this.actionComboBox.addItem(input);
         }
-        EditButtonPro(this.btnHelpAction, null, "src/images/Help_24x24.png", "Help");
-        EditButtonPro(this.btnResetAction, null, "src/images/Eraser_24x24.png", "Reset");
+        EditButtonPro(this.btnHelpAction, null, "/images/Help_24x24.png", "Help");
+        EditButtonPro(this.btnResetAction, null, "/images/Eraser_24x24.png", "Reset");
         //Customizing row Banner
         this.cbBanner.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("banner")).get1() );
         this.rbFBanner.setSelected(!((boolean) ((Triplet)currentConfig.avroraZCommands.get("banner")).get2()));
@@ -51,8 +51,8 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         ButtonGroup gBanner = new ButtonGroup();
         gBanner.add(this.rbFBanner);
         gBanner.add(this.rbTBanner);
-        EditButtonPro(this.btnHelpBanner, null, "src/images/Help_24x24.png", "Help");
-        EditButtonPro(this.btnResetBanner, null, "src/images/Eraser_24x24.png", "Reset");
+        EditButtonPro(this.btnHelpBanner, null, "/images/Help_24x24.png", "Help");
+        EditButtonPro(this.btnResetBanner, null, "/images/Eraser_24x24.png", "Reset");
         //Customizing row Colors
         this.cbColors.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("colors")).get1() );
         this.rbFColors.setSelected(!((boolean) ((Triplet)currentConfig.avroraZCommands.get("colors")).get2()));
@@ -60,8 +60,8 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         ButtonGroup gColors = new ButtonGroup();
         gColors.add(this.rbFColors);
         gColors.add(this.rbTColors);
-        EditButtonPro(this.btnHelpColors, null, "src/images/Help_24x24.png", "Help");
-        EditButtonPro(this.btnResetColors, null, "src/images/Eraser_24x24.png", "Reset");
+        EditButtonPro(this.btnHelpColors, null, "/images/Help_24x24.png", "Help");
+        EditButtonPro(this.btnResetColors, null, "/images/Eraser_24x24.png", "Reset");
         //Customizing row Html
         this.cbHtml.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("html")).get1() );
         this.rbFHtml.setSelected(!((boolean) ((Triplet)currentConfig.avroraZCommands.get("html")).get2()));
@@ -69,8 +69,8 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         ButtonGroup gHtml = new ButtonGroup();
         gHtml.add(this.rbFHtml);
         gHtml.add(this.rbTHtml);
-        EditButtonPro(this.btnHelpHtml, null, "src/images/Help_24x24.png", "Help");
-        EditButtonPro(this.btnResetHtml, null, "src/images/Eraser_24x24.png", "Reset");
+        EditButtonPro(this.btnHelpHtml, null, "/images/Help_24x24.png", "Help");
+        EditButtonPro(this.btnResetHtml, null, "/images/Eraser_24x24.png", "Reset");
         //Customizing row Input
         this.cbInput.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("input")).get1() );
 
@@ -80,8 +80,8 @@ public class commandsAvroraZ extends javax.swing.JDialog {
             this.cboxInput.addItem(input);
         }
         this.cboxInput.setSelectedIndex((int)((Triplet)currentConfig.avroraZCommands.get("input")).get2());
-        EditButtonPro(this.btnHelpInput, null, "src/images/Help_24x24.png", "Help");
-        EditButtonPro(this.btnResetInput, null, "src/images/Eraser_24x24.png", "Reset");
+        EditButtonPro(this.btnHelpInput, null, "/images/Help_24x24.png", "Help");
+        EditButtonPro(this.btnResetInput, null, "/images/Eraser_24x24.png", "Reset");
         //Customizing row License
         this.cbLicense.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("license")).get1() );
         this.rbFLicense.setSelected(!((boolean) ((Triplet)currentConfig.avroraZCommands.get("license")).get2()));
@@ -89,8 +89,8 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         ButtonGroup gLicense = new ButtonGroup();
         gLicense.add(this.rbFLicense);
         gLicense.add(this.rbTLicense);
-        EditButtonPro(this.btnHelpLicense, null, "src/images/Help_24x24.png", "Help");
-        EditButtonPro(this.btnResetLicense, null, "src/images/Eraser_24x24.png", "Reset");
+        EditButtonPro(this.btnHelpLicense, null, "/images/Help_24x24.png", "Help");
+        EditButtonPro(this.btnResetLicense, null, "/images/Eraser_24x24.png", "Reset");
         //Customizing row Status
         this.cbStatus.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("status")).get1() );
         this.rbFStatus.setSelected(!((boolean) ((Triplet)currentConfig.avroraZCommands.get("status")).get2()));
@@ -98,23 +98,23 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         ButtonGroup gStatus = new ButtonGroup();
         gStatus.add(this.rbFStatus);
         gStatus.add(this.rbTStatus);
-        EditButtonPro(this.btnHelpStatus, null, "src/images/Help_24x24.png", "Help");
-        EditButtonPro(this.btnResetStatus, null, "src/images/Eraser_24x24.png", "Reset");
+        EditButtonPro(this.btnHelpStatus, null, "/images/Help_24x24.png", "Help");
+        EditButtonPro(this.btnResetStatus, null, "/images/Eraser_24x24.png", "Reset");
         //Customizing row Verbose
         this.cbVerbose.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("verbose")).get1() );
         this.txtVerbose.setText((String) ((Triplet)currentConfig.avroraZCommands.get("verbose")).get2() );
-        EditButtonPro(this.btnHelpVerbose, null, "src/images/Help_24x24.png", "Help");
-        EditButtonPro(this.btnResetVerbose, null, "src/images/Eraser_24x24.png", "Reset");
+        EditButtonPro(this.btnHelpVerbose, null, "/images/Help_24x24.png", "Help");
+        EditButtonPro(this.btnResetVerbose, null, "/images/Eraser_24x24.png", "Reset");
         //Customizing row ConfigFile
         this.cbConfigFile.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("configFile")).get1() );
         this.txtConfigFile.setText((String) ((Triplet)currentConfig.avroraZCommands.get("configFile")).get2() );
-        EditButtonPro(this.btnHelpConfigFile, null, "src/images/Help_24x24.png", "Help");
-        EditButtonPro(this.btnResetConfigFile, null, "src/images/Eraser_24x24.png", "Reset");
+        EditButtonPro(this.btnHelpConfigFile, null, "/images/Help_24x24.png", "Help");
+        EditButtonPro(this.btnResetConfigFile, null, "/images/Eraser_24x24.png", "Reset");
         //Customizing row Extra
         this.cbExtra.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("extra")).get1() );
         this.txtExtra.setText((String) ((Triplet)currentConfig.avroraZCommands.get("extra")).get2() );
-        EditButtonPro(this.btnHelpExtra, null, "src/images/Help_24x24.png", "Help");
-        EditButtonPro(this.btnResetExtra, null, "src/images/Eraser_24x24.png", "Reset");
+        EditButtonPro(this.btnHelpExtra, null, "/images/Help_24x24.png", "Help");
+        EditButtonPro(this.btnResetExtra, null, "/images/Eraser_24x24.png", "Reset");
         
         
         this.pack();
@@ -200,7 +200,6 @@ public class commandsAvroraZ extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(500, 429));
-        setResizable(false);
 
         cboxInput.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -683,7 +682,6 @@ public class commandsAvroraZ extends javax.swing.JDialog {
                 .addGap(0, 55, Short.MAX_VALUE))
         );
 
-        lbPlatform.getAccessibleContext().setAccessibleName("platform");
         lbTopology.getAccessibleContext().setAccessibleName("lbTopology");
         lbNoise.getAccessibleContext().setAccessibleName("lbNoise");
         lbUpdateNodeId.getAccessibleContext().setAccessibleName("lbUpdateNodeId");

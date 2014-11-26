@@ -92,15 +92,15 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
     /**
      * Returns an ImageIcon, or null if the path was invalid.
      *
-     * @param path
+     * @param file
      * @return
      */
-    protected static ImageIcon createImageIcon(String path) throws IOException {
-        BufferedImage imgURL = ImageIO.read(new File(path));
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
+    protected static ImageIcon createImageIcon(String file) throws IOException {
+        ImageIcon imgi = new ImageIcon(TabPanel.class.getResource(file));
+        if (imgi != null) {
+            return imgi;
         } else {
-            System.err.println("Couldn't find file: " + path);
+            System.err.println("Couldn't find file: " + file);
             return null;
         }
     }
@@ -421,7 +421,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                 ((Triplet) hmAreas.get(Integer.parseInt(s1))).set2(true);
                 ImageIcon iconjl = null;
                 try {
-                    iconjl = iconjl = createImageIcon("src/images/saved.png");
+                    iconjl = iconjl = createImageIcon("/images/saved.png");
                 } catch (IOException ex) {
                     Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -526,14 +526,14 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
 
         ImageIcon icon;
         JLabel label;
-        icon = createImageIcon("src/images/unsaved.png");
+        icon = createImageIcon("/images/unsaved.png");
         label = new JLabel("New");
         ep.setFont(new Font("Courier New", 0, 18));
         boolean flagOld = false;
         String urlFile = null;
         if (file != null) {
             if (file.getName() != "") {
-                icon = createImageIcon("src/images/saved.png");
+                icon = createImageIcon("/images/saved.png");
                 label = new JLabel(file.getName());
                 urlFile = file.getPath();
                 ep.setText(fileManagement.readFile(file));
@@ -551,7 +551,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                 JPanel pnlTab = (JPanel) some.tabs.getTabComponentAt(some.tabs.getSelectedIndex());
                 ImageIcon iconjl = null;
                 try {
-                    iconjl = iconjl = createImageIcon("src/images/unsaved.png");
+                    iconjl = iconjl = createImageIcon("/images/unsaved.png");
                 } catch (IOException ex) {
                     Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -568,7 +568,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                 JPanel pnlTab = (JPanel) some.tabs.getTabComponentAt(some.tabs.getSelectedIndex());
                 ImageIcon iconjl = null;
                 try {
-                    iconjl = iconjl = createImageIcon("src/images/unsaved.png");
+                    iconjl = iconjl = createImageIcon("/images/unsaved.png");
                 } catch (IOException ex) {
                     Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -591,7 +591,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         jScroll.setRowHeaderView(tln);
         tp.addTab(null, jScroll);
 
-        JButton tabCloseButton = ButtonPro("src/images/closeTabButton.png", "Close");
+        JButton tabCloseButton = ButtonPro("/images/closeTabButton.png", "Close");
         tabCloseButton.setActionCommand("" + (tabCounter));
         hmAreas.put(tabCounter, new Triplet(urlFile, flagOld, ep));
 
@@ -678,22 +678,22 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         JButton btn;
         JLabel lbl = new JLabel("   ");
 
-        EditButtonPro(some.btnNew, null, "src/images/New_32x32.png", "New file");
-        EditButtonPro(some.btnOpen, null, "src/images/Folder_32x32.png", "Open file");
-        EditButtonPro(some.btnSave, null, "src/images/Save_32x32.png", "Save file");
-        EditButtonPro(some.btnSaveAll, null, "src/images/SaveAll_32x32.png", "Save all files");
+        EditButtonPro(some.btnNew, null, "/images/New_32x32.png", "New file");
+        EditButtonPro(some.btnOpen, null, "/images/Folder_32x32.png", "Open file");
+        EditButtonPro(some.btnSave, null, "/images/Save_32x32.png", "Save file");
+        EditButtonPro(some.btnSaveAll, null, "/images/SaveAll_32x32.png", "Save all files");
         
-        EditButtonPro(some.btnCompile, null, "src/images/Application_32x32.png", "Compile");
-        EditButtonPro(some.btnConvert, null, "src/images/Properties_32x32.png", "Convert");
-        EditButtonPro(some.btnAvroraz, null, "src/images/Avroraz_32x32.png", "Send to AvroraZ");
-        EditButtonPro(some.btnMakeAll, null, "src/images/Play_32x32.png", "Compile, convert and sent it to AvroraZ");
+        EditButtonPro(some.btnCompile, null, "/images/Application_32x32.png", "Compile");
+        EditButtonPro(some.btnConvert, null, "/images/Properties_32x32.png", "Convert");
+        EditButtonPro(some.btnAvroraz, null, "/images/Avroraz_32x32.png", "Send to AvroraZ");
+        EditButtonPro(some.btnMakeAll, null, "/images/Play_32x32.png", "Compile, convert and sent it to AvroraZ");
 
         
         some.jToolBar1.add(Box.createHorizontalGlue());
-        btn = ButtonPro("src/images/Settings_32x32.png", "Options");
+        btn = ButtonPro("/images/Settings_32x32.png", "Options");
         some.jToolBar1.add(btn);
         some.jToolBar1.addSeparator();
-        btn = ButtonPro("src/images/Help_32x32.png", "Help");
+        btn = ButtonPro("/images/Help_32x32.png", "Help");
         some.jToolBar1.add(btn);
     }
     private static void btnAvroraz() {

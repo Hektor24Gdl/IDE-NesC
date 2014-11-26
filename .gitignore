@@ -1,3 +1,23 @@
+# Created by https://www.gitignore.io
+
+### Linux ###
+*~
+
+# KDE directory preferences
+.directory
+
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+
+### Java ###
 *.class
 
 # Mobile Tools for Java (J2ME)
@@ -11,5 +31,12 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-*.*~
-/dist/
+
+### Gradle ###
+.gradle
+build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+/.nb-gradle/private/
+/.nb-gradle/profiles/private/
