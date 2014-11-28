@@ -8,21 +8,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
- *
- * @author Orlando
+ * Class for read and save files.
  */
 public class FileManagement {
 
     /**
-     *
-     * @param file
-     * @return
+     * Function for read a file. 
+     * @param file to read.
+     * @return String with the content of file.
      */
     public String readFile(File file){
       FileReader fr = null;
@@ -55,7 +49,13 @@ public class FileManagement {
       }
       return returned;
     }
-    
+    /**
+     * Function for save a file.
+     * @param path
+     * @param content
+     * @return
+     * @throws IOException 
+     */
     public boolean saveFile(String path, String content) throws IOException{
         FileWriter fichero = null;
         PrintWriter pw = null;

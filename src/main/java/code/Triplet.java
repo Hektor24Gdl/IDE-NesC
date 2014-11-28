@@ -1,7 +1,7 @@
 package code;
 
 /**
- * Clase generica para almacenar una terna de informacion. 
+ * Generic class for a data structure triplet.
  */
 public class Triplet<T1,T2, T3> {
     private T1 Object1;
@@ -15,47 +15,47 @@ public class Triplet<T1,T2, T3> {
     }
     
     /**
-     * Metodo que devuelve el Objeto1 de la Tripleta.
-     * @return primer objeto de la terna.
+     * Return de first object in the triplet.
+     * @return Object1
      */
     public T1 get1(){
         return Object1;
     }
     
     /**
-     * Metodo que devuelve el Objeto2 de la Tripleta.
-     * @return segundo objeto de la terna.
+     * Return de second object in the triplet.
+     * @return Object2
      */
     public T2 get2(){
         return Object2;
     }
     
     /**
-     * Metodo que devuelve el Objeto3 de la Tripleta.
-     * @return tercer objeto de la terna.
+     * Return de third object in the triplet.
+     * @return Object3
      */
     public T3 get3(){
         return Object3;
     }    
     
     /**
-     * Metodo que cambia el Objeto1 de la Tripleta por otro.
-     * @param nuevo objeto a utilizar.
+     * Update the first Object in the triplet
+     * @param Object1
      */
     public void set1(T1 Objet1) {
         this.Object1 = Objet1;
     }
     
     /**
-     * Metodo que cambia el Objeto2 de la Tripleta por otro.
-     * @param nuevo objeto a utilizar.
+     * Update the second Object in the triplet.
+     * @param Object2
      */
     public void set2(T2 Objet2) {
         this.Object2 = Objet2;
     }
     
     /**
-     * Metodo que cambia el Objeto3 de la Tripleta por otro.
+     * Update the third Object in the triplet.
      * @param nuevo objeto a utilizar.
      */
     public void set3(T3 Objet3) {
@@ -63,7 +63,7 @@ public class Triplet<T1,T2, T3> {
     }
     
     /**
-     * Asigna en null los elementos de la Tripleta
+     * Set all objects in the triplet as null.
      */
     public void clear() {
         Object1 = null;

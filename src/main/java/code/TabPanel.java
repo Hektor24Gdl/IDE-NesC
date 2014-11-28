@@ -3,32 +3,29 @@ package code;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.accessibility.Accessible;
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
@@ -38,15 +35,12 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 /**
- *
- * @author Orlando
+ * Class of the main interface.
  */
 public class TabPanel extends javax.swing.JFrame implements Accessible {
 
@@ -55,15 +49,22 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
     static FileManagement fileManagement = new FileManagement();
     static HashMap hmAreas = new HashMap();
     public static CurrentConfig currentConfig = new CurrentConfig();
-    
+    static DocumentNC doc;
 
     /**
      * Creates new form TabPanel
      */
-    public TabPanel() {
+    public TabPanel(){
         initComponents();
     }
 
+    /**
+     * Function that return a personalized button
+     * @param iconPath 
+     * @param toolTip
+     * @return button
+     * @throws IOException 
+     */
     public static JButton ButtonPro(String iconPath, String toolTip) throws IOException {
         ImageIcon icon = createImageIcon(iconPath);
         final JButton b = new JButton(icon);
@@ -105,15 +106,6 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         }
     }
 
-    protected JComponent makeTextPanel(String text) {
-        JPanel panel = new JPanel(false);
-        JLabel filler = new JLabel(text);
-        filler.setHorizontalAlignment(JLabel.CENTER);
-        panel.setLayout(new GridLayout(1, 1));
-        panel.add(filler);
-        return panel;
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -126,7 +118,6 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         tabs = new javax.swing.JTabbedPane();
         info = new javax.swing.JToolBar();
         label1 = new java.awt.Label();
-        textArea2 = new java.awt.TextArea();
         jToolBar1 = new javax.swing.JToolBar();
         btnNew = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -143,6 +134,8 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         btnAvroraz = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
         btnMakeAll = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtpConsole = new javax.swing.JTextPane();
         menu = new javax.swing.JMenuBar();
         file = new javax.swing.JMenu();
         New = new javax.swing.JMenuItem();
@@ -290,6 +283,8 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         });
         jToolBar1.add(btnMakeAll);
 
+        jScrollPane1.setViewportView(jtpConsole);
+
         file.setText("File");
 
         New.setText("New");
@@ -362,19 +357,19 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(textArea2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(tabs)
             .addComponent(info, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 828, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 854, Short.MAX_VALUE)
+            .addComponent(tabs)
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textArea2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -391,6 +386,12 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         // TODO add your handling code here:
         openFile();
     }//GEN-LAST:event_openActionPerformed
+   
+    /**
+     * Function that save changes in a file with the option as new file.
+     * @param as
+     * @param selectedIndex 
+     */
     private void saveFile(boolean as, int selectedIndex) {
         // Create a file chooser
 
@@ -416,7 +417,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                 file = new File(pathFile);
             }
             try {
-                fileManagement.saveFile(file.getPath(), ((JTextArea) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get3()).getText());
+                fileManagement.saveFile(file.getPath(), ((JTextPane) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get3()).getText());
                 ((Triplet) hmAreas.get(Integer.parseInt(s1))).set1(file.getPath());
                 ((Triplet) hmAreas.get(Integer.parseInt(s1))).set2(true);
                 ImageIcon iconjl = null;
@@ -450,6 +451,8 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                 addTab(some.tabs, file);
             } catch (IOException ex) {
                 Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -458,24 +461,36 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
             addTab(some.tabs, new File(""));
         } catch (IOException ex) {
             Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_NewActionPerformed
-
+    /**
+     * Function that correspond to the new file in the menu.
+     * This function add a new tab in the JTabPane
+     * @param evt 
+     */
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         saveFile(false,some.tabs.getSelectedIndex());
     }//GEN-LAST:event_btnSaveActionPerformed
-
+    
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
         // TODO add your handling code here:
         openFile();
     }//GEN-LAST:event_btnOpenActionPerformed
-
+     /**
+     * Function that correspond to de new button.
+     * This function add a new tab in the JTabPane
+     * @param evt 
+     */
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         // TODO add your handling code here:
         try {
             addTab(some.tabs, new File(""));
         } catch (IOException ex) {
+            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnNewActionPerformed
@@ -504,6 +519,23 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
 
     private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompileActionPerformed
         // TODO add your handling code here:
+        JPanel pnlTab = (JPanel) some.tabs.getTabComponentAt(some.tabs.getSelectedIndex());
+        String s1 = ((JButton) pnlTab.getComponent(2)).getActionCommand();
+        try {
+            saveFile(false,some.tabs.getSelectedIndex());
+            JTextPane textp = (JTextPane)((Triplet)hmAreas.get(Integer.parseInt(s1))).get3();
+      
+                textp = doc.lexer(new FileReader((String)((Triplet)hmAreas.get(Integer.parseInt(s1))).get1()),(JTextPane)((Triplet)hmAreas.get(Integer.parseInt(s1))).get3(),some.jtpConsole);
+     
+            some.pack();
+            some.revalidate();
+            some.repaint();
+            some.setVisible(true);
+        } catch (NumberFormatException ex) {
+            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnCompileActionPerformed
 
     private void btnConvertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConvertActionPerformed
@@ -518,20 +550,30 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
     private void btnMakeAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMakeAllActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnMakeAllActionPerformed
-    static void addTab(final JTabbedPane tp, File file) throws IOException {
+    
+    /**
+     * Function that add a tab in the main JTabPane.
+     * @param tp
+     * @param file
+     * @throws IOException
+     * @throws Exception 
+     */
+    static void addTab(final JTabbedPane tp, File file) throws IOException, Exception {
         //JEditorPane ep = new JEditorPane();
-        JTextArea ep = new JTextArea();
+        //JTextArea ep = new JTextArea();
+        JTextPane ep = new JTextPane(); 
+                doc.lexer(new FileReader("/home/orlando/NetBeansProjects/test.txt"),ep,some.jtpConsole);
         TextLineNumber tln = new TextLineNumber(ep);
 
         ImageIcon icon;
         JLabel label;
         icon = createImageIcon("/images/unsaved.png");
         label = new JLabel("New");
-        ep.setFont(new Font("Courier New", 0, 18));
+        ep.setFont(new Font("Courier New", 0, 14));
         boolean flagOld = false;
         String urlFile = null;
         if (file != null) {
-            if (file.getName() != "") {
+            if (!"".equals(file.getName())) {
                 icon = createImageIcon("/images/saved.png");
                 label = new JLabel(file.getName());
                 urlFile = file.getPath();
@@ -584,7 +626,6 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
             }
         };
         ep.getDocument().addDocumentListener(dl);
-
         JScrollPane jScroll = new JScrollPane(ep);
         jScroll.setRowHeaderView(tln);
         tp.addTab(null, jScroll);
@@ -637,6 +678,13 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         }
     }
 
+     /**
+     * Function that personalize a existing button in the gui.
+     * @param button
+     * @param label
+     * @param pathIcon
+     * @param toolTip 
+     */
     static void EditButtonPro(final JButton b, String label, String pathIcon, String toolTip) {
         ImageIcon icon = null;
         try {
@@ -667,7 +715,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         });
     }
     /**
-     * 
+     * Function that personalize all buttons in the Gui
      * @throws IOException 
      */
     static void makeButtons() throws IOException {
@@ -710,92 +758,113 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TabPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TabPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TabPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TabPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        /*java.awt.EventQueue.invokeLater(new Runnable() {
-         public void run() {
-         new TabPanel().setVisible(true);
-         }
-         });*/
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    makeButtons();
-                } catch (IOException ex) {
-                    Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                final JEditorPane ep = new JEditorPane();
-                ep.setEditable(false);
-
-                some.tabs.addTab(null, new JScrollPane(ep));
-                // some.jTabbedPane1.addTab (null, null);
-                FlowLayout f = new FlowLayout(FlowLayout.CENTER, 5, 0);
-
-                // Make a small JPanel with the layout and make it non-opaque
-                final JPanel pnlTab = new JPanel(f);
-                pnlTab.setOpaque(false);
-                // Create a JButton for adding the tabs
-                JButton addTab = new JButton("+");
-                addTab.setOpaque(false); //
-                addTab.setBorder(null);
-                addTab.setContentAreaFilled(false);
-                addTab.setFocusPainted(false);
-                addTab.setFocusable(false);
-                pnlTab.add(addTab);
-
-                some.tabs.setTabComponentAt(some.tabs.getTabCount() - 1, pnlTab);
-
-                ActionListener listener = new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
-                            some.tabs.remove(some.tabs.getTabCount() - 1);
-                            addTab(some.tabs, null);
-                            some.tabs.addTab(null, new JScrollPane(ep));
-                            tabCounter++;
-                            some.tabs.setTabComponentAt(some.tabs.getTabCount() - 1, pnlTab);
-
-                        } catch (IOException ex) {
-                            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+            /* Set the Nimbus look and feel */
+            //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+            /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+            * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+            */
+            try {
+                for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                        break;
                     }
-                };
+                }
+            } catch (ClassNotFoundException ex) {
+                java.util.logging.Logger.getLogger(TabPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            } catch (InstantiationException ex) {
+                java.util.logging.Logger.getLogger(TabPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                java.util.logging.Logger.getLogger(TabPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+                java.util.logging.Logger.getLogger(TabPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+            //</editor-fold>
+            
+            /* Create and display the form */
+            /*java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+            new TabPanel().setVisible(true);
+            }
+            });*/
+            doc = new DocumentNC();
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        makeButtons();
+                    } catch (IOException ex) {
+                        Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    final JTextPane ep = new JTextPane();
+                    ep.setEditable(false);
+                    some.jtpConsole.setEditable(false);
+                    some.tabs.addTab(null, new JScrollPane(ep));
+                    // some.jTabbedPane1.addTab (null, null);
+                    FlowLayout f = new FlowLayout(FlowLayout.CENTER, 5, 0);
+                    
+                    // Make a small JPanel with the layout and make it non-opaque
+                    final JPanel pnlTab = new JPanel(f);
+                    pnlTab.setOpaque(false);
+                    // Create a JButton for adding the tabs
+                    JButton addTab = new JButton("+");
+                    addTab.setOpaque(false); //
+                    addTab.setBorder(null);
+                    addTab.setContentAreaFilled(false);
+                    addTab.setFocusPainted(false);
+                    addTab.setFocusable(false);
+                    pnlTab.add(addTab);
+                    
+                    some.tabs.setTabComponentAt(some.tabs.getTabCount() - 1, pnlTab);
+                    
+                    ActionListener listener = new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            try {
+                                some.tabs.remove(some.tabs.getTabCount() - 1);
+                                addTab(some.tabs, null);
+                                some.tabs.addTab(null, new JScrollPane(ep));
+                                tabCounter++;
+                                some.tabs.setTabComponentAt(some.tabs.getTabCount() - 1, pnlTab);
+                                
+                            } catch (IOException ex) {
+                                Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (Exception ex) {
+                                Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    };
+                    addTab.setFocusable(false);
+                    addTab.addActionListener(listener);
+                    some.tabs.setVisible(true);
+                    some.setTitle("IDE-NesC 1.0");
+                    some.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+                    some.setVisible(true);
+                    
+                    UIManager.LookAndFeelInfo piel[] = UIManager.getInstalledLookAndFeels();
+                    for (UIManager.LookAndFeelInfo piel1 : piel) {
+                        System.out.println("Nombre Skin = " + piel1.getClassName());
+                        //some.setVisible(true);
+                    }
+                };/*
                 addTab.setFocusable(false);
                 addTab.addActionListener(listener);
                 some.tabs.setVisible(true);
                 some.setTitle("IDE-NesC 1.0");
                 some.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
-                some.setVisible(true);
+                some.setVisible(true);*/
 
-                UIManager.LookAndFeelInfo piel[] = UIManager.getInstalledLookAndFeels();
-                for (UIManager.LookAndFeelInfo piel1 : piel) {
-                    //some.setVisible(true);
-                }
-            }
-        });
+            });
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
+            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -820,11 +889,13 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JTextPane jtpConsole;
     private java.awt.Label label1;
     private javax.swing.JMenuBar menu;
     private javax.swing.JMenuItem open;
@@ -833,6 +904,5 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
     private javax.swing.JMenuItem saveAll;
     private javax.swing.JMenuItem saveAs;
     private javax.swing.JTabbedPane tabs;
-    private java.awt.TextArea textArea2;
     // End of variables declaration//GEN-END:variables
 }

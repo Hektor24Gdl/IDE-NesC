@@ -113,10 +113,10 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="textArea2" max="32767" attributes="0"/>
-          <Component id="tabs" alignment="0" max="32767" attributes="0"/>
           <Component id="info" alignment="0" max="32767" attributes="0"/>
-          <Component id="jToolBar1" alignment="0" pref="828" max="32767" attributes="0"/>
+          <Component id="jToolBar1" alignment="0" pref="854" max="32767" attributes="0"/>
+          <Component id="tabs" alignment="0" max="32767" attributes="0"/>
+          <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -124,9 +124,9 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="jToolBar1" min="-2" pref="42" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="tabs" pref="366" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="textArea2" min="-2" pref="80" max="-2" attributes="0"/>
+              <Component id="tabs" min="-2" pref="477" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="147" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="info" min="-2" pref="25" max="-2" attributes="0"/>
           </Group>
@@ -152,8 +152,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="java.awt.TextArea" name="textArea2">
-    </Component>
     <Container class="javax.swing.JToolBar" name="jToolBar1">
       <Properties>
         <Property name="floatable" type="boolean" value="false"/>
@@ -361,6 +359,17 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMakeAllActionPerformed"/>
           </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextPane" name="jtpConsole">
         </Component>
       </SubComponents>
     </Container>
