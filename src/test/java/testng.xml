@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+ 
+<suite name="IDENesCTests" verbose="1" >
+  <test name="Lexer"   >
+    <packages>
+      <package name="com.idenesc.lexer" />
+   </packages>
+ </test>
+</suite> 

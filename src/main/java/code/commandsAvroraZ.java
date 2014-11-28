@@ -7,24 +7,12 @@ package code;
 
 import static code.TabPanel.EditButtonPro;
 import static code.TabPanel.currentConfig;
-import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 import javax.swing.ButtonGroup;
-import javax.swing.JCheckBox;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -823,7 +811,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
             FileManagement fileManagement = new FileManagement();
             String fileConfig = fileManagement.readFile(new File(this.txtConfigFile.getText()));
             String[] lines = fileConfig.split("\n");
-            Map options = new HashMap();
+            
             Component[] components = this.getContentPane().getComponents();
             for (String line : lines) {
                 if (!line.startsWith("#")) {
@@ -833,7 +821,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
                     pn.setLayout(null);
 
                     if (params.length == 2) {
-                        if(params[0] == "update-node-id"){
+                        if(params[0].equals("update-node-id")){
                             if(params[1].equalsIgnoreCase("true")){
                                 rbTUpdateNodeId.setSelected(true);
                             }else{

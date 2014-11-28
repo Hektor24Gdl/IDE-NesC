@@ -25,10 +25,14 @@ dependencies {
     // TODO: Add dependencies here ...
     // You can read more about how to add dependency here:
     //   http://www.gradle.org/docs/current/userguide/dependency_management.html#sec:how_to_declare_your_dependencies
-    testCompile group: 'junit', name: 'junit', version: '4.10'
+    testCompile group: 'org.testng', name: 'testng', version: '6.8.8'
     
     //Compile dependencies
     compile group: 'de.jflex', name: 'jflex', version: '1.6.0'
     compile group: 'net.sf.squirrel-sql.thirdparty.non-maven', name: 'java-cup', version: '0.11a'
-		
+}
+
+test {
+  // enable TestNG support (default is JUnit)
+  useTestNG()
 }
