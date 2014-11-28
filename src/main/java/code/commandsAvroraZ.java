@@ -8,9 +8,12 @@ package code;
 import static code.TabPanel.EditButtonPro;
 import static code.TabPanel.currentConfig;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
@@ -37,86 +40,84 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         //Customizing row Action
-        this.cbAction.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("action")).get1() );
+        this.cbAction.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("action")).get1());
         actionComboBox.removeAllItems();
-        for (String input : (String[]) ((Triplet)currentConfig.avroraZCommands.get("action")).get2()) {
+        for (String input : (String[]) ((Triplet) currentConfig.avroraZCommands.get("action")).get2()) {
             this.actionComboBox.addItem(input);
         }
         EditButtonPro(this.btnHelpAction, null, "/images/Help_24x24.png", "Help");
         EditButtonPro(this.btnResetAction, null, "/images/Eraser_24x24.png", "Reset");
         //Customizing row Banner
-        this.cbBanner.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("banner")).get1() );
-        this.rbFBanner.setSelected(!((boolean) ((Triplet)currentConfig.avroraZCommands.get("banner")).get2()));
-        this.rbTBanner.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("banner")).get2());
+        this.cbBanner.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("banner")).get1());
+        this.rbFBanner.setSelected(!((boolean) ((Triplet) currentConfig.avroraZCommands.get("banner")).get2()));
+        this.rbTBanner.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("banner")).get2());
         ButtonGroup gBanner = new ButtonGroup();
         gBanner.add(this.rbFBanner);
         gBanner.add(this.rbTBanner);
         EditButtonPro(this.btnHelpBanner, null, "/images/Help_24x24.png", "Help");
         EditButtonPro(this.btnResetBanner, null, "/images/Eraser_24x24.png", "Reset");
         //Customizing row Colors
-        this.cbColors.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("colors")).get1() );
-        this.rbFColors.setSelected(!((boolean) ((Triplet)currentConfig.avroraZCommands.get("colors")).get2()));
-        this.rbTColors.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("colors")).get2());
+        this.cbColors.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("colors")).get1());
+        this.rbFColors.setSelected(!((boolean) ((Triplet) currentConfig.avroraZCommands.get("colors")).get2()));
+        this.rbTColors.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("colors")).get2());
         ButtonGroup gColors = new ButtonGroup();
         gColors.add(this.rbFColors);
         gColors.add(this.rbTColors);
         EditButtonPro(this.btnHelpColors, null, "/images/Help_24x24.png", "Help");
         EditButtonPro(this.btnResetColors, null, "/images/Eraser_24x24.png", "Reset");
         //Customizing row Html
-        this.cbHtml.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("html")).get1() );
-        this.rbFHtml.setSelected(!((boolean) ((Triplet)currentConfig.avroraZCommands.get("html")).get2()));
-        this.rbTHtml.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("html")).get2());
+        this.cbHtml.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("html")).get1());
+        this.rbFHtml.setSelected(!((boolean) ((Triplet) currentConfig.avroraZCommands.get("html")).get2()));
+        this.rbTHtml.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("html")).get2());
         ButtonGroup gHtml = new ButtonGroup();
         gHtml.add(this.rbFHtml);
         gHtml.add(this.rbTHtml);
         EditButtonPro(this.btnHelpHtml, null, "/images/Help_24x24.png", "Help");
         EditButtonPro(this.btnResetHtml, null, "/images/Eraser_24x24.png", "Reset");
         //Customizing row Input
-        this.cbInput.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("input")).get1() );
+        this.cbInput.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("input")).get1());
 
         this.cboxInput.removeAllItems();
         //some.cboxInput = new JComboBox(inputs);
-        for (String input : (String[]) ((Triplet)currentConfig.avroraZCommands.get("input")).get3()) {
+        for (String input : (String[]) ((Triplet) currentConfig.avroraZCommands.get("input")).get3()) {
             this.cboxInput.addItem(input);
         }
-        this.cboxInput.setSelectedIndex((int)((Triplet)currentConfig.avroraZCommands.get("input")).get2());
+        this.cboxInput.setSelectedIndex((int) ((Triplet) currentConfig.avroraZCommands.get("input")).get2());
         EditButtonPro(this.btnHelpInput, null, "/images/Help_24x24.png", "Help");
         EditButtonPro(this.btnResetInput, null, "/images/Eraser_24x24.png", "Reset");
         //Customizing row License
-        this.cbLicense.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("license")).get1() );
-        this.rbFLicense.setSelected(!((boolean) ((Triplet)currentConfig.avroraZCommands.get("license")).get2()));
-        this.rbTLicense.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("license")).get2());
+        this.cbLicense.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("license")).get1());
+        this.rbFLicense.setSelected(!((boolean) ((Triplet) currentConfig.avroraZCommands.get("license")).get2()));
+        this.rbTLicense.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("license")).get2());
         ButtonGroup gLicense = new ButtonGroup();
         gLicense.add(this.rbFLicense);
         gLicense.add(this.rbTLicense);
         EditButtonPro(this.btnHelpLicense, null, "/images/Help_24x24.png", "Help");
         EditButtonPro(this.btnResetLicense, null, "/images/Eraser_24x24.png", "Reset");
         //Customizing row Status
-        this.cbStatus.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("status")).get1() );
-        this.rbFStatus.setSelected(!((boolean) ((Triplet)currentConfig.avroraZCommands.get("status")).get2()));
-        this.rbTStatus.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("status")).get2());
+        this.cbStatus.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("status")).get1());
+        this.rbFStatus.setSelected(!((boolean) ((Triplet) currentConfig.avroraZCommands.get("status")).get2()));
+        this.rbTStatus.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("status")).get2());
         ButtonGroup gStatus = new ButtonGroup();
         gStatus.add(this.rbFStatus);
         gStatus.add(this.rbTStatus);
         EditButtonPro(this.btnHelpStatus, null, "/images/Help_24x24.png", "Help");
         EditButtonPro(this.btnResetStatus, null, "/images/Eraser_24x24.png", "Reset");
         //Customizing row Verbose
-        this.cbVerbose.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("verbose")).get1() );
-        this.txtVerbose.setText((String) ((Triplet)currentConfig.avroraZCommands.get("verbose")).get2() );
+        this.cbVerbose.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("verbose")).get1());
+        this.tfVerbose.setText((String) ((Triplet) currentConfig.avroraZCommands.get("verbose")).get2());
         EditButtonPro(this.btnHelpVerbose, null, "/images/Help_24x24.png", "Help");
         EditButtonPro(this.btnResetVerbose, null, "/images/Eraser_24x24.png", "Reset");
         //Customizing row ConfigFile
-        this.cbConfigFile.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("configFile")).get1() );
-        this.txtConfigFile.setText((String) ((Triplet)currentConfig.avroraZCommands.get("configFile")).get2() );
+        this.txtConfigFile.setText(null);
         EditButtonPro(this.btnHelpConfigFile, null, "/images/Help_24x24.png", "Help");
         EditButtonPro(this.btnResetConfigFile, null, "/images/Eraser_24x24.png", "Reset");
         //Customizing row Extra
-        this.cbExtra.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("extra")).get1() );
-        this.txtExtra.setText((String) ((Triplet)currentConfig.avroraZCommands.get("extra")).get2() );
+        this.cbCommand.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("extra")).get1());
+        this.tfExtra.setText((String) ((Triplet) currentConfig.avroraZCommands.get("extra")).get2());
         EditButtonPro(this.btnHelpExtra, null, "/images/Help_24x24.png", "Help");
         EditButtonPro(this.btnResetExtra, null, "/images/Eraser_24x24.png", "Reset");
-        
-        
+
         this.pack();
         this.setSize(730, 550);
     }
@@ -145,7 +146,6 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         cbColors = new javax.swing.JCheckBox();
         txtConfigFile = new javax.swing.JTextField();
         btnResetConfigFile = new javax.swing.JButton();
-        cbConfigFile = new javax.swing.JCheckBox();
         btnResetHtml = new javax.swing.JButton();
         rbFHtml = new javax.swing.JRadioButton();
         btnHelpHtml = new javax.swing.JButton();
@@ -164,14 +164,13 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         btnResetExtra = new javax.swing.JButton();
         rbTBanner = new javax.swing.JRadioButton();
         rbFBanner = new javax.swing.JRadioButton();
-        btnEditConfigFile = new javax.swing.JButton();
         btnHelpExtra = new javax.swing.JButton();
         cbAction = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txtExtra = new javax.swing.JTextArea();
-        cbExtra = new javax.swing.JCheckBox();
+        tfExtra = new javax.swing.JTextArea();
+        cbCommand = new javax.swing.JCheckBox();
         btnOpenConfigFile = new javax.swing.JButton();
-        txtVerbose = new javax.swing.JTextField();
+        tfVerbose = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         btnHelpVerbose = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -208,15 +207,17 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         tfSeconds = new javax.swing.JTextField();
         tfSimulation = new javax.swing.JTextField();
         tfNodecount = new javax.swing.JTextField();
+        lbConfigFile = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(938, 692));
-        setPreferredSize(new java.awt.Dimension(938, 692));
         setResizable(false);
 
         cboxInput.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboxInput.setName("cbInput"); // NOI18N
 
         cbInput.setText("-input:");
+        cbInput.setName("cbInput"); // NOI18N
 
         btnResetInput.setText(" ");
         btnResetInput.addActionListener(new java.awt.event.ActionListener() {
@@ -226,8 +227,10 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         });
 
         rbFLicense.setText("False");
+        rbFLicense.setName("rbFLicense"); // NOI18N
 
         cbLicense.setText("-license:");
+        cbLicense.setName("cbLicense"); // NOI18N
 
         btnHelpLicense.setText(" ");
 
@@ -249,12 +252,15 @@ public class commandsAvroraZ extends javax.swing.JDialog {
 
         rbTLicense.setSelected(true);
         rbTLicense.setText("True");
+        rbTLicense.setName("rbTLicense"); // NOI18N
 
         rbFStatus.setText("False");
+        rbFStatus.setName("rbFStatus"); // NOI18N
 
         btnHelpConfigFile.setText(" ");
 
         cbColors.setText("-colors:");
+        cbColors.setName("cbColors"); // NOI18N
 
         btnResetConfigFile.setText(" ");
         btnResetConfigFile.addActionListener(new java.awt.event.ActionListener() {
@@ -262,9 +268,6 @@ public class commandsAvroraZ extends javax.swing.JDialog {
                 btnResetConfigFileActionPerformed(evt);
             }
         });
-
-        cbConfigFile.setSelected(true);
-        cbConfigFile.setText("-config-file:");
 
         btnResetHtml.setText(" ");
         btnResetHtml.addActionListener(new java.awt.event.ActionListener() {
@@ -274,13 +277,16 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         });
 
         rbFHtml.setText("False");
+        rbFHtml.setName("rbFHtml"); // NOI18N
 
         btnHelpHtml.setText(" ");
 
         rbTHtml.setSelected(true);
         rbTHtml.setText("True");
+        rbTHtml.setName("rbTHtml"); // NOI18N
 
         cbHtml.setText("-html:");
+        cbHtml.setName("cbHtml"); // NOI18N
 
         btnHelpInput.setText(" ");
 
@@ -292,6 +298,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         });
 
         cbBanner.setText("-banner:");
+        cbBanner.setName("lbBanner"); // NOI18N
 
         btnHelpBanner.setText(" ");
 
@@ -299,10 +306,12 @@ public class commandsAvroraZ extends javax.swing.JDialog {
 
         rbTColors.setSelected(true);
         rbTColors.setText("True");
+        rbTColors.setName("rbTColors"); // NOI18N
 
         btnHelpColors.setText(" ");
 
         rbFColors.setText("False");
+        rbFColors.setName("rbFColors"); // NOI18N
 
         btnResetColors.setText(" ");
         btnResetColors.addActionListener(new java.awt.event.ActionListener() {
@@ -320,27 +329,24 @@ public class commandsAvroraZ extends javax.swing.JDialog {
 
         rbTBanner.setSelected(true);
         rbTBanner.setText("True");
+        rbTBanner.setName("rbTBanner"); // NOI18N
 
         rbFBanner.setText("False");
-
-        btnEditConfigFile.setText("Edit");
-        btnEditConfigFile.setToolTipText("Open Config File");
-        btnEditConfigFile.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditConfigFileActionPerformed(evt);
-            }
-        });
+        rbFBanner.setName("rbFBanner"); // NOI18N
 
         btnHelpExtra.setText(" ");
 
         cbAction.setText("-action:");
+        cbAction.setName("lbAction"); // NOI18N
 
-        txtExtra.setColumns(20);
-        txtExtra.setRows(5);
-        jScrollPane1.setViewportView(txtExtra);
+        tfExtra.setColumns(20);
+        tfExtra.setRows(5);
+        tfExtra.setName("tfExtra"); // NOI18N
+        jScrollPane1.setViewportView(tfExtra);
 
-        cbExtra.setSelected(true);
-        cbExtra.setText("Extra:");
+        cbCommand.setSelected(true);
+        cbCommand.setText("command");
+        cbCommand.setName("cbCommand"); // NOI18N
 
         btnOpenConfigFile.setText("...");
         btnOpenConfigFile.setToolTipText("Open Config File");
@@ -349,6 +355,8 @@ public class commandsAvroraZ extends javax.swing.JDialog {
                 btnOpenConfigFileActionPerformed(evt);
             }
         });
+
+        tfVerbose.setName("tfVerbose"); // NOI18N
 
         btnHelpVerbose.setText(" ");
 
@@ -363,6 +371,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         });
 
         cbVerbose.setText("-verbose:");
+        cbVerbose.setName("cbVerbose"); // NOI18N
 
         jLabel2.setText("Command");
 
@@ -379,6 +388,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
 
         rbTStatus.setSelected(true);
         rbTStatus.setText("True");
+        rbTStatus.setName("rbTStatus"); // NOI18N
 
         btnResetAction.setText(" ");
         btnResetAction.addActionListener(new java.awt.event.ActionListener() {
@@ -388,37 +398,73 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         });
 
         cbStatus.setText("-status:");
+        cbStatus.setName("cbStatus"); // NOI18N
 
         actionComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        actionComboBox.setName("cbAction"); // NOI18N
+
+        tfMonitors.setName("tfMonitors"); // NOI18N
+
+        tfPlatform.setName("tfPlatform"); // NOI18N
+
+        tfTopology.setName("tfTopology"); // NOI18N
+
+        tfNoise.setName("tfNoise"); // NOI18N
 
         cbMonitors.setText("monitors");
+        cbMonitors.setName("cbMonitors"); // NOI18N
 
         cbPlatform.setText("platform");
+        cbPlatform.setName("cbPlatform"); // NOI18N
 
         cbTopology.setText("topology");
+        cbTopology.setName("cbTopology"); // NOI18N
 
         cbNoise.setText("noise");
+        cbNoise.setName("cbNoise"); // NOI18N
 
         cbUpdateNodeId.setText("update-node-id");
+        cbUpdateNodeId.setName("cbUpdateNodeId"); // NOI18N
 
         cbStaggerStart.setText("stagger-start");
+        cbStaggerStart.setName("cbStaggerStart"); // NOI18N
 
         cbReportSeconds.setText("report-seconds");
+        cbReportSeconds.setName("cbReportSeconds"); // NOI18N
 
         cbRealTime.setText("real-time");
+        cbRealTime.setName("cbRealTime"); // NOI18N
 
         cbSecondsPrecision.setText("seconds-precision");
+        cbSecondsPrecision.setName("cbSecondsPrecision"); // NOI18N
 
         cbSeconds.setText("seconds");
+        cbSeconds.setName("cbSeconds"); // NOI18N
 
         cbSimulation.setText("simulation");
+        cbSimulation.setName("cbSimulation"); // NOI18N
 
         cbNodecount.setText("nodecount");
+        cbNodecount.setName("cbNodecount"); // NOI18N
 
         rbTUpdateNodeId.setSelected(true);
         rbTUpdateNodeId.setText("True");
+        rbTUpdateNodeId.setName("rbTUpdateNodeId"); // NOI18N
 
         rbFUpdateNodeId.setText("False");
+        rbFUpdateNodeId.setName("rbFUpdateNodeId"); // NOI18N
+
+        tfStaggerStart.setName("tfStaggerStart"); // NOI18N
+
+        tfSecondsPrecision.setName("tfSecondsPrecision"); // NOI18N
+
+        tfSeconds.setName("tfSeconds"); // NOI18N
+
+        tfSimulation.setName("tfSimulation"); // NOI18N
+
+        tfNodecount.setName("tfNodecount"); // NOI18N
+
+        lbConfigFile.setText("config-file");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -514,9 +560,9 @@ public class commandsAvroraZ extends javax.swing.JDialog {
                                         .addComponent(btnHelpVerbose, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbExtra)
-                                    .addComponent(cbConfigFile))
-                                .addGap(18, 18, 18)
+                                    .addComponent(cbCommand)
+                                    .addComponent(lbConfigFile))
+                                .addGap(25, 25, 25)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane1)
                                     .addGroup(layout.createSequentialGroup()
@@ -532,10 +578,6 @@ public class commandsAvroraZ extends javax.swing.JDialog {
                                         .addComponent(btnResetConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(btnHelpConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btnOpenConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnEditConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
@@ -556,51 +598,58 @@ public class commandsAvroraZ extends javax.swing.JDialog {
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addComponent(rbFStatus)
                                                     .addComponent(rbFLicense)))
-                                            .addComponent(txtVerbose, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(tfVerbose, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
-                .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cbSimulation)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tfSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbReportSeconds)
-                            .addComponent(cbRealTime)
-                            .addComponent(cbSecondsPrecision)
-                            .addComponent(cbSeconds))
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfSeconds, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfSecondsPrecision, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(cbNodecount)
+                                .addComponent(cbSimulation)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tfNodecount, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tfSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbMonitors)
-                                    .addComponent(cbPlatform)
-                                    .addComponent(cbTopology)
-                                    .addComponent(cbNoise)
-                                    .addComponent(cbUpdateNodeId)
-                                    .addComponent(cbStaggerStart))
-                                .addGap(45, 45, 45)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(rbTUpdateNodeId)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(rbFUpdateNodeId))
-                                    .addComponent(tfStaggerStart, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfNoise, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfTopology, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfPlatform, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfMonitors, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(cbReportSeconds)
+                                            .addComponent(cbRealTime)
+                                            .addComponent(cbSecondsPrecision)
+                                            .addComponent(cbSeconds))
+                                        .addGap(26, 26, 26)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(tfSeconds, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(tfSecondsPrecision, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(cbNodecount)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(tfNodecount, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(cbMonitors)
+                                                .addComponent(cbPlatform)
+                                                .addComponent(cbTopology)
+                                                .addComponent(cbNoise)
+                                                .addComponent(cbUpdateNodeId)
+                                                .addComponent(cbStaggerStart))
+                                            .addGap(45, 45, 45)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addComponent(rbTUpdateNodeId)
+                                                    .addGap(18, 18, 18)
+                                                    .addComponent(rbFUpdateNodeId))
+                                                .addComponent(tfStaggerStart, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(tfNoise, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(tfTopology, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(tfPlatform, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(tfMonitors, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnOpenConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -652,7 +701,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbNodecount)
                             .addComponent(tfNodecount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(124, 124, 124))
+                        .addGap(202, 202, 202))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
@@ -738,148 +787,30 @@ public class commandsAvroraZ extends javax.swing.JDialog {
                                     .addComponent(btnResetVerbose)
                                     .addComponent(btnHelpVerbose)
                                     .addComponent(cbVerbose)
-                                    .addComponent(txtVerbose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tfVerbose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(btnResetExtra)
                                         .addComponent(btnHelpExtra))
-                                    .addComponent(cbExtra)
+                                    .addComponent(cbCommand)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(99, 99, 99)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnEditConfigFile)
-                                    .addComponent(btnOpenConfigFile)))
+                                .addGap(201, 201, 201))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbConfigFile)
                                     .addComponent(btnResetConfigFile)
-                                    .addComponent(btnHelpConfigFile))
-                                .addGap(45, 45, 45)))))
-                .addGap(78, 78, 78))
+                                    .addComponent(btnHelpConfigFile)
+                                    .addComponent(lbConfigFile)
+                                    .addComponent(btnOpenConfigFile))
+                                .addGap(123, 123, 123))))))
         );
+
+        cbAction.getAccessibleContext().setAccessibleName("lbAction");
+        cbCommand.getAccessibleContext().setAccessibleName("cbCommand");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnEditConfigFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditConfigFileActionPerformed
-        // TODO add your handling code here:
-        //configFileCommands window = new configFileCommands(some.txtConfigFile.getText(),this,true);
-        JPanel component = new JPanel();
-
-        component.setLayout(null);
-
-        JPanel header = new JPanel();
-        header.setVisible(true);
-        header.setLayout(null);
-        JLabel title = new JLabel("Config File");
-        title.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
-        title.setVisible(true);
-        title.setBounds(10,0,150,30);
-        header.add(title);
-
-        JSeparator s = new JSeparator(SwingConstants.HORIZONTAL);
-        s.setBounds(0,30,500,5);
-        header.add(s);
-
-        JLabel title1 = new JLabel("Command");
-        title1.setVisible(true);
-        title1.setBounds(20,30,150,30);
-        header.add(title1);
-
-        JLabel title2 = new JLabel("Value");
-        title2.setVisible(true);
-        title2.setBounds(160,30,150,30);
-        header.add(title2);
-
-        JSeparator s2 = new JSeparator(SwingConstants.HORIZONTAL);
-        s2.setBounds(0,55,500,5);
-        header.add(s2);
-        header.setBounds(0,5,500,60);
-        component.add(header);
-
-        FileManagement fileManagement = new FileManagement();
-        String fileConfig = fileManagement.readFile(new File(this.txtConfigFile.getText()));
-        String[] lines = fileConfig.split("\n");
-        int a=10,b=10+60,d=40;
-
-        JTextArea ta =  new JTextArea();
-        ta.setVisible(true);
-        ta.setBounds(10,10,250,100);
-        
-        for(String line : lines){
-            if(!line.startsWith("#")){
-                String[] params = line.split("=");
-                JPanel pn = new JPanel();
-                pn.setVisible(true);
-                pn.setLayout(null);
-
-                if(params.length == 2){
-
-                    JCheckBox label = new JCheckBox(params[0]);
-                    label.setVisible(true);
-                    label.setSelected(true);
-                    label.setBounds(10,10,150,30);
-
-                    JTextField text = new JTextField(params[1]);
-                    text.setVisible(true);
-                    text.setBounds(150,10,250,30);
-
-                    pn.setBounds(a,b,400,d);
-                    b = b + 35;
-                    pn.add(label);
-                    pn.add(text);
-                    component.add(pn);
-                }
-                else{
-                    String param = (!"".equals(ta.getText())) ? ta.getText() + "\n" + params[0] : params[0];
-                    ta.setText(param);
-                }
-            }
-        }
-        JPanel pn = new JPanel();
-        pn.setVisible(true);
-        pn.setLayout(null);
-        pn.setBounds(a,b+10,400,120);
-
-        JCheckBox label = new JCheckBox("Extra");
-        label.setVisible(true);
-        label.setSelected(true);
-        label.setBounds(10,10,150,40);
-        pn.add(label);
-
-        JScrollPane sp = new JScrollPane(ta);
-        sp.setVisible(true);
-        sp.setBounds(150,10,250,100);
-        pn.add(sp);
-
-        component.add(pn);
-        
-        JDialog dialog2 = new JDialog();
-        dialog2.setSize(500, 650);
-        dialog2.setModal(true);
-        dialog2.setTitle("Edit the AvroraZ Config File");
-        dialog2.setResizable(false);
-        dialog2.setLayout(null);
-
-        component.setPreferredSize(new Dimension(480,b+150));
-        JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(0, 0, 500, 650);
-        scrollPane.getViewport().add(component);
-        scrollPane.setPreferredSize(new Dimension(500,650));
-        dialog2.getContentPane().add(scrollPane, BorderLayout.CENTER);
-
-        
-        //Opening in the center of the screen
-        Toolkit toolkit = Toolkit.getDefaultToolkit();  
-        Dimension screenSize = toolkit.getScreenSize(); 
-        int x = (screenSize.width - dialog2.getWidth()) / 2;  
-        int y = (screenSize.height - dialog2.getHeight()) / 2;
-        dialog2.setLocation(x, y);
-        //Make dialog visible
-        dialog2.setVisible(true);
-    }//GEN-LAST:event_btnEditConfigFileActionPerformed
 
     private void btnOpenConfigFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenConfigFileActionPerformed
         // TODO add your handling code here:
@@ -887,83 +818,113 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         configFileChooser.setFileFilter(new FileNameExtensionFilter("AvroraZ Config (*.txt)", "txt"));
         if (configFileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             this.txtConfigFile.setText(configFileChooser.getSelectedFile().getPath());
+
+            //Get file info
+            FileManagement fileManagement = new FileManagement();
+            String fileConfig = fileManagement.readFile(new File(this.txtConfigFile.getText()));
+            String[] lines = fileConfig.split("\n");
+            Map options = new HashMap();
+            Component[] components = this.getContentPane().getComponents();
+            for (String line : lines) {
+                if (!line.startsWith("#")) {
+                    String[] params = line.split("=");
+                    JPanel pn = new JPanel();
+                    pn.setVisible(true);
+                    pn.setLayout(null);
+
+                    if (params.length == 2) {
+                        if(params[0] == "update-node-id"){
+                            if(params[1].equalsIgnoreCase("true")){
+                                rbTUpdateNodeId.setSelected(true);
+                            }else{
+                                rbTUpdateNodeId.setSelected(false);
+                            }
+                        }
+                        for (Component component : components) {
+                            if (component.getName() != null && component.getName().equalsIgnoreCase("tf" + params[0].replace("-", ""))) {
+                                JTextField aux = (JTextField) component;
+                                aux.setText(params[1]);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }//GEN-LAST:event_btnOpenConfigFileActionPerformed
 
     private void btnHelpActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpActionActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnHelpActionActionPerformed
 
     private void btnResetActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionActionPerformed
         // TODO add your handling code here:
-        this.cbAction.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("action")).get1() );
+        this.cbAction.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("action")).get1());
         actionComboBox.setSelectedItem("simulate");
     }//GEN-LAST:event_btnResetActionActionPerformed
 
     private void btnResetBannerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetBannerActionPerformed
         // TODO add your handling code here:
-        this.cbBanner.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("banner")).get1() );
-        this.rbFBanner.setSelected(!((boolean) ((Triplet)currentConfig.avroraZCommands.get("banner")).get2()));
-        this.rbTBanner.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("banner")).get2());
+        this.cbBanner.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("banner")).get1());
+        this.rbFBanner.setSelected(!((boolean) ((Triplet) currentConfig.avroraZCommands.get("banner")).get2()));
+        this.rbTBanner.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("banner")).get2());
     }//GEN-LAST:event_btnResetBannerActionPerformed
 
     private void btnResetColorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetColorsActionPerformed
         // TODO add your handling code here:
-        this.cbColors.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("colors")).get1() );
-        this.rbFColors.setSelected(!((boolean) ((Triplet)currentConfig.avroraZCommands.get("colors")).get2()));
-        this.rbTColors.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("colors")).get2());
+        this.cbColors.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("colors")).get1());
+        this.rbFColors.setSelected(!((boolean) ((Triplet) currentConfig.avroraZCommands.get("colors")).get2()));
+        this.rbTColors.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("colors")).get2());
     }//GEN-LAST:event_btnResetColorsActionPerformed
 
     private void btnResetHtmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetHtmlActionPerformed
         // TODO add your handling code here:
-        this.cbHtml.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("html")).get1() );
-        this.rbFHtml.setSelected(!((boolean) ((Triplet)currentConfig.avroraZCommands.get("html")).get2()));
-        this.rbTHtml.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("html")).get2());
+        this.cbHtml.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("html")).get1());
+        this.rbFHtml.setSelected(!((boolean) ((Triplet) currentConfig.avroraZCommands.get("html")).get2()));
+        this.rbTHtml.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("html")).get2());
     }//GEN-LAST:event_btnResetHtmlActionPerformed
 
     private void btnResetInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetInputActionPerformed
         // TODO add your handling code here:
-        this.cbInput.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("input")).get1() );
+        this.cbInput.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("input")).get1());
 
         this.cboxInput.removeAllItems();
         //some.cboxInput = new JComboBox(inputs);
-        for (String input : (String[]) ((Triplet)currentConfig.avroraZCommands.get("input")).get3()) {
+        for (String input : (String[]) ((Triplet) currentConfig.avroraZCommands.get("input")).get3()) {
             this.cboxInput.addItem(input);
         }
-        this.cboxInput.setSelectedIndex((int)((Triplet)currentConfig.avroraZCommands.get("input")).get2());
+        this.cboxInput.setSelectedIndex((int) ((Triplet) currentConfig.avroraZCommands.get("input")).get2());
     }//GEN-LAST:event_btnResetInputActionPerformed
 
     private void btnResetLicenseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetLicenseActionPerformed
         // TODO add your handling code here:
-        this.cbLicense.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("license")).get1() );
-        this.rbFLicense.setSelected(!((boolean) ((Triplet)currentConfig.avroraZCommands.get("license")).get2()));
-        this.rbTLicense.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("license")).get2());
+        this.cbLicense.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("license")).get1());
+        this.rbFLicense.setSelected(!((boolean) ((Triplet) currentConfig.avroraZCommands.get("license")).get2()));
+        this.rbTLicense.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("license")).get2());
     }//GEN-LAST:event_btnResetLicenseActionPerformed
 
     private void btnResetStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetStatusActionPerformed
         // TODO add your handling code here:
-        this.cbStatus.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("status")).get1() );
-        this.rbFStatus.setSelected(!((boolean) ((Triplet)currentConfig.avroraZCommands.get("status")).get2()));
-        this.rbTStatus.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("status")).get2());
+        this.cbStatus.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("status")).get1());
+        this.rbFStatus.setSelected(!((boolean) ((Triplet) currentConfig.avroraZCommands.get("status")).get2()));
+        this.rbTStatus.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("status")).get2());
     }//GEN-LAST:event_btnResetStatusActionPerformed
 
     private void btnResetVerboseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetVerboseActionPerformed
         // TODO add your handling code here:
-        this.cbVerbose.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("verbose")).get1() );
-        this.txtVerbose.setText((String) ((Triplet)currentConfig.avroraZCommands.get("verbose")).get2() );
+        this.cbVerbose.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("verbose")).get1());
+        this.tfVerbose.setText((String) ((Triplet) currentConfig.avroraZCommands.get("verbose")).get2());
     }//GEN-LAST:event_btnResetVerboseActionPerformed
 
     private void btnResetConfigFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetConfigFileActionPerformed
         // TODO add your handling code here:
-        this.cbConfigFile.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("configFile")).get1() );
         this.txtConfigFile.setText(null);
     }//GEN-LAST:event_btnResetConfigFileActionPerformed
 
     private void btnResetExtraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetExtraActionPerformed
         // TODO add your handling code here:
-        this.cbExtra.setSelected((boolean) ((Triplet)currentConfig.avroraZCommands.get("extra")).get1() );
-        this.txtExtra.setText((String) ((Triplet)currentConfig.avroraZCommands.get("extra")).get2() );
+        this.cbCommand.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("extra")).get1());
+        this.tfExtra.setText((String) ((Triplet) currentConfig.avroraZCommands.get("extra")).get2());
     }//GEN-LAST:event_btnResetExtraActionPerformed
 
     /**
@@ -1011,7 +972,6 @@ public class commandsAvroraZ extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox actionComboBox;
-    private javax.swing.JButton btnEditConfigFile;
     private javax.swing.JButton btnHelpAction;
     private javax.swing.JButton btnHelpBanner;
     private javax.swing.JButton btnHelpColors;
@@ -1036,8 +996,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
     private javax.swing.JCheckBox cbAction;
     private javax.swing.JCheckBox cbBanner;
     private javax.swing.JCheckBox cbColors;
-    private javax.swing.JCheckBox cbConfigFile;
-    private javax.swing.JCheckBox cbExtra;
+    private javax.swing.JCheckBox cbCommand;
     private javax.swing.JCheckBox cbHtml;
     private javax.swing.JCheckBox cbInput;
     private javax.swing.JCheckBox cbLicense;
@@ -1064,6 +1023,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lbConfigFile;
     private javax.swing.JRadioButton rbFBanner;
     private javax.swing.JRadioButton rbFColors;
     private javax.swing.JRadioButton rbFHtml;
@@ -1076,6 +1036,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
     private javax.swing.JRadioButton rbTLicense;
     private javax.swing.JRadioButton rbTStatus;
     private javax.swing.JRadioButton rbTUpdateNodeId;
+    private javax.swing.JTextArea tfExtra;
     private javax.swing.JTextField tfMonitors;
     private javax.swing.JTextField tfNodecount;
     private javax.swing.JTextField tfNoise;
@@ -1085,8 +1046,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
     private javax.swing.JTextField tfSimulation;
     private javax.swing.JTextField tfStaggerStart;
     private javax.swing.JTextField tfTopology;
+    private javax.swing.JTextField tfVerbose;
     private javax.swing.JTextField txtConfigFile;
-    private javax.swing.JTextArea txtExtra;
-    private javax.swing.JTextField txtVerbose;
     // End of variables declaration//GEN-END:variables
 }

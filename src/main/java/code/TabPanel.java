@@ -446,7 +446,6 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         int selection = fileChooser.showOpenDialog(this);
         if (selection == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
-            System.out.println(file);
             try {
                 addTab(some.tabs, file);
             } catch (IOException ex) {
@@ -537,7 +536,6 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                 label = new JLabel(file.getName());
                 urlFile = file.getPath();
                 ep.setText(fileManagement.readFile(file));
-                System.out.println(fileManagement.readFile(file));
             }
             flagOld = true;
         }
@@ -605,7 +603,6 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                     JPanel pnl = (JPanel) tp.getTabComponentAt(i);
                     btn = (JButton) pnl.getComponent(2);
                     String s2 = btn.getActionCommand();
-                    System.out.println(s1 + " - " + s2);
                     if (s1.equals(s2)) {
                         tp.removeTabAt(i);
                         break;
@@ -641,7 +638,6 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
     }
 
     static void EditButtonPro(final JButton b, String label, String pathIcon, String toolTip) {
-        System.out.println(some.btnNew.getText());
         ImageIcon icon = null;
         try {
             icon = createImageIcon(pathIcon);
@@ -796,7 +792,6 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
 
                 UIManager.LookAndFeelInfo piel[] = UIManager.getInstalledLookAndFeels();
                 for (UIManager.LookAndFeelInfo piel1 : piel) {
-                    System.out.println("Nombre Skin = " + piel1.getClassName());
                     //some.setVisible(true);
                 }
             }

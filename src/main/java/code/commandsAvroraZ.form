@@ -6,9 +6,6 @@
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[938, 692]"/>
     </Property>
-    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[938, 692]"/>
-    </Property>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
@@ -150,10 +147,10 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cbExtra" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbConfigFile" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbCommand" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbConfigFile" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jScrollPane1" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
@@ -174,11 +171,6 @@
                                       <Component id="btnHelpConfigFile" min="-2" pref="35" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="btnOpenConfigFile" min="-2" pref="36" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnEditConfigFile" min="-2" pref="54" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -204,7 +196,7 @@
                                                   <Component id="rbFLicense" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <Component id="txtVerbose" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
+                                          <Component id="tfVerbose" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -213,61 +205,72 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="cbSimulation" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="tfSimulation" min="-2" pref="176" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="cbReportSeconds" min="-2" max="-2" attributes="0"/>
-                          <Component id="cbRealTime" min="-2" max="-2" attributes="0"/>
-                          <Component id="cbSecondsPrecision" min="-2" max="-2" attributes="0"/>
-                          <Component id="cbSeconds" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="tfSeconds" min="-2" pref="176" max="-2" attributes="0"/>
-                          <Component id="tfSecondsPrecision" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="cbNodecount" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbSimulation" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="tfNodecount" min="-2" pref="176" max="-2" attributes="0"/>
+                              <Component id="tfSimulation" min="-2" pref="176" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cbMonitors" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbPlatform" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbTopology" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbNoise" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbUpdateNodeId" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbStaggerStart" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="rbTUpdateNodeId" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="rbFUpdateNodeId" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="cbReportSeconds" min="-2" max="-2" attributes="0"/>
+                                          <Component id="cbRealTime" min="-2" max="-2" attributes="0"/>
+                                          <Component id="cbSecondsPrecision" min="-2" max="-2" attributes="0"/>
+                                          <Component id="cbSeconds" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="tfSeconds" min="-2" pref="176" max="-2" attributes="0"/>
+                                          <Component id="tfSecondsPrecision" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <Component id="tfStaggerStart" min="-2" pref="176" max="-2" attributes="0"/>
-                                  <Component id="tfNoise" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
-                                  <Component id="tfTopology" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
-                                  <Component id="tfPlatform" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
-                                  <Component id="tfMonitors" min="-2" pref="176" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="cbNodecount" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="tfNodecount" min="-2" pref="176" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="cbMonitors" min="-2" max="-2" attributes="0"/>
+                                              <Component id="cbPlatform" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="cbTopology" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="cbNoise" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="cbUpdateNodeId" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="cbStaggerStart" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="rbTUpdateNodeId" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Component id="rbFUpdateNodeId" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="tfStaggerStart" min="-2" pref="176" max="-2" attributes="0"/>
+                                              <Component id="tfNoise" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
+                                              <Component id="tfTopology" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
+                                              <Component id="tfPlatform" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
+                                              <Component id="tfMonitors" min="-2" pref="176" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
                               </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnOpenConfigFile" min="-2" pref="36" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -331,7 +334,7 @@
                           <Component id="cbNodecount" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="tfNodecount" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="202" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -442,7 +445,7 @@
                                   <Component id="btnResetVerbose" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnHelpVerbose" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="cbVerbose" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtVerbose" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tfVerbose" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -450,28 +453,24 @@
                                       <Component id="btnResetExtra" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="btnHelpExtra" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="cbExtra" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbCommand" min="-2" max="-2" attributes="0"/>
                                   <Component id="jScrollPane1" alignment="0" min="-2" pref="47" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="btnEditConfigFile" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnOpenConfigFile" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <EmptySpace min="-2" pref="201" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="txtConfigFile" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbConfigFile" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnResetConfigFile" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnHelpConfigFile" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbConfigFile" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnOpenConfigFile" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -487,11 +486,13 @@
             <StringItem index="3" value="Item 4"/>
           </StringArray>
         </Property>
+        <Property name="name" type="java.lang.String" value="cbInput" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="cbInput">
       <Properties>
         <Property name="text" type="java.lang.String" value="-input:"/>
+        <Property name="name" type="java.lang.String" value="cbInput" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnResetInput">
@@ -505,11 +506,13 @@
     <Component class="javax.swing.JRadioButton" name="rbFLicense">
       <Properties>
         <Property name="text" type="java.lang.String" value="False"/>
+        <Property name="name" type="java.lang.String" value="rbFLicense" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="cbLicense">
       <Properties>
         <Property name="text" type="java.lang.String" value="-license:"/>
+        <Property name="name" type="java.lang.String" value="cbLicense" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnHelpLicense">
@@ -542,11 +545,13 @@
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="True"/>
+        <Property name="name" type="java.lang.String" value="rbTLicense" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="rbFStatus">
       <Properties>
         <Property name="text" type="java.lang.String" value="False"/>
+        <Property name="name" type="java.lang.String" value="rbFStatus" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnHelpConfigFile">
@@ -557,6 +562,7 @@
     <Component class="javax.swing.JCheckBox" name="cbColors">
       <Properties>
         <Property name="text" type="java.lang.String" value="-colors:"/>
+        <Property name="name" type="java.lang.String" value="cbColors" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtConfigFile">
@@ -569,12 +575,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnResetConfigFileActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="cbConfigFile">
-      <Properties>
-        <Property name="selected" type="boolean" value="true"/>
-        <Property name="text" type="java.lang.String" value="-config-file:"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JButton" name="btnResetHtml">
       <Properties>
         <Property name="text" type="java.lang.String" value=" "/>
@@ -586,6 +586,7 @@
     <Component class="javax.swing.JRadioButton" name="rbFHtml">
       <Properties>
         <Property name="text" type="java.lang.String" value="False"/>
+        <Property name="name" type="java.lang.String" value="rbFHtml" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnHelpHtml">
@@ -597,11 +598,13 @@
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="True"/>
+        <Property name="name" type="java.lang.String" value="rbTHtml" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="cbHtml">
       <Properties>
         <Property name="text" type="java.lang.String" value="-html:"/>
+        <Property name="name" type="java.lang.String" value="cbHtml" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnHelpInput">
@@ -620,6 +623,7 @@
     <Component class="javax.swing.JCheckBox" name="cbBanner">
       <Properties>
         <Property name="text" type="java.lang.String" value="-banner:"/>
+        <Property name="name" type="java.lang.String" value="lbBanner" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnHelpBanner">
@@ -638,6 +642,7 @@
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="True"/>
+        <Property name="name" type="java.lang.String" value="rbTColors" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnHelpColors">
@@ -648,6 +653,7 @@
     <Component class="javax.swing.JRadioButton" name="rbFColors">
       <Properties>
         <Property name="text" type="java.lang.String" value="False"/>
+        <Property name="name" type="java.lang.String" value="rbFColors" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnResetColors">
@@ -670,21 +676,14 @@
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="True"/>
+        <Property name="name" type="java.lang.String" value="rbTBanner" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="rbFBanner">
       <Properties>
         <Property name="text" type="java.lang.String" value="False"/>
+        <Property name="name" type="java.lang.String" value="rbFBanner" noResource="true"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnEditConfigFile">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Edit"/>
-        <Property name="toolTipText" type="java.lang.String" value="Open Config File"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditConfigFileActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnHelpExtra">
       <Properties>
@@ -694,7 +693,11 @@
     <Component class="javax.swing.JCheckBox" name="cbAction">
       <Properties>
         <Property name="text" type="java.lang.String" value="-action:"/>
+        <Property name="name" type="java.lang.String" value="lbAction" noResource="true"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="lbAction"/>
+      </AccessibilityProperties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
@@ -703,19 +706,24 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextArea" name="txtExtra">
+        <Component class="javax.swing.JTextArea" name="tfExtra">
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
+            <Property name="name" type="java.lang.String" value="tfExtra" noResource="true"/>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JCheckBox" name="cbExtra">
+    <Component class="javax.swing.JCheckBox" name="cbCommand">
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
-        <Property name="text" type="java.lang.String" value="Extra:"/>
+        <Property name="text" type="java.lang.String" value="command"/>
+        <Property name="name" type="java.lang.String" value="cbCommand" noResource="true"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="cbCommand"/>
+      </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JButton" name="btnOpenConfigFile">
       <Properties>
@@ -726,7 +734,10 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOpenConfigFileActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtVerbose">
+    <Component class="javax.swing.JTextField" name="tfVerbose">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="tfVerbose" noResource="true"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
     </Component>
@@ -754,6 +765,7 @@
     <Component class="javax.swing.JCheckBox" name="cbVerbose">
       <Properties>
         <Property name="text" type="java.lang.String" value="-verbose:"/>
+        <Property name="name" type="java.lang.String" value="cbVerbose" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -783,6 +795,7 @@
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="True"/>
+        <Property name="name" type="java.lang.String" value="rbTStatus" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnResetAction">
@@ -796,6 +809,7 @@
     <Component class="javax.swing.JCheckBox" name="cbStatus">
       <Properties>
         <Property name="text" type="java.lang.String" value="-status:"/>
+        <Property name="name" type="java.lang.String" value="cbStatus" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="actionComboBox">
@@ -808,96 +822,143 @@
             <StringItem index="3" value="Item 4"/>
           </StringArray>
         </Property>
+        <Property name="name" type="java.lang.String" value="cbAction" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfMonitors">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="tfMonitors" noResource="true"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfPlatform">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="tfPlatform" noResource="true"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfTopology">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="tfTopology" noResource="true"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfNoise">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="tfNoise" noResource="true"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="cbMonitors">
       <Properties>
         <Property name="text" type="java.lang.String" value="monitors"/>
+        <Property name="name" type="java.lang.String" value="cbMonitors" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="cbPlatform">
       <Properties>
         <Property name="text" type="java.lang.String" value="platform"/>
+        <Property name="name" type="java.lang.String" value="cbPlatform" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="cbTopology">
       <Properties>
         <Property name="text" type="java.lang.String" value="topology"/>
+        <Property name="name" type="java.lang.String" value="cbTopology" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="cbNoise">
       <Properties>
         <Property name="text" type="java.lang.String" value="noise"/>
+        <Property name="name" type="java.lang.String" value="cbNoise" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="cbUpdateNodeId">
       <Properties>
         <Property name="text" type="java.lang.String" value="update-node-id"/>
+        <Property name="name" type="java.lang.String" value="cbUpdateNodeId" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="cbStaggerStart">
       <Properties>
         <Property name="text" type="java.lang.String" value="stagger-start"/>
+        <Property name="name" type="java.lang.String" value="cbStaggerStart" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="cbReportSeconds">
       <Properties>
         <Property name="text" type="java.lang.String" value="report-seconds"/>
+        <Property name="name" type="java.lang.String" value="cbReportSeconds" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="cbRealTime">
       <Properties>
         <Property name="text" type="java.lang.String" value="real-time"/>
+        <Property name="name" type="java.lang.String" value="cbRealTime" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="cbSecondsPrecision">
       <Properties>
         <Property name="text" type="java.lang.String" value="seconds-precision"/>
+        <Property name="name" type="java.lang.String" value="cbSecondsPrecision" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="cbSeconds">
       <Properties>
         <Property name="text" type="java.lang.String" value="seconds"/>
+        <Property name="name" type="java.lang.String" value="cbSeconds" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="cbSimulation">
       <Properties>
         <Property name="text" type="java.lang.String" value="simulation"/>
+        <Property name="name" type="java.lang.String" value="cbSimulation" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="cbNodecount">
       <Properties>
         <Property name="text" type="java.lang.String" value="nodecount"/>
+        <Property name="name" type="java.lang.String" value="cbNodecount" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="rbTUpdateNodeId">
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="True"/>
+        <Property name="name" type="java.lang.String" value="rbTUpdateNodeId" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="rbFUpdateNodeId">
       <Properties>
         <Property name="text" type="java.lang.String" value="False"/>
+        <Property name="name" type="java.lang.String" value="rbFUpdateNodeId" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfStaggerStart">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="tfStaggerStart" noResource="true"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfSecondsPrecision">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="tfSecondsPrecision" noResource="true"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfSeconds">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="tfSeconds" noResource="true"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfSimulation">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="tfSimulation" noResource="true"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfNodecount">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="tfNodecount" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lbConfigFile">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="config-file"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
