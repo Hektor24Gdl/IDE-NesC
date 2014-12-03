@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,13 +54,7 @@ public class DocumentNC {
         
         StyledDocument docConsole = console.getStyledDocument();
         Style styleConsole = console.addStyle("I'm a Style", null);
-        StyleConstants.setForeground(styleConsole, Color.RED);
-       
         
-
-
-        
-
 
         //Lexer lx = new Lexer(new StringReader("int boolean true"));
 
@@ -72,7 +67,10 @@ public class DocumentNC {
                 try {
                     StyleConstants.setForeground(style, Color.BLACK);
                     doc.insertString(doc.getLength(), lx.yytext(), style);
+                    StyleConstants.setForeground(styleConsole, Color.RED);
+                    System.out.println(lx.yytext());
                     docConsole.insertString(docConsole.getLength(),e.getMessage() + " Line: " + (lx.yyline()+1) + "\n", styleConsole);
+                    System.out.println(lx.getLexerError().getMessage());
                 } catch (BadLocationException ex) {
                     Logger.getLogger(DocumentNC.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -83,24 +81,30 @@ public class DocumentNC {
                     Logger.getLogger(DocumentNC.class.getName()).log(Level.SEVERE, null, ex2);
                 }
             }
-            
-            if(lx.ignore.get1()!=null){
-               if("COMMENT".equals((String)lx.ignore.get3()))
+            /** while(!lx.ignore.isEmpty()){
+                int key = lx.ignore.size()-1;
+                String extra = "";
+                if("COMMENT".equals((String)lx.ignore.get(key).get3())){
                    StyleConstants.setForeground(style, Color.GRAY);
-               else
+                }
+                else
                    StyleConstants.setForeground(style, Color.BLACK);
                 try { 
-                    doc.insertString(doc.getLength(), (String)lx.ignore.get2(), style); 
+                    doc.insertString(doc.getLength(), (String)lx.ignore.get(key).get2(), style); 
                 }
                 catch (BadLocationException e){}
-               System.err.println(lx.ignore.toString());
-               lx.ignore = new Triplet(null,null,null);
-            }
+                //System.err.println(lx.ignore);
+                lx.ignore.remove(key);
+            }*/
+            
             
             if(token !=null && 1 >= token.sym && -2 != token.sym){
+               // lx.ignore = new ArrayList<>();
                 break;
             }
-
+                
+            
+            
             if(token != null){
                 switch(lx.getKeywordClass()){
                     case "COMMENT":{
@@ -131,10 +135,17 @@ public class DocumentNC {
                     }
                 }
 
-                try { doc.insertString(doc.getLength(), lx.yytext(), style); }
+                try { 
+                    doc.insertString(doc.getLength(), lx.yytext(), style); 
+                    if(token.sym != -2){
+                        StyleConstants.setForeground(styleConsole, Color.BLACK);
+                        docConsole.insertString(docConsole.getLength(), "Class: " + lx.getKeywordClass() + " Keyword: <" + lx.yytext() + ">\n", styleConsole); 
+                    }
+                }
                 catch (BadLocationException e){}
-
+                
             }
+           
             //System.err.println(lx.getKeywordClass()+ " " + lx.yytext());
         }
          try {

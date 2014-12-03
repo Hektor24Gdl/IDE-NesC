@@ -117,4 +117,8 @@ public class ReadXML {
         //String usr = document.getElementsByTagName("user").item(0).getTextContent();
         //String pwd = document.getElementsByTagName("password").item(0).getTextContent();
     }
+
+    public HashMap<String, Triplet> getAttributes() {
+        return attributes;
+    }
 }
