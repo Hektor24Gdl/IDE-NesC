@@ -28,7 +28,7 @@ public class CurrentConfig {
         avroraZCommands.put("status", new Triplet(false, true, null));
         avroraZCommands.put("verbose", new Triplet(false, "", null));
         avroraZCommands.put("configFile", new Triplet(true, "src/configurations/default.txt", null));
-        avroraZCommands.put("extra", new Triplet(true, "> output.txt", null));
+        avroraZCommands.put("output", new Triplet(true, "output.txt", null));
     }
 
 

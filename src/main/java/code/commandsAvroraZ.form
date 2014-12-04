@@ -145,33 +145,6 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cbCommand" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbConfigFile" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane1" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="txtConfigFile" min="-2" pref="254" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="btnResetExtra" min="-2" pref="35" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="btnHelpExtra" min="-2" pref="35" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="btnResetConfigFile" min="-2" pref="35" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="btnHelpConfigFile" min="-2" pref="35" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -201,6 +174,42 @@
                                   </Group>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="cbCommand" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbOutput" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbConfigFile" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jScrollPane1" max="32767" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="txtConfigFile" min="-2" pref="254" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Component id="btnResetConfigFile" min="-2" pref="35" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="btnHelpConfigFile" min="-2" pref="35" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="btnResetExtra" min="-2" pref="35" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="btnHelpExtra" min="-2" pref="35" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="tfOutput" min="-2" pref="254" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                       </Group>
                   </Group>
@@ -416,59 +425,58 @@
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="btnResetInput" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnHelpInput" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbInput" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cboxInput" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="btnResetLicense" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnHelpLicense" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbLicense" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="rbTLicense" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="rbFLicense" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="btnResetStatus" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnHelpStatus" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbStatus" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="rbTStatus" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="rbFStatus" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="btnResetVerbose" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnHelpVerbose" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbVerbose" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="tfVerbose" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                      <Component id="btnResetExtra" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="btnHelpExtra" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="cbCommand" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane1" alignment="0" min="-2" pref="47" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="201" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txtConfigFile" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnResetConfigFile" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnHelpConfigFile" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbConfigFile" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnOpenConfigFile" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnResetInput" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnHelpInput" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbInput" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cboxInput" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnResetLicense" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnHelpLicense" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbLicense" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rbTLicense" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rbFLicense" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnResetStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnHelpStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rbTStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rbFStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnResetVerbose" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnHelpVerbose" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbVerbose" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfVerbose" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="btnResetExtra" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnHelpExtra" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="cbCommand" min="-2" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="0" min="-2" pref="47" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lbOutput" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfOutput" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lbConfigFile" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtConfigFile" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnResetConfigFile" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnHelpConfigFile" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnOpenConfigFile" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -959,6 +967,19 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="config-file"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lbOutput">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="output file"/>
+      </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="lbOutput"/>
+      </AccessibilityProperties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="tfOutput">
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="tfOutput"/>
+      </AccessibilityProperties>
     </Component>
   </SubComponents>
 </Form>

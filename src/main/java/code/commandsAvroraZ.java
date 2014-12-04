@@ -9,7 +9,6 @@ import static code.TabPanel.EditButtonPro;
 import static code.TabPanel.currentConfig;
 import java.awt.Component;
 import java.io.File;
-import java.util.Enumeration;
 import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
@@ -21,6 +20,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Orlando
  */
 public class commandsAvroraZ extends javax.swing.JDialog {
+    private Help help;
 
     /**
      * Creates new form commandsAvroraZ2
@@ -31,15 +31,15 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         initComponents();
         
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("help.avroraz_commands");
-        cbInput.setToolTipText(bundle.getString("input")); // NOI18N
-        cbLicense.setToolTipText(bundle.getString("license")); // NOI18N
-        cbColors.setToolTipText(bundle.getString("colors")); // NOI18N
-        cbHtml.setToolTipText(bundle.getString("html")); // NOI18N
-        cbBanner.setToolTipText(bundle.getString("banner")); // NOI18N
-        cbAction.setToolTipText(bundle.getString("action")); // NOI18N
-        cbVerbose.setToolTipText(bundle.getString("verbose")); // NOI18N
-        cbStatus.setToolTipText(bundle.getString("status")); // NOI18N
-        cbMonitors.setToolTipText(bundle.getString("monitors")); // NOI18N
+        cbInput.setToolTipText(bundle.getString("input_short")); // NOI18N
+        cbLicense.setToolTipText(bundle.getString("license_short")); // NOI18N
+        cbColors.setToolTipText(bundle.getString("colors_short")); // NOI18N
+        cbHtml.setToolTipText(bundle.getString("html_short")); // NOI18N
+        cbBanner.setToolTipText(bundle.getString("banner_short")); // NOI18N
+        cbAction.setToolTipText(bundle.getString("action_short")); // NOI18N
+        cbVerbose.setToolTipText(bundle.getString("verbose_short")); // NOI18N
+        cbStatus.setToolTipText(bundle.getString("status_short")); // NOI18N
+        cbMonitors.setToolTipText(bundle.getString("monitors_short")); // NOI18N
         
         //Customizing row Action
         this.cbAction.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("action")).get1());
@@ -114,9 +114,10 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         this.txtConfigFile.setText(null);
         EditButtonPro(this.btnHelpConfigFile, null, "/images/Help_24x24.png", "Help");
         EditButtonPro(this.btnResetConfigFile, null, "/images/Eraser_24x24.png", "Reset");
+        //Customizing output file
+        this.tfOutput.setText((String) ((Triplet) currentConfig.avroraZCommands.get("output")).get2());
+        
         //Customizing row Extra
-        this.cbCommand.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("extra")).get1());
-        this.tfExtra.setText((String) ((Triplet) currentConfig.avroraZCommands.get("extra")).get2());
         EditButtonPro(this.btnHelpExtra, null, "/images/Help_24x24.png", "Help");
         EditButtonPro(this.btnResetExtra, null, "/images/Eraser_24x24.png", "Reset");
 
@@ -210,6 +211,8 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         tfSimulation = new javax.swing.JTextField();
         tfNodecount = new javax.swing.JTextField();
         lbConfigFile = new javax.swing.JLabel();
+        lbOutput = new javax.swing.JLabel();
+        tfOutput = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(938, 692));
@@ -468,6 +471,8 @@ public class commandsAvroraZ extends javax.swing.JDialog {
 
         lbConfigFile.setText("config-file");
 
+        lbOutput.setText("output file");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -562,26 +567,6 @@ public class commandsAvroraZ extends javax.swing.JDialog {
                                         .addComponent(btnHelpVerbose, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbCommand)
-                                    .addComponent(lbConfigFile))
-                                .addGap(25, 25, 25)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnResetExtra, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnHelpExtra, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnResetConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnHelpConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel2)
@@ -601,7 +586,33 @@ public class commandsAvroraZ extends javax.swing.JDialog {
                                                     .addComponent(rbFStatus)
                                                     .addComponent(rbFLicense)))
                                             .addComponent(tfVerbose, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbCommand)
+                                    .addComponent(lbOutput)
+                                    .addComponent(lbConfigFile))
+                                .addGap(25, 25, 25)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jScrollPane1)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(txtConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(btnResetConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(btnHelpConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(btnResetExtra, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(btnHelpExtra, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(tfOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(64, 64, 64)
@@ -763,53 +774,56 @@ public class commandsAvroraZ extends javax.swing.JDialog {
                                         .addComponent(rbFHtml))
                                     .addComponent(cbHtml))))
                         .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnResetInput)
+                            .addComponent(btnHelpInput)
+                            .addComponent(cbInput)
+                            .addComponent(cboxInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnResetLicense)
+                            .addComponent(btnHelpLicense)
+                            .addComponent(cbLicense)
+                            .addComponent(rbTLicense)
+                            .addComponent(rbFLicense))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnResetStatus)
+                            .addComponent(btnHelpStatus)
+                            .addComponent(cbStatus)
+                            .addComponent(rbTStatus)
+                            .addComponent(rbFStatus))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnResetVerbose)
+                            .addComponent(btnHelpVerbose)
+                            .addComponent(cbVerbose)
+                            .addComponent(tfVerbose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnResetInput)
-                                    .addComponent(btnHelpInput)
-                                    .addComponent(cbInput)
-                                    .addComponent(cboxInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnResetLicense)
-                                    .addComponent(btnHelpLicense)
-                                    .addComponent(cbLicense)
-                                    .addComponent(rbTLicense)
-                                    .addComponent(rbFLicense))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnResetStatus)
-                                    .addComponent(btnHelpStatus)
-                                    .addComponent(cbStatus)
-                                    .addComponent(rbTStatus)
-                                    .addComponent(rbFStatus))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnResetVerbose)
-                                    .addComponent(btnHelpVerbose)
-                                    .addComponent(cbVerbose)
-                                    .addComponent(tfVerbose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(btnResetExtra)
-                                        .addComponent(btnHelpExtra))
-                                    .addComponent(cbCommand)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(201, 201, 201))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnResetConfigFile)
-                                    .addComponent(btnHelpConfigFile)
-                                    .addComponent(lbConfigFile)
-                                    .addComponent(btnOpenConfigFile))
-                                .addGap(123, 123, 123))))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnResetExtra)
+                                .addComponent(btnHelpExtra))
+                            .addComponent(cbCommand)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbOutput)
+                            .addComponent(tfOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbConfigFile)
+                            .addComponent(txtConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnResetConfigFile)
+                            .addComponent(btnHelpConfigFile)
+                            .addComponent(btnOpenConfigFile))
+                        .addGap(117, 117, 117))))
         );
 
         cbAction.getAccessibleContext().setAccessibleName("lbAction");
         cbCommand.getAccessibleContext().setAccessibleName("cbCommand");
+        lbOutput.getAccessibleContext().setAccessibleName("lbOutput");
+        tfOutput.getAccessibleContext().setAccessibleName("tfOutput");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1026,6 +1040,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lbConfigFile;
+    private javax.swing.JLabel lbOutput;
     private javax.swing.JRadioButton rbFBanner;
     private javax.swing.JRadioButton rbFColors;
     private javax.swing.JRadioButton rbFHtml;
@@ -1042,6 +1057,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
     private javax.swing.JTextField tfMonitors;
     private javax.swing.JTextField tfNodecount;
     private javax.swing.JTextField tfNoise;
+    private javax.swing.JTextField tfOutput;
     private javax.swing.JTextField tfPlatform;
     private javax.swing.JTextField tfSeconds;
     private javax.swing.JTextField tfSecondsPrecision;
