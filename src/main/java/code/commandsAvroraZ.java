@@ -9,6 +9,7 @@ import static code.TabPanel.EditButtonPro;
 import static code.TabPanel.currentConfig;
 import java.awt.Component;
 import java.io.File;
+import java.util.Enumeration;
 import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
@@ -26,7 +27,20 @@ public class commandsAvroraZ extends javax.swing.JDialog {
      */
     public commandsAvroraZ(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        
         initComponents();
+        
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("help.avroraz_commands");
+        cbInput.setToolTipText(bundle.getString("input")); // NOI18N
+        cbLicense.setToolTipText(bundle.getString("license")); // NOI18N
+        cbColors.setToolTipText(bundle.getString("colors")); // NOI18N
+        cbHtml.setToolTipText(bundle.getString("html")); // NOI18N
+        cbBanner.setToolTipText(bundle.getString("banner")); // NOI18N
+        cbAction.setToolTipText(bundle.getString("action")); // NOI18N
+        cbVerbose.setToolTipText(bundle.getString("verbose")); // NOI18N
+        cbStatus.setToolTipText(bundle.getString("status")); // NOI18N
+        cbMonitors.setToolTipText(bundle.getString("monitors")); // NOI18N
+        
         //Customizing row Action
         this.cbAction.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("action")).get1());
         actionComboBox.removeAllItems();
