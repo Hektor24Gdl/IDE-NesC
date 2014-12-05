@@ -205,10 +205,7 @@
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="tfOutput" min="-2" pref="254" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="tfOutput" min="-2" pref="254" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -527,6 +524,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value=" "/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHelpLicenseActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnResetLicense">
       <Properties>
@@ -548,6 +548,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value=" "/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHelpStatusActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="rbTLicense">
       <Properties>
@@ -601,6 +604,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value=" "/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHelpHtmlActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="rbTHtml">
       <Properties>
@@ -619,6 +625,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value=" "/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHelpInputActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnResetBanner">
       <Properties>
@@ -638,6 +647,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value=" "/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHelpBannerActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator2">
     </Component>
@@ -657,6 +669,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value=" "/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHelpColorsActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="rbFColors">
       <Properties>
@@ -753,6 +768,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value=" "/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHelpVerboseActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>

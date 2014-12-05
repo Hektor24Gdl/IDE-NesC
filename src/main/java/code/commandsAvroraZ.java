@@ -9,6 +9,7 @@ import static code.TabPanel.EditButtonPro;
 import static code.TabPanel.currentConfig;
 import java.awt.Component;
 import java.io.File;
+import java.util.ResourceBundle;
 import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
@@ -20,17 +21,19 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Orlando
  */
 public class commandsAvroraZ extends javax.swing.JDialog {
+
     private Help help;
+    private ResourceBundle bundle;
 
     /**
      * Creates new form commandsAvroraZ2
      */
     public commandsAvroraZ(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        
+
         initComponents();
-        
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("help.avroraz_commands");
+
+        bundle = java.util.ResourceBundle.getBundle("help.avroraz_commands");
         cbInput.setToolTipText(bundle.getString("input_short")); // NOI18N
         cbLicense.setToolTipText(bundle.getString("license_short")); // NOI18N
         cbColors.setToolTipText(bundle.getString("colors_short")); // NOI18N
@@ -40,7 +43,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         cbVerbose.setToolTipText(bundle.getString("verbose_short")); // NOI18N
         cbStatus.setToolTipText(bundle.getString("status_short")); // NOI18N
         cbMonitors.setToolTipText(bundle.getString("monitors_short")); // NOI18N
-        
+
         //Customizing row Action
         this.cbAction.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("action")).get1());
         actionComboBox.removeAllItems();
@@ -116,7 +119,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         EditButtonPro(this.btnResetConfigFile, null, "/images/Eraser_24x24.png", "Reset");
         //Customizing output file
         this.tfOutput.setText((String) ((Triplet) currentConfig.avroraZCommands.get("output")).get2());
-        
+
         //Customizing row Extra
         EditButtonPro(this.btnHelpExtra, null, "/images/Help_24x24.png", "Help");
         EditButtonPro(this.btnResetExtra, null, "/images/Eraser_24x24.png", "Reset");
@@ -238,6 +241,11 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         cbLicense.setName("cbLicense"); // NOI18N
 
         btnHelpLicense.setText(" ");
+        btnHelpLicense.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHelpLicenseActionPerformed(evt);
+            }
+        });
 
         btnResetLicense.setText(" ");
         btnResetLicense.addActionListener(new java.awt.event.ActionListener() {
@@ -254,6 +262,11 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         });
 
         btnHelpStatus.setText(" ");
+        btnHelpStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHelpStatusActionPerformed(evt);
+            }
+        });
 
         rbTLicense.setSelected(true);
         rbTLicense.setText("True");
@@ -285,6 +298,11 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         rbFHtml.setName("rbFHtml"); // NOI18N
 
         btnHelpHtml.setText(" ");
+        btnHelpHtml.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHelpHtmlActionPerformed(evt);
+            }
+        });
 
         rbTHtml.setSelected(true);
         rbTHtml.setText("True");
@@ -294,6 +312,11 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         cbHtml.setName("cbHtml"); // NOI18N
 
         btnHelpInput.setText(" ");
+        btnHelpInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHelpInputActionPerformed(evt);
+            }
+        });
 
         btnResetBanner.setText(" ");
         btnResetBanner.addActionListener(new java.awt.event.ActionListener() {
@@ -306,6 +329,11 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         cbBanner.setName("lbBanner"); // NOI18N
 
         btnHelpBanner.setText(" ");
+        btnHelpBanner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHelpBannerActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Help");
 
@@ -314,6 +342,11 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         rbTColors.setName("rbTColors"); // NOI18N
 
         btnHelpColors.setText(" ");
+        btnHelpColors.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHelpColorsActionPerformed(evt);
+            }
+        });
 
         rbFColors.setText("False");
         rbFColors.setName("rbFColors"); // NOI18N
@@ -364,6 +397,11 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         tfVerbose.setName("tfVerbose"); // NOI18N
 
         btnHelpVerbose.setText(" ");
+        btnHelpVerbose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHelpVerboseActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
         jLabel1.setText("AvroraZ commands");
@@ -610,9 +648,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
                                                 .addComponent(btnResetExtra, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(18, 18, 18)
                                                 .addComponent(btnHelpExtra, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(tfOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+                                    .addComponent(tfOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(64, 64, 64)
@@ -839,7 +875,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
             FileManagement fileManagement = new FileManagement();
             String fileConfig = fileManagement.readFile(new File(this.txtConfigFile.getText()));
             String[] lines = fileConfig.split("\n");
-            
+
             Component[] components = this.getContentPane().getComponents();
             for (String line : lines) {
                 if (!line.startsWith("#")) {
@@ -849,10 +885,10 @@ public class commandsAvroraZ extends javax.swing.JDialog {
                     pn.setLayout(null);
 
                     if (params.length == 2) {
-                        if(params[0].equals("update-node-id")){
-                            if(params[1].equalsIgnoreCase("true")){
+                        if (params[0].equals("update-node-id")) {
+                            if (params[1].equalsIgnoreCase("true")) {
                                 rbTUpdateNodeId.setSelected(true);
-                            }else{
+                            } else {
                                 rbTUpdateNodeId.setSelected(false);
                             }
                         }
@@ -869,8 +905,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
     }//GEN-LAST:event_btnOpenConfigFileActionPerformed
 
     private void btnHelpActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpActionActionPerformed
-        // TODO add your handling code here:
-
+        showHelp("action", bundle.getString("action"));
     }//GEN-LAST:event_btnHelpActionActionPerformed
 
     private void btnResetActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionActionPerformed
@@ -942,6 +977,45 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         this.cbCommand.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("extra")).get1());
         this.tfExtra.setText((String) ((Triplet) currentConfig.avroraZCommands.get("extra")).get2());
     }//GEN-LAST:event_btnResetExtraActionPerformed
+
+    private void btnHelpBannerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpBannerActionPerformed
+        showHelp("banner", bundle.getString("banner"));
+    }//GEN-LAST:event_btnHelpBannerActionPerformed
+
+    private void btnHelpColorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpColorsActionPerformed
+        showHelp("colors", bundle.getString("colors"));
+    }//GEN-LAST:event_btnHelpColorsActionPerformed
+
+    private void btnHelpHtmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpHtmlActionPerformed
+        showHelp("html", bundle.getString("html"));
+    }//GEN-LAST:event_btnHelpHtmlActionPerformed
+
+    private void btnHelpInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpInputActionPerformed
+        showHelp("input", bundle.getString("input"));
+    }//GEN-LAST:event_btnHelpInputActionPerformed
+
+    private void btnHelpLicenseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpLicenseActionPerformed
+        showHelp("license", bundle.getString("license"));
+    }//GEN-LAST:event_btnHelpLicenseActionPerformed
+
+    private void btnHelpStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpStatusActionPerformed
+        showHelp("status", bundle.getString("status"));
+    }//GEN-LAST:event_btnHelpStatusActionPerformed
+
+    private void btnHelpVerboseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpVerboseActionPerformed
+        showHelp("verbose", bundle.getString("verbose"));
+    }//GEN-LAST:event_btnHelpVerboseActionPerformed
+
+    private void showHelp(String function, String helpText) {
+        if (help == null) {
+            help = new Help((java.awt.Frame) this.getParent(), true);
+        }
+        
+        help.setHelp(function, helpText);
+
+        help.setEnabled(true);
+        help.setVisible(true);
+    }
 
     /**
      * @param args the command line arguments

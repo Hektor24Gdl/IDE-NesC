@@ -18,6 +18,11 @@ public class Help extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
+    
+    public void setHelp(String name, String text){
+        this.setTitle(name);
+        taHelp.setText(text);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,6 +40,7 @@ public class Help extends javax.swing.JDialog {
 
         taHelp.setColumns(20);
         taHelp.setRows(5);
+        taHelp.setName("taHelp"); // NOI18N
         jScrollPane1.setViewportView(taHelp);
         taHelp.getAccessibleContext().setAccessibleName("taHelp");
 
@@ -44,14 +50,14 @@ public class Help extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
