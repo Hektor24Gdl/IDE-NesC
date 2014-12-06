@@ -3,12 +3,8 @@
 package code;
 
 import java_cup.runtime.*;
-import java.io.Reader;
-import java_cup.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.lang.reflect.Field;
+import java.util.HashMap;
       
 %% //inicio de opciones
    
@@ -43,6 +39,9 @@ import java.util.ArrayList;
     analizador generado.
 */
 %{
+	
+    public Lexer(){
+    }
 
     private StringBuffer string           = new StringBuffer();
     private StringBuffer preProcessorText = new StringBuffer();
@@ -113,6 +112,17 @@ import java.util.ArrayList;
 	this.keywordClass = keywordClass;
 	beforeToken = new Triplet(type,yytext(),yyline);
         return new Symbol(type, yyline, yycolumn, value);
+    }
+
+    public HashMap<Integer, String> getTokens()  throws IllegalArgumentException, IllegalAccessException{
+	Field fld[] = sym.class.getDeclaredFields();
+        HashMap<Integer, String> tokens = new HashMap<>();
+        sym test = null;
+        for (Field fld1 : fld) {
+            //System.out.println("Variable: " + fld1.getName() + " Value: " + fld1.get(test));
+            tokens.put((int) fld1.get(test), fld1.getName());
+        }
+	return tokens;
     }
 
 
