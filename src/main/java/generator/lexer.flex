@@ -175,7 +175,7 @@ s_char_sequence		        = ({s_char}+)
 String   		        = (("L")? "\"" {s_char_sequence} "\"")
 Invalid_String			= (("L")? "\"" {s_char_sequence} {newline})
                      
-
+Invalid_Brace			= ("[" {s_char_sequence} {newline})
 
 %state STRING
 %state BRACE
@@ -328,6 +328,10 @@ Invalid_String			= (("L")? "\"" {s_char_sequence} {newline})
     "goto" {
         return symbol(sym.GOTO,"common_define");
     }
+
+    "call" {
+        return symbol(sym.CALL,"common_define");
+    }
     
     "uint8_t" {
         return symbol(sym.UINT8_T,"type");
@@ -469,9 +473,9 @@ Invalid_String			= (("L")? "\"" {s_char_sequence} {newline})
     }
     
     {Invalid_String} {
-	this.lexerError.setLine(((int)beforeToken.get3())+1);
+	this.lexerError.setLine(yyline);
 	this.lexerError.setColumn(yycolumn);
-	this.lexerError.setMessage("Illegal String <"+ beforeToken.get2() + yytext()+">");	
+	this.lexerError.setMessage("Illegal String <" +yytext()+ ">");	
     	throw new Error("Illegal String <"+ yytext()+">");
         
     }    
@@ -481,9 +485,9 @@ Invalid_String			= (("L")? "\"" {s_char_sequence} {newline})
     }
 
     {Invalid_Character} {
-        this.lexerError.setLine(((int)beforeToken.get3())+1);
+        this.lexerError.setLine(yyline);
 	this.lexerError.setColumn(yycolumn);
-	this.lexerError.setMessage("Illegal character <"+ beforeToken.get2() + yytext()+">");	
+	this.lexerError.setMessage("Illegal character <"+ yytext()+">");	
     	throw new Error("Illegal character <"+ yytext()+">");
     }
 
@@ -534,7 +538,13 @@ Invalid_String			= (("L")? "\"" {s_char_sequence} {newline})
             return symbol(sym.OPEN_BRACE,"brace");
         }
     }
-
+    
+    /*{Invalid_Brace} {
+        this.lexerError.setLine(yyline);
+	this.lexerError.setColumn(yycolumn);
+	this.lexerError.setMessage("Illegal character <"+ yytext()+">");	
+    	throw new Error("Illegal character <"+ yytext()+">");
+    }*/
 /*
     "]" {
         return symbol(sym.CLOSE_BRACE,"keyword");
@@ -712,7 +722,7 @@ Invalid_String			= (("L")? "\"" {s_char_sequence} {newline})
 
 	this.lexerError.setLine(((int)beforeToken.get3())+1);
 this.lexerError.setColumn(yycolumn);
-	this.lexerError.setMessage("Illegal character <"+ beforeToken.get2() + yytext()+">");	
+	this.lexerError.setMessage("Illegal character <"+ yytext()+">");	
     throw new Error("Illegal character <"+ yytext()+">");
 }
 /* vim: :set ft=java: */

@@ -525,7 +525,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
             saveFile(false,some.tabs.getSelectedIndex());
             JTextPane textp = (JTextPane)((Triplet)hmAreas.get(Integer.parseInt(s1))).get3();
       
-                textp = doc.lexer(new FileReader((String)((Triplet)hmAreas.get(Integer.parseInt(s1))).get1()),(JTextPane)((Triplet)hmAreas.get(Integer.parseInt(s1))).get3(),some.jtpConsole);
+                textp = doc.lexer(new File((String)((Triplet)hmAreas.get(Integer.parseInt(s1))).get1()),(JTextPane)((Triplet)hmAreas.get(Integer.parseInt(s1))).get3(),some.jtpConsole);
      
             some.pack();
             some.revalidate();
@@ -562,7 +562,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         //JEditorPane ep = new JEditorPane();
         //JTextArea ep = new JTextArea();
         JTextPane ep = new JTextPane(); 
-                doc.lexer(new FileReader("/home/orlando/NetBeansProjects/test.txt"),ep,some.jtpConsole);
+                doc.lexer(new File("/home/orlando/NetBeansProjects/test.txt"),ep,some.jtpConsole);
         TextLineNumber tln = new TextLineNumber(ep);
 
         ImageIcon icon;

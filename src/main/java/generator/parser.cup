@@ -33,6 +33,7 @@ parser code {:
 
         /* Create a StringBuffer called 'm' with the string 'Error' in it. */
         StringBuffer m = new StringBuffer("Error");
+	int unexpectedToken = 0;
 
         /* Check if the information passed to the method is the same type
          * as the type java_cup.runtime.Symbol.  */ 
@@ -46,6 +47,8 @@ parser code {:
             /* Check if the line number in the input is greater or
              * equal to zero.  */
             if (s.left >= 0) {
+
+		unexpectedToken = s.sym;
 
                 /* Add to the end of the StringBuffer error message the
                  * line number of the error in the input. */
@@ -63,7 +66,7 @@ parser code {:
                 }
             }
         }
-	error.setMessage(message);
+	error.setMessage(message + " Unspected Token: "  + unexpectedToken);
         /* Add to the end of the StringBuffer error message created in this
            method the message that was passed into this method. */
         m.append(" : " + message);
@@ -81,14 +84,12 @@ parser code {:
      * then exit.*/
     public void report_fatal_error(String message, Object info) {
         report_error(message, info);
-throw new Error("Parser Error");
+        throw new Error("Parser Error");
         //System.exit(1);
     }
  
 :};
    
-
-
 /* ------------Declaration of Terminals and Non Terminals Section----------- */
 
 /* Terminals (tokens returned by the scanner).
@@ -195,6 +196,7 @@ terminal java.lang.String  CLOSE_BRACE;
 terminal java.lang.String  IDENTIFIER;
 terminal java.lang.Integer INTEGER_LITERAL;
 
+terminal CALL;
 
 /* Non Terminals used in the Grammar Section.
  *
@@ -211,34 +213,53 @@ terminal java.lang.Integer INTEGER_LITERAL;
 //non terminal Object     parm;
 
 non terminal dispatch;
-non terminal Component                  component;
-non terminal NcHeader                   ncHeader;
-non terminal IncludesList               includesList;
-non terminal Includes                   includes;
-non terminal IncludeList                includeList;
-non terminal Configuration              configuration;
-non terminal RequiresOrProvidesList     requiresOrProvidesList;
-non terminal RequiresOrProvides         requiresOrProvides;
-non terminal ParameterisedInterfaceList requires;
-non terminal ParameterisedInterfaceList provides;
-non terminal ParameterisedInterfaceList parameterisedInterfaceList;
-non terminal ParameterisedInterfaces    parameterisedInterfaces;
-non terminal ParameterisedInterface     parameterisedInterface;
-non terminal InterfaceRef               interfaceRef;
+non terminal                   component;
+non terminal                    ncHeader;
+non terminal                includesList;
+non terminal                    includes;
+non terminal                 includeList;
+non terminal               configuration;
+non terminal      requiresOrProvidesList;
+non terminal          requiresOrProvides;
+non terminal  requires;
+non terminal  provides;
+non terminal  parameterisedInterfaceList;
+non terminal     parameterisedInterfaces;
+non terminal      parameterisedInterface;
+non terminal                interfaceRef;
 non terminal java.lang.String           interfaceType;
 non terminal java.lang.String           parameters;
-non terminal IConfiguration             iconfiguration;
-non terminal ConfigurationDecls         configurationDecls;
-non terminal ConfigurationDecl          configurationDecl;
-non terminal Connection                 connection;
-non terminal Endpoint                   endpoint;
-non terminal ParameterisedIdentifier    parameterisedIdentifier;
-non terminal Cuses                      cuses;
-non terminal ComponentList              componentList;
-non terminal ComponentRef               componentRef;
+non terminal              iconfiguration;
+non terminal          configurationDecls;
+non terminal           configurationDecl;
+non terminal                  connection;
+non terminal                    endpoint;
+non terminal     parameterisedIdentifier;
+non terminal                       cuses;
+non terminal               componentList;
+non terminal                componentRef;
 
+non terminal implementation_content;
+non terminal statement;
+non terminal statement_list;
 
-
+non terminal components_list;
+non terminal component_list;
+non terminal statement_implementation_list;
+non terminal statement_implementation;
+non terminal identifier_pro;
+non terminal type_list;
+non terminal types_set;
+non terminal module_list;
+non terminal module_statement_list;
+non terminal module_statement;
+non terminal statement_advanced_implementation_list;
+non terminal statement_advanced_implementation;
+non terminal statement_advanced_implementation_items;
+non terminal statement_advanced_implementation_item;
+non terminal statement_advanced_implementation_return_item;
+non terminal identifier_value_list;
+non terminal values_set;
 
 /* -------------Precedence and Associatively of Terminals Section----------- */
 
@@ -288,332 +309,92 @@ precedence left WIRES_TO, DOT, OPEN_PAREN, OPEN_BRACE;
 
 start with dispatch;
  
-dispatch ::=
-    /* interface | */
-    component : c {:
-        parser.setComponent(c);
-    :}
-    ;
+dispatch                                      ::=
+						INTERFACE IDENTIFIER OPEN_CURLY statement_list CLOSE_CURLY
+						{:
+						     System.out.println("interface");
+						:}
+						|
+						CONFIGURATION IDENTIFIER OPEN_CURLY CLOSE_CURLY
+						IMPLEMENTATION OPEN_CURLY implementation_content CLOSE_CURLY
+						{: :}
+						| MODULE IDENTIFIER OPEN_CURLY module_list CLOSE_CURLY					 IMPLEMENTATION OPEN_CURLY implementation_content CLOSE_CURLY
+						{: :}
+						;
 
-component  ::=
-    /* ncHeader module | */
-    ncHeader : h configuration : c {:
-        RESULT = new Component(h, c);
-    :}
-    ;
+module_list                                   ::= module_list module_statement_list 
+                                                | module_statement_list
+                                                ;
 
-ncHeader ::=
-     includesList : list {:
-         RESULT = new NcHeader(list);
-     :}
-     ;
+module_statement_list                         ::= PROVIDES OPEN_CURLY module_statement CLOSE_CURLY 
+                                                | USES OPEN_CURLY module_statement CLOSE_CURLY ;
 
+module_statement                              ::= module_statement INTERFACE IDENTIFIER SEMI_COLON
+                                                | /*epsilon*/
+                                                ;
 
-includesList ::=
-      includesList : list includes : i {:
-          RESULT = new IncludesList(list, i);
-      :}
-      |
-      /* lambda */
-      ;
+implementation_content                        ::= components_list  statement_implementation_list 
+                                                | statement_advanced_implementation_list 
+                                                | /*epsilon*/
+                                                ;
 
-includes ::=
-    INCLUDES includeList : list SEMI_COLON {:
-        RESULT = new Includes(list);
-    :}
-    ;
+components_list                               ::= COMPONENTS component_list SEMI_COLON | /*epsilon*/;
 
-includeList ::=
-    IDENTIFIER : i {:
-        RESULT = new IncludeList(i);
-    :}
-    |
-    includeList : list COMMA IDENTIFIER : i {:
-        RESULT = new IncludeList(list, i);
-    :}
-    ;
+component_list                                ::= component_list COMMA IDENTIFIER | IDENTIFIER;
 
-configuration ::=
-    CONFIGURATION IDENTIFIER : i /*componentParms nescAttributes*/
-                          OPEN_CURLY requiresOrProvidesList : list CLOSE_CURLY
-                              iconfiguration : iconf {:
-        RESULT = new Configuration(i, list, iconf);
-    :}
-    ;
+statement_list                                ::= statement_list statement | statement;
 
-iconfiguration ::=
-    IMPLEMENTATION OPEN_CURLY configurationDecls : cds CLOSE_CURLY {:
-        RESULT = new IConfiguration(cds);
-    :}
-    ;
+statement_advanced_implementation_list        ::= statement_advanced_implementation_list statement_advanced_implementation 
+                                                | statement_advanced_implementation;
 
-configurationDecls ::=
-    configurationDecls : cds configurationDecl : cd {:
-        RESULT = new ConfigurationDecls(cds, cd);
-    :}
-    |
-    /* lambda */
-    ;
+statement_advanced_implementation             ::= COMMAND RESULT_T IDENTIFIER DOT IDENTIFIER OPEN_PAREN identifier_value_list CLOSE_PAREN OPEN_CURLY statement_advanced_implementation_items CLOSE_CURLY 
+                                                | EVENT RESULT_T IDENTIFIER DOT IDENTIFIER OPEN_PAREN identifier_value_list CLOSE_PAREN OPEN_CURLY statement_advanced_implementation_items CLOSE_CURLY
+                                                ; 
 
-configurationDecl ::=
-    connection : c {:
-        RESULT = new ConfigurationDecl(c);
-    :}
-    /*
-    | just_datadef
-    */
-    | cuses : c {:
-        RESULT = new ConfigurationDecl(c);
-    :}
-    ;
+statement_advanced_implementation_items       ::= statement_advanced_implementation_items statement_advanced_implementation_return_item
+                                                | statement_advanced_implementation_item 
+						|/*epsilon*/
+						;
 
-connection ::=
-    endpoint : left EQUALS : connType endpoint : right SEMI_COLON {:
-        RESULT = new Connection(left, connType, right);
-    :}
-    |
-    endpoint : left WIRES_TO : connType  endpoint : right SEMI_COLON {:
-        RESULT = new Connection(left, connType, right);
-    :}
-/*
-    What's a TASTNIOP?
-    |
-    endpoint TASTNIOP endpoint ';'
-*/
-    ;
+statement_advanced_implementation_return_item ::= RETURN statement_advanced_implementation_item;
 
-endpoint ::=
-    endpoint : e DOT parameterisedIdentifier : id {:
-        RESULT = new Endpoint(e, id);
-    :}
-    |
-    parameterisedIdentifier : id {:
-        RESULT = new Endpoint(id);
-    :}
-    ;
+statement_advanced_implementation_item        ::= CALL IDENTIFIER DOT IDENTIFIER OPEN_PAREN identifier_value_list CLOSE_PAREN SEMI_COLON 
+                                                | IDENTIFIER SEMI_COLON;
 
-parameterisedIdentifier ::=
-    IDENTIFIER : id {:
-        RESULT = new ParameterisedIdentifier(id);
-    :}
-    |
-    /*
-    IDENTIFIER OPEN_BRACE nonNullExprList CLOSE_BRACE
-    */
-    IDENTIFIER : id OPEN_BRACE /*content in CLOSE_BRACE*/ CLOSE_BRACE : parms {:
-        RESULT = new ParameterisedIdentifier(id, parms);
-    :}
-    ;
+identifier_value_list                         ::= identifier_value_list COMMA IDENTIFIER 
+                                                | identifier_value_list COMMA values_set 
+                                                | values_set 
+                                                | IDENTIFIER 
+                                                | /*epsilon*/
+                                                ;
 
-/*
-nonNullExprList ::=
-    exprNoCommas
-    |
-    nonNullExprList COMMA exprNoCommas
-    ;
+values_set                                    ::= INTEGER | FLOAT | CHARACTER | STRING;
+statement                                     ::=  
+                                                  COMMAND RESULT_T IDENTIFIER OPEN_PAREN type_list CLOSE_PAREN SEMI_COLON
+					          {:
+							System.out.println("statement");
+    						  :}
+   						| EVENT RESULT_T IDENTIFIER OPEN_PAREN type_list CLOSE_PAREN SEMI_COLON
+						{:
+							System.out.println("statement");
+					        :}
+					        ;
 
-exprNoCommas ::=
-    castExpr
-    |
-    exprNoCommas PLUS exprNoCommas
-    |
-    exprNoCommas MINUS exprNoCommas
-    |
-    exprNoCommas TIMES exprNoCommas
-    |
-    exprNoCommas DIVIDE exprNoCommas
-    |
-    exprNoCommas MOD exprNoCommas
-    |
-    exprNoCommas LSHIFT exprNoCommas
-    |
-    exprNoCommas RSHIFT exprNoCommas
-    |
-    exprNoCommas LESS_THAN exprNoCommas
-    |
-    exprNoCommas GREATER_THAN exprNoCommas
-    |
-    exprNoCommas EQCOMPARE exprNoCommas
-    |
-    exprNoCommas BITWISE_AND exprNoCommas
-    |
-    exprNoCommas BITWISE_OR exprNoCommas
-    |
-    exprNoCommas BITWISE_NOT exprNoCommas
-    |
-    exprNoCommas AND exprNoCommas
-    |
-    exprNoCommas OR exprNoCommas
-    |
-    exprNoCommas QUESTION expr COLON exprNoCommas
-    |
-    exprNoCommas QUESTION COLON exprNoCommas
-    |
-    exprNoCommas EQUALS exprNoCommas
-    ;
-*/
+type_list                                     ::= type_list COMMA types_set IDENTIFIER | types_set IDENTIFIER | /*epsilon*/ ;
 
-// castExpr ::=
-//     unaryExpr
-//     /*
-//     |
-//     ...
-//      */
-//     ;
-// 
-// unaryExpr ::=
-//     
-//    ;
-//
-//expr ::=
-//    nonNullExprList
-//    |
-//    /* lambda */
-//    ;
+types_set                                     ::= CHAR | UINT8_T | UINT16_T | UINT32_T | INT8_T | INT16_T | INT32_T |EXPLICIT | EXPORT 
+						|INLINE | ERROR_T | RESULT_T | PACKET_T | MESSAGE_T | STRUCT | ENUM | BOOL | INT;
 
-cuses ::=
-    COMPONENTS componentList : list SEMI_COLON {:
-        RESULT = new Cuses(list);
-    :}
-    ;
+statement_implementation_list                 ::= statement_implementation_list statement_implementation | statement_implementation;
 
-componentList ::=
-    componentList : list COMMA componentRef : ref{:
-        RESULT = new ComponentList(list, ref);
-    :}
-    |
-    componentRef : ref {:
-        RESULT = new ComponentList(ref);
-    :}
-    ;
+statement_implementation                      ::=
+						identifier_pro WIRES_TO identifier_pro SEMI_COLON
+						{:
+						System.out.println("statement");
+						:}
+						;
 
-componentRef ::=
-    IDENTIFIER : id {:
-        RESULT = new ComponentRef(id);
-    :}
-    |
-    IDENTIFIER : id AS IDENTIFIER : rename {:
-        RESULT = new ComponentRef(id, rename);
-    :}
-    ;
-
-requiresOrProvidesList ::=
-    requiresOrProvidesList : list requiresOrProvides : reqOrProv {:
-        RESULT = new RequiresOrProvidesList(list, reqOrProv);
-    :}
-    |
-    /* lambda */
-    ;
-
-requiresOrProvides ::=
-    requires : req {:
-        RESULT = new RequiresOrProvides(true, req);
-    :}
-    |
-    provides : prov {:
-        RESULT = new RequiresOrProvides(false, prov);
-    :}
-    ;
-
-requires ::=
-    USES parameterisedInterfaceList : list {:
-        RESULT = list;
-    :}
-    ;
-
-provides ::=
-    PROVIDES parameterisedInterfaceList : list {:
-        RESULT = list;
-    :}
-    ;
-
-parameterisedInterfaceList ::=
-    parameterisedInterface : pi {:
-        RESULT = new ParameterisedInterfaceList(pi);
-    :}
-    |
-    OPEN_CURLY parameterisedInterfaces : pis CLOSE_CURLY {:
-        RESULT = new ParameterisedInterfaceList(pis);
-    :}
-    ;
-
-parameterisedInterfaces ::=
-    parameterisedInterfaces : pis parameterisedInterface : pi {:
-        RESULT = new ParameterisedInterfaces(pis, pi);
-    :}
-    |
-    parameterisedInterface : pi {:
-        RESULT = new ParameterisedInterfaces(pi);
-    :}
-    ;
-
-parameterisedInterface ::=
-/*
-    just_datadef
-    |
-*/
-    interfaceRef : ref /*nescAttributes*/ SEMI_COLON {:
-        RESULT = new ParameterisedInterface(ref);
-    :}
-    |
-    interfaceRef : ref parameters : p /*nescAttributes*/ SEMI_COLON {:
-        RESULT = new ParameterisedInterface(ref, p);
-    :}
-    ;
-
-interfaceRef ::=
-    interfaceType : type {:
-        RESULT = new InterfaceRef(type);
-    :}
-    |
-    interfaceType : type AS IDENTIFIER : i {:
-        RESULT = new InterfaceRef(type, i);
-    :}
-    ;
-
-interfaceType ::=
-    INTERFACE IDENTIFIER : i {:
-        RESULT = i;
-    :}
-/*
-    |
-    INTERFACE idword '<' typelist '>'
-*/
-    ;
-
-
-parameters ::=
-    /* OPEN_BRACE parms CLOSE_BRACE */
-    OPEN_BRACE /*content in CLOSE_BRACE*/ CLOSE_BRACE : content  {:
-        RESULT = content;
-    :}
-    ;
-
-/*
-parms ::=
-    parm
-    |
-    parms COMMA parm
-    ;
-
-parm ::=
-    IDENTIFIER:i IDENTIFIER:j {:
-        System.out.println("Type: " + i + "  name: " + j);
-    :}
-    declspecs_ts xreferror parm_declarator maybe_attribute
-    |
-    declspecs_ts xreferror notype_declarator maybe_attribute
-    |
-    declspecs_ts xreferror absdcl
-    |
-    declspecs_ts xreferror absdcl1_noea attributes
-    |
-    declspecs_nots xreferror notype_declarator maybe_attribute
-    |
-    declspecs_nots xreferror absdcl
-    |
-    declspecs_nots xreferror absdcl1_noea attributes
-    ;
-*/
+identifier_pro                                ::= identifier_pro DOT IDENTIFIER | IDENTIFIER  ;
+    
 
 /* vim: :set ft=java: */
