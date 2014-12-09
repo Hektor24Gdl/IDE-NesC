@@ -1,0 +1,1405 @@
+
+/* ---------------Seccion de declaraciones preliminares--------------------*/
+package code; 
+
+/* Import the class java_cup.runtime.*  */
+import code.ast.*;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/* Codigo del parser, se copia integramente a la clase final.
+    Agregamos el manejo de errores. */
+parser code {:
+
+
+    private Component component;
+    private ParserError error = new ParserError();
+
+    public ParserError getError(){
+        return error;
+    }
+    public void setComponent(Component component) {
+        this.component = component;
+    }
+    
+    public Component getComponent() {
+        return component;
+    }
+     /* Change the method report_error so it will display the line
+     * and column of where the error occurred in the input as well
+     * as the reason for the error which is passed into the method
+     * in the String 'message'.  */
+    public void report_error(String message, Object info) {
+
+        /* Create a StringBuffer called 'm' with the string 'Error' in it. */
+        StringBuffer m = new StringBuffer("Error");
+	int unexpectedToken = 0;
+        String value = "";
+        /* Check if the information passed to the method is the same type
+         * as the type java_cup.runtime.Symbol.  */ 
+        if (info instanceof java_cup.runtime.Symbol) {
+
+            /* Declare a java_cup.runtime.Symbol object 's' with the
+             * information in the object info that is being typecasted
+             * as a java_cup.runtime.Symbol object.  */
+            java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
+
+            /* Check if the line number in the input is greater or
+             * equal to zero.  */
+            if (s.left >= 0) {
+
+		unexpectedToken = s.sym;
+                value = (String)s.value;
+                /* Add to the end of the StringBuffer error message the
+                 * line number of the error in the input. */
+                m.append(" in line " + (s.left + 1));
+		error.setLine(s.left + 1);
+
+                /* Check if the column number in the input is greater
+                 * or equal to zero */
+                if (s.right >= 0) {
+
+                    /* Add to the end of the StringBuffer error message
+                     * the column number of the error in the input.  */
+                    m.append(", column " + (s.right + 1));
+		    error.setColumn(s.right + 1);
+                }
+            }
+        }
+	HashMap<Integer, String> tokens=null;
+      try {
+          tokens = new Lexer().getTokens();
+      } catch (IllegalArgumentException ex) {
+          Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+      } catch (IllegalAccessException ex) {
+          Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      String messageToken = (value!=null) ? tokens.get(unexpectedToken) +" <" +value +">"  : tokens.get(unexpectedToken)  ; 
+	error.setMessage(message + " Unspected Token: "  + messageToken);
+        /* Add to the end of the StringBuffer error message created in this
+           method the message that was passed into this method. */
+        m.append(" : " + message);
+
+        /* Print the contents of the StringBuffer 'm', which contains an
+         * error message out on a line. */
+        //System.err.println(m);
+    }
+ public void report_fatal_error(String message, Object info) {
+        report_error(message, info);
+        throw new Error("Parser Error");
+}
+:};
+   
+/* ------------Declaration of Terminals and Non Terminals Section----------- */
+
+/* Terminals (tokens returned by the scanner).
+ *
+ * Terminals that have no value are listed first and then terminals that
+ * do have an value, in this case an integer value, are listed on the
+ * next line down.
+ */ 
+//LENGUAJE C
+terminal IDENTIFIER;
+terminal CONSTANT;
+terminal STRING_LITERAL;
+//terminal PTR_OP; 
+terminal INC_OP;
+terminal DEC_OP;
+terminal LEFT_OP;
+terminal RIGHT_OP;
+terminal LE_OP;
+terminal GE_OP;
+terminal EQ_OP NE_OP;
+terminal AND_OP;
+terminal OR_OP;
+terminal MUL_ASSIGN;
+terminal DIV_ASSIGN;
+terminal MOD_ASSIGN;
+terminal ADD_ASSIGN;
+terminal SUB_ASSIGN;
+terminal LEFT_ASSIGN;
+terminal RIGHT_ASSIGN;
+terminal AND_ASSIGN;
+terminal XOR_ASSIGN;
+terminal OR_ASSIGN;
+terminal TYPE_NAME;
+
+terminal STATIC;
+terminal CHAR;
+terminal SHORT;
+terminal INT;
+terminal LONG;
+terminal UNSIGNED;
+terminal FLOAT;
+terminal DOUBLE;
+terminal CONST;
+terminal VOID;
+terminal STRUCT;
+terminal ENUM;
+
+terminal CASE;
+terminal DEFAULT;
+terminal IF;
+terminal ELSE;
+terminal SWITCH;
+terminal WHILE;
+terminal DO; 
+terminal FOR;
+terminal GOTO;
+terminal CONTINUE;
+terminal BREAK;
+terminal RETURN;
+terminal OPEN_PAREN;
+terminal CLOSE_PAREN;
+terminal CLOSE_BRACE;
+terminal OPEN_BRACE;
+terminal OPEN_CURLY;
+terminal CLOSE_CURLY;
+terminal COMMA;
+terminal DOT;
+terminal MULTIPLICATION;
+terminal COLON;
+terminal BITWISE_OR;
+terminal GREATER_THAN;
+terminal EQUALS;
+terminal LESS_THAN;
+terminal PLUS;
+terminal BITWISE_AND;
+terminal SEMI_COLON;
+terminal NOT;
+terminal TERNARY;
+terminal BITWISE_NOT;
+terminal PREPROCESSOR;
+terminal MINUS;
+terminal DIVIDE;
+terminal MOD;
+terminal BITWISE_XOR;
+terminal EQ_OP;
+terminal SIGNED;
+terminal SIZEOF;
+terminal UNION;
+terminal VOLATILE;
+terminal ELLIPSIS;
+terminal EXTERN;
+
+terminal TYPEDEF;
+terminal INCLUDE;
+//NESC
+terminal AS;
+terminal ATOMIC;
+terminal ASYNC;
+terminal CALL;
+terminal COMMAND;
+terminal COMPONENT;
+terminal COMPONENTS;
+terminal CONFIGURATION;
+terminal EVENT;
+terminal GENERIC;
+terminal IMPLEMENTATION;
+terminal INCLUDES;
+terminal INTERFACE;
+terminal MODULE;
+terminal NEW;
+terminal NORACE;
+terminal NX_STRUCT;
+terminal NX_UNION;
+terminal POST;
+terminal PROVIDES;
+terminal SIGNAL;
+terminal TASK;
+terminal USES; 
+
+terminal WIRES_TO;
+terminal WIRES_FROM;
+terminal AT;
+
+ /*nesC keywords reserved for future use*/
+terminal ABSTRACT;
+terminal EXTENDS;
+terminal ATTRIBUTE;
+
+
+
+terminal FALSE;
+terminal THIS;
+terminal TRUE;
+terminal USING;
+terminal NAMESPACE;
+terminal TYPENAME;
+terminal TEMPLATE;
+terminal VIRTUAL;
+terminal UINT8_T;
+terminal UINT16_T;
+terminal UINT32_T;
+terminal INT8_T;
+terminal INT16_T;
+terminal INT32_T;
+terminal BOOL;
+terminal EXPLICIT;
+terminal EXPORT;
+terminal INLINE;
+terminal ERROR_T;
+terminal RESULT_T;
+terminal PACKET_T;
+terminal MESSAGE_T;
+
+/* Non Terminals used in the Grammar Section.
+ *
+ * Non Terminals that have an object value are listed first and then Non
+ * Terminals that have an integer value are listed.  An object value means
+ * that it can be any type, it isn't set to a specific type.  So it could
+ * be an integer or a String or whatever.
+ */
+//non terminal nonNullExprList;
+//non terminal exprNoCommas;
+//non terminal castExpr;
+//non terminal primary;
+//non terminal Object     parms;
+//non terminal Object     parm;
+/*
+non terminal dispatch;
+non terminal                   component;
+non terminal                    ncHeader;
+non terminal                includesList;
+non terminal                    includes;
+non terminal                 includeList;
+non terminal               configuration;
+non terminal      requiresOrProvidesList;
+non terminal          requiresOrProvides;
+non terminal  requires;
+non terminal  provides;
+non terminal  parameterisedInterfaceList;
+non terminal     parameterisedInterfaces;
+non terminal      parameterisedInterface;
+non terminal                interfaceRef;
+non terminal java.lang.String           interfaceType;
+non terminal java.lang.String           parameters;
+non terminal              iconfiguration;
+non terminal          configurationDecls;
+non terminal           configurationDecl;
+non terminal                  connection;
+non terminal                    endpoint;
+non terminal     parameterisedIdentifier;
+non terminal                       cuses;
+non terminal               componentList;
+non terminal                componentRef;
+
+non terminal implementation_content;
+non terminal statement;
+non terminal statement_list;
+
+non terminal components_list;
+non terminal component_list;
+non terminal statement_implementation_list;
+non terminal statement_implementation;
+non terminal identifier_pro;
+non terminal type_list;
+non terminal types_set;
+non terminal module_list;
+non terminal module_statement_list;
+non terminal module_statement;
+non terminal statement_advanced_implementation_list;
+non terminal statement_advanced_implementation;
+non terminal statement_advanced_implementation_items;
+non terminal statement_advanced_implementation_item;
+non terminal statement_advanced_implementation_return_item;
+non terminal identifier_value_list;
+non terminal values_set;
+*/
+
+/*non terminal for c*/
+non terminal primary_expression;
+non terminal postfix_expression;
+non terminal argument_expression_list;
+non terminal unary_expression;
+non terminal unary_operator;
+non terminal cast_expression;
+non terminal multiplicative_expression;
+non terminal additive_expression;
+non terminal shift_expression;
+non terminal relational_expression;
+non terminal equality_expression;
+non terminal and_expression;
+non terminal exclusive_or_expression;
+non terminal inclusive_or_expression;
+non terminal logical_and_expression;
+non terminal logical_or_expression;
+non terminal conditional_expression;
+non terminal assignment_expression;
+non terminal assignment_operator;
+non terminal expression;
+non terminal constant_expression;
+non terminal declaration;
+non terminal declaration_specifiers;
+non terminal init_declarator_list;
+non terminal init_declarator;
+non terminal storage_class_specifier;
+non terminal type_specifier;
+non terminal struct_or_union_specifier;
+non terminal struct_or_union;
+non terminal struct_declaration_list;
+non terminal struct_declaration;
+non terminal specifier_qualifier_list;
+non terminal struct_declarator_list;
+non terminal struct_declarator;
+non terminal enum_specifier;
+non terminal enumerator_list;
+non terminal enumerator;
+non terminal type_qualifier;
+non terminal declarator;
+non terminal direct_declarator;
+non terminal pointer;
+non terminal type_qualifier_list;
+non terminal parameter_type_list;
+non terminal parameter_list;
+non terminal parameter_declaration;
+non terminal identifier_list;
+non terminal type_name;
+non terminal abstract_declarator;
+non terminal direct_abstract_declarator;
+non terminal initializer;
+non terminal initializer_list;
+non terminal statement;
+non terminal labeled_statement;
+non terminal compound_statement;
+non terminal declaration_list;
+non terminal statement_list;
+non terminal expression_statement;
+non terminal selection_statement;
+non terminal iteration_statement;
+non terminal jump_statement;
+non terminal translation_unit;
+non terminal external_declaration;
+non terminal function_definition;
+
+
+/*non terminal for nesC*/
+non terminal nesC_file;
+non terminal interface_definition;
+non terminal type_parameters;
+non terminal type_parameter_list;
+non terminal component;
+non terminal comp_kind;
+non terminal implementation;
+non terminal comp_parameters;
+non terminal component_parameter_list;
+non terminal component_parameter;
+non terminal module_implementation;
+non terminal configuration_implementation;
+non terminal configuration_element_list;
+non terminal configuration_element;
+non terminal components;
+non terminal component_line;
+non terminal instance_name;
+non terminal component_ref;
+non terminal component_argument_list;
+non terminal component_argument;
+non terminal connection;
+non terminal endpoint;
+non terminal identifier_path;
+non terminal component_specification;
+non terminal uses_provides_list;
+non terminal uses_provides;
+non terminal specification_element_list;
+non terminal specification_elements;
+non terminal specification_element;
+non terminal interface_type;
+non terminal type_arguments;
+non terminal type_arguments_list;
+non terminal instance_parameters;
+non terminal attributes;
+non terminal attribute;
+
+non terminal attribute_list;
+non terminal single_attribute;
+
+non terminal call_kind;
+non terminal atomic_statement;
+
+
+non terminal includes_list;
+non terminal interface;
+non terminal module;
+non terminal configuration;
+non terminal includes;
+non terminal specification;
+non terminal component_list;
+non terminal connection_list;
+non terminal renamed_identifier;
+non terminal specifiaction_element;
+non terminal parameters;
+
+/* -------------Precedence and Associatively of Terminals Section----------- */
+
+/* Precedence of Non Terminals could be defined here.  If you do define
+ * precedence here you won't need to worry about precedence in the Grammar
+ * Section.  i.e. that TIMES should have a higher precedence than PLUS.
+ *
+ * The precedence defined here would look something like this where the lower
+ * line always will have higher precedence than the line before it.
+ *
+ * precedence left PLUS, MINUS;
+ * precedence left TIMES, DIVIDE;
+ */
+
+precedence left EQUALS;
+precedence right TERNARY, COLON;
+precedence left OR_OP;
+precedence left AND_OP;
+precedence left BITWISE_OR;
+precedence left BITWISE_NOT;
+precedence left BITWISE_AND;
+precedence left EQ_OP;
+precedence left LESS_THAN, GREATER_THAN;
+precedence left LEFT_OP, RIGHT_OP;
+precedence left PLUS, MINUS;
+precedence left MULTIPLICATION, DIVIDE, MOD;
+precedence left WIRES_TO, DOT, OPEN_PAREN, OPEN_BRACE;
+
+precedence left DOT;
+
+
+/* ---------------------------------Grammar Section------------------------- */
+
+/* The grammar for our parser.
+
+        expr_list ::=   expr_list expr_part
+                        | expr_part
+        expr_part ::=   expr SEMI
+        expr      ::=   factor PLUS expr
+                        | factor MINUS expr
+                        | factor
+        factor    ::=   factor TIMES term
+                        | factor DIVIDE term
+                        | term
+        primary   ::=   LPAREN expr RPAREN
+                        | NUMBER
+                        | ID
+
+*/
+
+start with nesC_file;
+
+nesC_file    	        	   	::=
+								includes_list interface
+                    		    |
+                    		    interface
+                    		    | 
+                    		    module 
+                    		    | 
+                    		    configuration
+                    		    |
+                    		    includes_list module
+								|
+                   	    		includes_list configuration
+								;
+
+includes_list					::=
+								includes_list includes
+								|
+								includes
+								;
+
+includes						::=
+								INCLUDES identifier_list SEMI_COLON
+								;
+
+interface						::=
+								INTERFACE IDENTIFIER OPEN_CURLY declaration_list CLOSE_CURLY
+								;
+
+module							::=
+								MODULE IDENTIFIER specification module_implementation
+								;
+
+module_implementation			::=
+								IMPLEMENTATION OPEN_CURLY translation_unit CLOSE_CURLY
+								;
+
+configuration					::=
+								CONFIGURATION IDENTIFIER specification configuration_implementation
+								;
+
+configuration_implementation	::=
+								IMPLEMENTATION OPEN_CURLY component_list connection_list CLOSE_CURLY
+								| 
+								IMPLEMENTATION OPEN_CURLY connection_list CLOSE_CURLY
+								|
+								IMPLEMENTATION OPEN_CURLY CLOSE_CURLY
+								;
+
+component_list					::=
+								component_list components
+								|
+								components
+								/*|
+								/* epsilon */	
+								;
+
+components						::=
+								COMPONENTS component_line SEMI_COLON
+								;
+
+component_line					::=
+								renamed_identifier
+								|
+								component_line COMMA renamed_identifier
+								;
+
+renamed_identifier				::=
+								IDENTIFIER
+								|
+								IDENTIFIER AS IDENTIFIER
+								;
+
+connection_list					::=
+								connection_list	connection
+								|
+								connection
+								;
+
+connection						::=
+								endpoint EQUALS endpoint SEMI_COLON
+								|
+								endpoint WIRES_TO endpoint SEMI_COLON
+								|
+								endpoint WIRES_FROM endpoint SEMI_COLON
+								;
+
+endpoint						::=
+								identifier_path
+								|
+								identifier_path OPEN_BRACE argument_expression_list CLOSE_BRACE
+								;
+
+identifier_path					::=
+								IDENTIFIER
+								|
+								identifier_path DOT IDENTIFIER
+								;
+
+specification					::=
+								OPEN_CURLY uses_provides_list CLOSE_CURLY
+								|
+								OPEN_CURLY CLOSE_CURLY
+								;
+
+uses_provides_list				::=
+								uses_provides_list uses_provides
+								|
+								uses_provides
+								;
+
+uses_provides					::=
+								USES specification_element_list
+								|
+								PROVIDES specification_element_list
+								;
+
+specification_element_list		::=
+								specification_element
+								|
+								OPEN_CURLY specification_elements CLOSE_CURLY
+								;
+
+specification_elements			::=
+								specification_elements specifiaction_element
+								|
+								specification_element
+								;	
+
+specification_element			::=
+								declaration
+								|
+								specification_element{: :} INTERFACE renamed_identifier parameters SEMI_COLON{: :}
+								|
+								INTERFACE renamed_identifier parameters SEMI_COLON
+								;
+
+parameters						::=
+								OPEN_BRACE parameter_type_list OPEN_BRACE
+								|
+								/* epsilon */
+								;
+
+
+/*ANSI C*/
+
+primary_expression
+    ::= IDENTIFIER
+    | IDENTIFIER DOT IDENTIFIER
+    | CONSTANT
+    | STRING_LITERAL
+    | OPEN_PAREN expression CLOSE_PAREN
+    ;
+/* for ansi c
+postfix_expression
+    ::= primary_expression
+    | postfix_expression OPEN_BRACE expression CLOSE_BRACE
+    | postfix_expression OPEN_PAREN CLOSE_PAREN
+    | postfix_expression OPEN_PAREN argument_expression_list CLOSE_PAREN
+    | postfix_expression DOT IDENTIFIER
+    | postfix_expression PTR_OP IDENTIFIER
+    | postfix_expression INC_OP
+    | postfix_expression DEC_OP
+    ;
+
+    */
+    postfix_expression
+    ::= primary_expression
+    | postfix_expression OPEN_BRACE expression CLOSE_BRACE
+    | call_kind primary_expression OPEN_PAREN argument_expression_list CLOSE_PAREN
+    | primary_expression OPEN_PAREN argument_expression_list CLOSE_PAREN
+    | call_kind primary_expression OPEN_PAREN CLOSE_PAREN
+    | primary_expression OPEN_PAREN CLOSE_PAREN
+    | postfix_expression DOT IDENTIFIER
+    | postfix_expression WIRES_TO IDENTIFIER
+    | postfix_expression INC_OP
+    | postfix_expression DEC_OP
+    ;
+    /*call for nesc*/
+    call_kind ::= CALL | SIGNAL | POST;
+
+argument_expression_list
+    ::= assignment_expression
+    | argument_expression_list COMMA assignment_expression
+    ;
+
+unary_expression
+    ::= postfix_expression
+    | INC_OP unary_expression
+    | DEC_OP unary_expression
+    | unary_operator cast_expression
+    | SIZEOF unary_expression
+    | SIZEOF OPEN_PAREN type_name CLOSE_PAREN
+    ;
+
+unary_operator
+    ::= BITWISE_AND
+    | MULTIPLICATION
+    | PLUS
+    | MINUS
+    | BITWISE_NOT
+    | NOT
+    ;
+
+cast_expression
+    ::= unary_expression
+    | OPEN_PAREN type_name CLOSE_PAREN cast_expression
+    ;
+
+multiplicative_expression
+    ::= cast_expression
+    | multiplicative_expression MULTIPLICATION cast_expression
+    | multiplicative_expression DIVIDE cast_expression
+    | multiplicative_expression MOD cast_expression
+    ;
+
+additive_expression
+    ::= multiplicative_expression
+    | additive_expression PLUS multiplicative_expression
+    | additive_expression MINUS multiplicative_expression
+    ;
+
+shift_expression
+    ::= additive_expression
+    | shift_expression LEFT_OP additive_expression
+    | shift_expression RIGHT_OP additive_expression
+    ;
+
+relational_expression
+    ::= shift_expression
+    | relational_expression LESS_THAN shift_expression
+    | relational_expression GREATER_THAN shift_expression
+    | relational_expression LE_OP shift_expression
+    | relational_expression GE_OP shift_expression
+    ;
+
+equality_expression
+    ::= relational_expression
+    | equality_expression EQ_OP relational_expression
+    | equality_expression NE_OP relational_expression
+    ;
+
+and_expression
+    ::= equality_expression
+    | and_expression BITWISE_AND equality_expression
+    ;
+
+exclusive_or_expression
+    ::= and_expression
+    | exclusive_or_expression BITWISE_XOR and_expression
+    ;
+
+inclusive_or_expression
+    ::= exclusive_or_expression
+    | inclusive_or_expression BITWISE_OR exclusive_or_expression
+    ;
+
+logical_and_expression
+    ::= inclusive_or_expression
+    | logical_and_expression AND_OP inclusive_or_expression
+    ;
+
+logical_or_expression
+    ::= logical_and_expression
+    | logical_or_expression OR_OP logical_and_expression
+    ;
+
+conditional_expression
+    ::= logical_or_expression
+    | logical_or_expression TERNARY expression COLON conditional_expression
+    ;
+
+assignment_expression
+    ::= conditional_expression
+    | unary_expression assignment_operator assignment_expression
+    ;
+
+assignment_operator
+    ::= EQUALS
+    | MUL_ASSIGN
+    | DIV_ASSIGN
+    | MOD_ASSIGN
+    | ADD_ASSIGN
+    | SUB_ASSIGN
+    | LEFT_ASSIGN
+    | RIGHT_ASSIGN
+    | AND_ASSIGN
+    | XOR_ASSIGN
+    | OR_ASSIGN
+    ;
+
+expression
+    ::= assignment_expression
+    | expression COMMA assignment_expression
+    ;
+
+constant_expression
+    ::= conditional_expression
+    ;
+
+declaration
+    ::= declaration_specifiers SEMI_COLON
+    | declaration_specifiers init_declarator_list SEMI_COLON
+    ;
+/* ANSI C
+declaration_specifiers
+    ::= storage_class_specifier
+    | storage_class_specifier declaration_specifiers
+    | type_specifier
+    | type_specifier declaration_specifiers
+    | type_qualifier
+    | type_qualifier declaration_specifiers
+    ;
+    */
+declaration_specifiers
+    ::= storage_class_specifier
+    | storage_class_specifier declaration_specifiers
+    | type_specifier
+    | type_specifier declaration_specifiers
+    | DEFAULT declaration_specifiers
+    ;
+/*
+init_declarator_list
+    ::= init_declarator
+    | init_declarator_list COMMA init_declarator
+    ;
+    */
+
+ init_declarator_list
+    ::= init_declarator
+    | init_declarator_list COMMA init_declarator
+    | init_declarator attributes
+    | init_declarator_list COMMA init_declarator attributes
+    ;
+
+init_declarator
+    ::= declarator
+    | declarator EQUALS initializer
+    ;
+   /*  
+init_declarator
+    ::= declarator
+    | declarator EQUALS initializer
+    | declarator attributes
+    | declarator attributes EQUALS initializer
+    ;    */
+/*ansi c
+storage_class_specifier
+    ::= STATIC 
+    ;
+*/
+    storage_class_specifier
+    ::= STATIC | COMMAND | EVENT | ASYNC | TASK | NORACE
+    ;
+type_specifier
+    ::= VOID
+    | CHAR
+    | SHORT
+    | INT
+    | LONG
+    | FLOAT
+    | DOUBLE
+    | SIGNED
+    | UNSIGNED
+    | struct_or_union_specifier
+    | enum_specifier
+    | TYPE_NAME
+    | RESULT_T
+    | UINT8_T
+    | UINT16_T
+    | UINT32_T
+    | INT8_T
+    | INT16_T
+    | INT32_T
+    | BOOL
+    | ERROR_T
+    | PACKET_T
+    | MESSAGE_T
+    ;
+/* ansi c
+struct_or_union_specifier
+    ::= struct_or_union IDENTIFIER OPEN_CURLY struct_declaration_list CLOSE_CURLY
+    | struct_or_union OPEN_CURLY struct_declaration_list CLOSE_CURLY
+    | struct_or_union IDENTIFIER
+    ;*/
+struct_or_union_specifier
+    ::= struct_or_union IDENTIFIER OPEN_CURLY struct_declaration_list CLOSE_CURLY
+    | struct_or_union OPEN_CURLY struct_declaration_list CLOSE_CURLY
+    | struct_or_union IDENTIFIER
+    | STRUCT AT IDENTIFIER attributes OPEN_CURLY struct_declaration_list CLOSE_CURLY
+    | struct_or_union IDENTIFIER attributes OPEN_CURLY struct_declaration_list CLOSE_CURLY
+    ;
+/*ansi c
+struct_or_union
+    ::= STRUCT
+    | UNION
+    ;
+    */
+struct_or_union
+    ::= STRUCT
+    | UNION
+    | NX_UNION
+    | NX_STRUCT
+    ;
+
+struct_declaration_list
+    ::= struct_declaration
+    | struct_declaration_list struct_declaration
+    ;
+
+/* ansi c
+struct_declaration
+    ::= specifier_qualifier_list struct_declarator_list SEMI_COLON
+    ;
+    */
+
+struct_declaration
+    ::= specifier_qualifier_list struct_declarator_list SEMI_COLON
+    | declarator attributes
+    | declarator COLON constant_expression attributes
+    ;
+
+specifier_qualifier_list
+    ::= type_specifier specifier_qualifier_list
+    | type_specifier
+    | type_qualifier specifier_qualifier_list
+    | type_qualifier
+    ;
+
+struct_declarator_list
+    ::= struct_declarator
+    | struct_declarator_list COMMA struct_declarator
+    ;
+
+struct_declarator
+    ::= declarator
+    | COLON constant_expression
+    | declarator COLON constant_expression
+    ;
+/*
+enum_specifier
+    ::= ENUM OPEN_CURLY enumerator_list CLOSE_CURLY
+    | ENUM IDENTIFIER OPEN_CURLY enumerator_list CLOSE_CURLY
+    | ENUM IDENTIFIER
+    ;*/
+
+enum_specifier
+    ::= ENUM OPEN_CURLY enumerator_list CLOSE_CURLY
+    | ENUM IDENTIFIER OPEN_CURLY enumerator_list CLOSE_CURLY
+    | ENUM IDENTIFIER
+    | ENUM IDENTIFIER attributes OPEN_CURLY enumerator_list CLOSE_CURLY
+    ;  
+
+enumerator_list
+    ::= enumerator
+    | enumerator_list COMMA enumerator
+    ;
+
+enumerator
+    ::= IDENTIFIER
+    | IDENTIFIER EQUALS constant_expression
+    ;
+/*ansi c
+type_qualifier
+    ::= CONST
+    | VOLATILE
+    | EXTERN
+    ;
+*/
+type_qualifier
+    ::= CONST
+    | VOLATILE
+    | EXTERN
+    | attribute
+    ;
+       
+declarator
+    ::= pointer direct_declarator
+    | direct_declarator
+    ;
+/* ansi c 
+direct_declarator
+    ::= IDENTIFIER
+    | OPEN_PAREN declarator CLOSE_PAREN
+    | direct_declarator OPEN_BRACE constant_expression CLOSE_BRACE
+    | direct_declarator OPEN_BRACE CLOSE_BRACE
+    | direct_declarator OPEN_PAREN parameter_type_list CLOSE_PAREN
+    | direct_declarator OPEN_PAREN identifier_list CLOSE_PAREN
+    | direct_declarator OPEN_PAREN CLOSE_PAREN
+    ;
+*/
+direct_declarator
+    ::= IDENTIFIER
+    | OPEN_PAREN declarator CLOSE_PAREN
+    | direct_declarator OPEN_BRACE constant_expression CLOSE_BRACE
+    | direct_declarator OPEN_BRACE CLOSE_BRACE
+    | direct_declarator OPEN_PAREN parameter_type_list CLOSE_PAREN
+    | direct_declarator OPEN_PAREN identifier_list CLOSE_PAREN
+    | direct_declarator OPEN_PAREN CLOSE_PAREN
+    | IDENTIFIER DOT IDENTIFIER
+    | direct_declarator parameters OPEN_PAREN parameter_type_list CLOSE_PAREN
+    ;
+pointer
+    ::= MULTIPLICATION
+    | MULTIPLICATION type_qualifier_list
+    | MULTIPLICATION pointer
+    | MULTIPLICATION type_qualifier_list pointer
+    ;
+
+type_qualifier_list
+    ::= type_qualifier
+    | type_qualifier_list type_qualifier
+    ;
+
+
+parameter_type_list
+    ::= parameter_list
+    | parameter_list COMMA ELLIPSIS
+    ;
+
+parameter_list
+    ::= parameter_declaration
+    | parameter_list COMMA parameter_declaration
+    ;
+/* ansi c
+parameter_declaration
+    ::= declaration_specifiers declarator
+    | declaration_specifiers abstract_declarator
+    | declaration_specifiers
+    ;
+    */
+parameter_declaration
+    ::= declaration_specifiers declarator
+    | declaration_specifiers abstract_declarator
+    | declaration_specifiers
+    | declaration_specifiers declarator attributes
+    ;
+
+
+identifier_list
+    ::= IDENTIFIER
+    | identifier_list COMMA IDENTIFIER
+    ;
+
+type_name
+    ::= specifier_qualifier_list
+    | specifier_qualifier_list abstract_declarator
+    ;
+
+abstract_declarator
+    ::= pointer
+    | direct_abstract_declarator
+    | pointer direct_abstract_declarator
+    ;
+
+direct_abstract_declarator
+    ::= OPEN_PAREN abstract_declarator CLOSE_PAREN
+    | OPEN_BRACE CLOSE_BRACE
+    | OPEN_BRACE constant_expression CLOSE_BRACE
+    | direct_abstract_declarator OPEN_BRACE CLOSE_BRACE
+    | direct_abstract_declarator OPEN_BRACE constant_expression CLOSE_BRACE
+    | OPEN_PAREN CLOSE_PAREN
+    | OPEN_PAREN parameter_type_list CLOSE_PAREN
+    | direct_abstract_declarator OPEN_PAREN CLOSE_PAREN
+    | direct_abstract_declarator OPEN_PAREN parameter_type_list CLOSE_PAREN
+    ;
+
+initializer
+    ::= assignment_expression
+    | OPEN_CURLY initializer_list CLOSE_CURLY
+    | OPEN_CURLY initializer_list COMMA CLOSE_CURLY
+    ;
+
+initializer_list
+    ::= initializer
+    | initializer_list COMMA initializer
+    ;
+/* ansi c
+statement
+    ::= labeled_statement
+    | compound_statement
+    | expression_statement
+    | selection_statement
+    | iteration_statement
+    | jump_statement
+    ;
+    */
+
+statement
+    ::= labeled_statement
+    | compound_statement
+    | expression_statement
+    | selection_statement
+    | iteration_statement
+    | jump_statement
+    | atomic_statement
+    ;    
+/*for nesc*/
+atomic_statement ::= ATOMIC statement;
+/*end*/
+
+labeled_statement
+    ::= IDENTIFIER COLON statement
+    | CASE constant_expression COLON statement
+    | DEFAULT COLON statement
+    ;
+
+compound_statement
+    ::= OPEN_CURLY CLOSE_CURLY
+    | OPEN_CURLY statement_list CLOSE_CURLY
+    | OPEN_CURLY declaration_list CLOSE_CURLY
+    | OPEN_CURLY declaration_list statement_list CLOSE_CURLY
+    ;
+
+declaration_list
+    ::= declaration
+    | declaration_list declaration
+    ;
+
+statement_list
+    ::= statement
+    | statement_list statement
+    ;
+
+expression_statement
+    ::= SEMI_COLON
+    | expression SEMI_COLON
+    ;
+
+selection_statement
+    ::= IF OPEN_PAREN expression CLOSE_PAREN statement
+    //| IF OPEN_PAREN expression CLOSE_PAREN statement ELSE statement
+    | SWITCH OPEN_PAREN expression CLOSE_PAREN statement
+    ;
+
+
+iteration_statement
+    ::= WHILE OPEN_PAREN expression CLOSE_PAREN statement
+    | DO statement WHILE OPEN_PAREN expression CLOSE_PAREN SEMI_COLON
+    | FOR OPEN_PAREN expression_statement expression_statement CLOSE_PAREN statement
+    | FOR OPEN_PAREN expression_statement expression_statement expression CLOSE_PAREN statement
+    ;
+
+jump_statement
+    ::= GOTO IDENTIFIER SEMI_COLON
+    | CONTINUE SEMI_COLON
+    | BREAK SEMI_COLON
+    | RETURN SEMI_COLON
+    | RETURN expression SEMI_COLON
+    ;
+
+translation_unit
+    ::= external_declaration
+    | translation_unit external_declaration
+    ;
+
+external_declaration
+    ::= function_definition
+    | declaration
+    ;
+/* ansi c
+function_definition
+    ::= declaration_specifiers declarator declaration_list compound_statement
+    | declaration_specifiers declarator compound_statement
+    | declarator declaration_list compound_statement
+    | declarator compound_statement
+    ;
+    */
+function_definition
+    ::= declaration_specifiers declarator declaration_list compound_statement
+    | declaration_specifiers declarator compound_statement
+    | declarator declaration_list compound_statement
+    | declarator compound_statement
+    | declaration_specifiers declarator attributes declaration_list compound_statement
+    | declarator attributes declaration_list compound_statement
+    | declaration_specifiers declarator attributes compound_statement
+    | declarator attributes compound_statement
+    ;
+
+    /* for nesc */
+
+attribute_list
+	::= attribute
+	| attributes attribute
+	;
+
+attribute
+	::= ATTRIBUTE OPEN_PAREN OPEN_PAREN attribute_list CLOSE_PAREN CLOSE_PAREN
+	;
+
+attribute_list
+	::=
+	single_attribute
+	| attribute_list COMMA single_attribute
+	;
+
+single_attribute
+	::=
+	IDENTIFIER
+	| IDENTIFIER OPEN_PAREN argument_expression_list CLOSE_PAREN
+	;
+
+
+/* NesC Gramatic *//*
+nesC_file    	        	   	::=
+								includes_list interface
+                    		    |
+                    		    includes_list module
+								|
+                   	    		includes_list configuration
+								;
+
+includes_list					::=
+								includes_list includes
+								|
+								includes
+								/*|
+								/* epsilon *//*
+								;
+
+includes						::=
+								INCLUDES identifier_list SEMI_COLON
+								;
+
+interface						::=
+								INTERFACE IDENTIFIER OPEN_CURLY declaration_list CLOSE_CURLY
+								;
+
+module							::=
+								MODULE IDENTIFIER specification module_implementation
+								;
+
+module_implementation			::=
+								IMPLEMENTATION OPEN_CURLY translation_unit CLOSE_CURLY
+								;
+
+configuration					::=
+								CONFIGURATION IDENTIFIER specification configuration_implementation
+								;
+
+configuration_implementation	::=
+								IMPLEMENTATION OPEN_CURLY component_list connection_list CLOSE_CURLY
+								;
+
+component_list					::=
+								component_list components
+								|
+								components
+								/*|
+								/* epsilon */	/*
+								;
+
+components						::=
+								COMPONENTS component_line SEMI_COLON
+								;
+
+component_line					::=
+								renamed_identifier
+								|
+								component_line COMMA renamed_identifier
+								;
+
+renamed_identifier				::=
+								IDENTIFIER
+								|
+								IDENTIFIER AS IDENTIFIER
+								;
+
+connection_list					::=
+								connection
+								|
+								connection_list	connection
+								;
+
+connection						::=
+								endpoint EQUALS endpoint
+								|
+								endpoint WIRES_TO endpoint
+								|
+								endpoint WIRES_FROM endpoint
+								;
+
+endpoint						::=
+								identifier_path
+								|
+								identifier_path OPEN_BRACE argument_expression_list CLOSE_BRACE
+								;
+
+identifier_path					::=
+								IDENTIFIER
+								|
+								identifier_path DOT IDENTIFIER
+								;
+
+specification					::=
+								OPEN_CURLY uses_provides_list CLOSE_CURLY
+								;
+
+uses_provides_list				::=
+								uses_provides
+								|
+								uses_provides_list uses_provides
+								;
+
+uses_provides					::=
+								USES specification_element_list
+								|
+								PROVIDES specification_element_list
+								;
+
+specification_element_list		::=
+								specification_element
+								|
+								OPEN_CURLY specification_elements CLOSE_CURLY
+								;
+
+specification_elements			::=
+								specification_elements specifiaction_element
+								|
+								specification_element
+								;	
+
+specification_element			::=
+								declaration
+								|
+								INTERFACE renamed_identifier parameters
+								;
+
+parameters						::=
+								OPEN_BRACE parameter_type_list OPEN_BRACE
+								|
+								/* epsilon *//*
+								;
+
+/*test c*//*
+identifier_list ::= identifier_list  IDENTIFIER COMMA | DOT;
+declaration_list ::= declaration_list  IDENTIFIER COMMA | DOT;
+translation_unit ::= translation_unit  IDENTIFIER COMMA | DOT;
+argument_expression_list ::= argument_expression_list  IDENTIFIER COMMA | DOT;
+uses_provides ::= uses_provides  IDENTIFIER COMMA | DOT;
+specifiaction_element ::= specifiaction_element  IDENTIFIER COMMA | DOT;
+declaration ::= declaration  IDENTIFIER COMMA | DOT;
+parameter_type_list ::= parameter_type_list  IDENTIFIER COMMA | DOT;*/
+/* changed rules C Gramatic for NesC */
+						
+/*
+
+module_list                                   ::= module_list module_statement_list 
+                                                | module_statement_list
+                                                ;
+
+module_statement_list                         ::= PROVIDES OPEN_CURLY module_statement CLOSE_CURLY 
+                                                | USES OPEN_CURLY module_statement CLOSE_CURLY ;
+
+module_statement                              ::= module_statement INTERFACE IDENTIFIER SEMI_COLON
+                                                | /*epsilon*//*
+                                                ;
+
+implementation_content                        ::= components_list  statement_implementation_list 
+                                                | statement_advanced_implementation_list 
+                                                | /*epsilon*//*
+                                                ;
+
+components_list                               ::= COMPONENTS component_list SEMI_COLON | /*epsilon*//*;
+
+component_list                                ::= component_list COMMA IDENTIFIER | IDENTIFIER;
+
+statement_list                                ::= statement_list statement | statement;
+
+statement_advanced_implementation_list        ::= statement_advanced_implementation_list statement_advanced_implementation 
+                                                | statement_advanced_implementation;
+
+statement_advanced_implementation             ::= COMMAND RESULT_T IDENTIFIER DOT IDENTIFIER OPEN_PAREN identifier_value_list CLOSE_PAREN OPEN_CURLY statement_advanced_implementation_items CLOSE_CURLY 
+                                                | EVENT RESULT_T IDENTIFIER DOT IDENTIFIER OPEN_PAREN identifier_value_list CLOSE_PAREN OPEN_CURLY statement_advanced_implementation_items CLOSE_CURLY
+                                                ; 
+
+statement_advanced_implementation_items       ::= statement_advanced_implementation_items statement_advanced_implementation_return_item
+                                                | statement_advanced_implementation_item 
+						|/*epsilon*//*
+						;
+
+statement_advanced_implementation_return_item ::= RETURN statement_advanced_implementation_item;
+
+statement_advanced_implementation_item        ::= CALL IDENTIFIER DOT IDENTIFIER OPEN_PAREN identifier_value_list CLOSE_PAREN SEMI_COLON 
+                                                | IDENTIFIER SEMI_COLON;
+
+identifier_value_list                         ::= identifier_value_list COMMA IDENTIFIER 
+                                                | identifier_value_list COMMA values_set 
+                                                | values_set 
+                                                | IDENTIFIER 
+                                                | /*epsilon*//*
+                                                ;
+
+values_set                                    ::= INTEGER | FLOAT | CHARACTER | STRING;
+statement                                     ::=  
+                                                  COMMAND RESULT_T IDENTIFIER OPEN_PAREN type_list CLOSE_PAREN SEMI_COLON
+					          {:
+							System.out.println("statement");
+    						  :}
+   						| EVENT RESULT_T IDENTIFIER OPEN_PAREN type_list CLOSE_PAREN SEMI_COLON
+						{:
+							System.out.println("statement");
+					        :}
+					        ;
+
+type_list                                     ::= type_list COMMA types_set IDENTIFIER | types_set IDENTIFIER | /*epsilon*/ /*;
+
+types_set                                     ::= CHAR | UINT8_T | UINT16_T | UINT32_T | INT8_T | INT16_T | INT32_T |EXPLICIT | EXPORT 
+						|INLINE | ERROR_T | RESULT_T | PACKET_T | MESSAGE_T | STRUCT | ENUM | BOOL | INT;
+
+statement_implementation_list                 ::= statement_implementation_list statement_implementation | statement_implementation;
+
+statement_implementation                      ::=
+						identifier_pro WIRES_TO identifier_pro SEMI_COLON
+						{:
+						System.out.println("statement");
+						:}
+						;
+
+identifier_pro                                ::= identifier_pro DOT IDENTIFIER | IDENTIFIER  ;
+    
+*/
+/* vim: :set ft=java: */

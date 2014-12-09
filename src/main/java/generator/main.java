@@ -70,10 +70,10 @@ public class main {
                     } else {
                         System.out.println("\n*** Procesando archivo default ***\n");
                         archLexico = pathGenerator + "lexer.flex";
-                        archSintactico = pathGenerator + "parser.cup";
+                        archSintactico = pathGenerator + "parser_nesc_1.3.cup";
                     }
                     String[] alexico = {archLexico};
-                    String[] asintactico = {"-parser", "Parser", archSintactico};
+                    String[] asintactico = {"-parser", "Parser", "-expect", "500", archSintactico};
                     jflex.Main.main(alexico);
                     try {
                         java_cup.Main.main(asintactico);
