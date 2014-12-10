@@ -46,7 +46,7 @@ public class ReadXML {
     public  ReadXML() throws FileNotFoundException, ParserConfigurationException, SAXException, IOException{
         HashMap<String, Triplet> localAttributes = new HashMap<>();
         try {
-        File file = new File("/home/orlando/NetBeansProjects/nesc.xml");
+        File file = new File(ReadXML.class.getResource("/configurations/nesc.xml").getPath());
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
         Document doc = db.parse(file);

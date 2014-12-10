@@ -562,7 +562,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         //JEditorPane ep = new JEditorPane();
         //JTextArea ep = new JTextArea();
         JTextPane ep = new JTextPane(); 
-                doc.lexer(new File("/home/orlando/NetBeansProjects/test.txt"),ep,some.jtpConsole);
+                doc.lexer(new File(TabPanel.class.getResource("/empty_templates/empty.nc").getFile()),ep,some.jtpConsole);
         TextLineNumber tln = new TextLineNumber(ep);
 
         ImageIcon icon;
