@@ -8,7 +8,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -38,7 +37,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
-
 /**
  * Class of the main interface.
  */
@@ -54,16 +52,17 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
     /**
      * Creates new form TabPanel
      */
-    public TabPanel(){
+    public TabPanel() {
         initComponents();
     }
 
     /**
      * Function that return a personalized button
-     * @param iconPath 
+     *
+     * @param iconPath
      * @param toolTip
      * @return button
-     * @throws IOException 
+     * @throws IOException
      */
     public static JButton ButtonPro(String iconPath, String toolTip) throws IOException {
         ImageIcon icon = createImageIcon(iconPath);
@@ -134,6 +133,8 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         btnAvroraz = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
         btnMakeAll = new javax.swing.JButton();
+        jSeparator5 = new javax.swing.JToolBar.Separator();
+        btCheck = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtpConsole = new javax.swing.JTextPane();
         menu = new javax.swing.JMenuBar();
@@ -282,6 +283,19 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
             }
         });
         jToolBar1.add(btnMakeAll);
+        jToolBar1.add(jSeparator5);
+
+        btCheck.setFocusable(false);
+        btCheck.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btCheck.setLabel("Check");
+        btCheck.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCheckActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btCheck);
+        btCheck.getAccessibleContext().setAccessibleName("btCheck");
 
         jScrollPane1.setViewportView(jtpConsole);
 
@@ -320,7 +334,6 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         file.add(saveAll);
 
         open.setText("Open");
-        open.setBorderPainted(true);
         open.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 openActionPerformed(evt);
@@ -379,18 +392,19 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         // TODO add your handling code here:
-        saveFile(false,some.tabs.getSelectedIndex());
+        saveFile(false, some.tabs.getSelectedIndex());
     }//GEN-LAST:event_saveActionPerformed
 
     private void openActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openActionPerformed
         // TODO add your handling code here:
         openFile();
     }//GEN-LAST:event_openActionPerformed
-   
+
     /**
      * Function that save changes in a file with the option as new file.
+     *
      * @param as
-     * @param selectedIndex 
+     * @param selectedIndex
      */
     private void saveFile(boolean as, int selectedIndex) {
         // Create a file chooser
@@ -466,23 +480,25 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         }
     }//GEN-LAST:event_NewActionPerformed
     /**
-     * Function that correspond to the new file in the menu.
-     * This function add a new tab in the JTabPane
-     * @param evt 
+     * Function that correspond to the new file in the menu. This function add a
+     * new tab in the JTabPane
+     *
+     * @param evt
      */
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-        saveFile(false,some.tabs.getSelectedIndex());
+        saveFile(false, some.tabs.getSelectedIndex());
     }//GEN-LAST:event_btnSaveActionPerformed
-    
+
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
         // TODO add your handling code here:
         openFile();
     }//GEN-LAST:event_btnOpenActionPerformed
-     /**
-     * Function that correspond to de new button.
-     * This function add a new tab in the JTabPane
-     * @param evt 
+    /**
+     * Function that correspond to de new button. This function add a new tab in
+     * the JTabPane
+     *
+     * @param evt
      */
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         // TODO add your handling code here:
@@ -497,36 +513,58 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
 
     private void saveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAsActionPerformed
         // TODO add your handling code here:
-        saveFile(true,some.tabs.getSelectedIndex());
+        saveFile(true, some.tabs.getSelectedIndex());
     }//GEN-LAST:event_saveAsActionPerformed
 
     private void saveAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAllActionPerformed
         // TODO add your handling code here:
 
-        for (int i = 0; i < some.tabs.getTabCount()-1; i++) {
+        for (int i = 0; i < some.tabs.getTabCount() - 1; i++) {
             some.tabs.setSelectedIndex(i);
-            saveFile(false,i);
+            saveFile(false, i);
         }
     }//GEN-LAST:event_saveAllActionPerformed
 
     private void btnSaveAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveAllActionPerformed
         // TODO add your handling code here:
-        for (int i = 0; i < some.tabs.getTabCount()-1; i++) {
+        for (int i = 0; i < some.tabs.getTabCount() - 1; i++) {
             some.tabs.setSelectedIndex(i);
-            saveFile(false,i);
+            saveFile(false, i);
         }
     }//GEN-LAST:event_btnSaveAllActionPerformed
 
     private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompileActionPerformed
+        File file = new File("/home/hector/TinyOSCodeSample/SimpleAppC.nc");
+        compile(file.getParentFile().getAbsolutePath());
+    }//GEN-LAST:event_btnCompileActionPerformed
+
+    private void btnConvertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConvertActionPerformed
+        File file = new File("/home/hector/TinyOSCodeSample/SimpleAppC.nc");
+        convert(file.getParentFile().getAbsolutePath());
+    }//GEN-LAST:event_btnConvertActionPerformed
+
+    private void btnAvrorazActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvrorazActionPerformed
+        // TODO add your handling code here:
+        btnAvroraz();
+    }//GEN-LAST:event_btnAvrorazActionPerformed
+
+    private void btnMakeAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMakeAllActionPerformed
+        File file = new File("/home/hector/TinyOSCodeSample/SimpleAppC.nc");
+        String workingDir = file.getParentFile().getAbsolutePath();
+        compile(workingDir);
+        convert(workingDir);
+    }//GEN-LAST:event_btnMakeAllActionPerformed
+
+    private void btCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCheckActionPerformed
         // TODO add your handling code here:
         JPanel pnlTab = (JPanel) some.tabs.getTabComponentAt(some.tabs.getSelectedIndex());
         String s1 = ((JButton) pnlTab.getComponent(2)).getActionCommand();
         try {
-            saveFile(false,some.tabs.getSelectedIndex());
-            JTextPane textp = (JTextPane)((Triplet)hmAreas.get(Integer.parseInt(s1))).get3();
-      
-                textp = doc.lexer(new File((String)((Triplet)hmAreas.get(Integer.parseInt(s1))).get1()),(JTextPane)((Triplet)hmAreas.get(Integer.parseInt(s1))).get3(),some.jtpConsole);
-     
+            saveFile(false, some.tabs.getSelectedIndex());
+            JTextPane textp = (JTextPane) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get3();
+
+            textp = doc.lexer(new File((String) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get1()), (JTextPane) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get3(), some.jtpConsole);
+
             some.pack();
             some.revalidate();
             some.repaint();
@@ -536,33 +574,53 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         } catch (Exception ex) {
             Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnCompileActionPerformed
+    }//GEN-LAST:event_btCheckActionPerformed
 
-    private void btnConvertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConvertActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnConvertActionPerformed
+    private void compile(String workingDir) {
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            String command = String.format("make -C %s micaz", workingDir);
+            Process process = runtime.exec(command);
+            process.waitFor();
+        } catch (IOException | InterruptedException ex) {
+            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
-    private void btnAvrorazActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvrorazActionPerformed
-        // TODO add your handling code here:
-        btnAvroraz();
-    }//GEN-LAST:event_btnAvrorazActionPerformed
+    private void convert(String workingDir) {
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            String createDir = String.format("mkdir %s/build/objdump", workingDir);
+            Process createDirProcess = runtime.exec(createDir);
+            createDirProcess.waitFor();
+            Thread.sleep(200);
+        } catch (IOException | InterruptedException ex) {
+            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            //Java Process doesn't support the ">" redirect as bash shell does. So, ProcessBuilder is needed
+            ProcessBuilder pb = new ProcessBuilder("avr-objdump", "-D", workingDir + "/build/micaz/main.exe");
+            pb.redirectOutput(new File(workingDir + "/build/objdump/main.od"));
+            Process commandProcess = pb.start();
+            commandProcess.waitFor();
+        } catch (IOException | InterruptedException ex) {
+            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
-    private void btnMakeAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMakeAllActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnMakeAllActionPerformed
-    
     /**
      * Function that add a tab in the main JTabPane.
+     *
      * @param tp
      * @param file
      * @throws IOException
-     * @throws Exception 
+     * @throws Exception
      */
     static void addTab(final JTabbedPane tp, File file) throws IOException, Exception {
         //JEditorPane ep = new JEditorPane();
         //JTextArea ep = new JTextArea();
-        JTextPane ep = new JTextPane(); 
-                doc.lexer(new File(TabPanel.class.getResource("/empty_templates/empty.nc").getFile()),ep,some.jtpConsole);
+        JTextPane ep = new JTextPane();
+        doc.lexer(new File(TabPanel.class.getResource("/empty_templates/empty.nc").getFile()), ep, some.jtpConsole);
         TextLineNumber tln = new TextLineNumber(ep);
 
         ImageIcon icon;
@@ -678,12 +736,13 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         }
     }
 
-     /**
+    /**
      * Function that personalize a existing button in the gui.
+     *
      * @param button
      * @param label
      * @param pathIcon
-     * @param toolTip 
+     * @param toolTip
      */
     static void EditButtonPro(final JButton b, String label, String pathIcon, String toolTip) {
         ImageIcon icon = null;
@@ -714,9 +773,11 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
             }
         });
     }
+
     /**
      * Function that personalize all buttons in the Gui
-     * @throws IOException 
+     *
+     * @throws IOException
      */
     static void makeButtons() throws IOException {
         JButton btn;
@@ -726,13 +787,12 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         EditButtonPro(some.btnOpen, null, "/images/Folder_32x32.png", "Open file");
         EditButtonPro(some.btnSave, null, "/images/Save_32x32.png", "Save file");
         EditButtonPro(some.btnSaveAll, null, "/images/SaveAll_32x32.png", "Save all files");
-        
+
         EditButtonPro(some.btnCompile, null, "/images/Application_32x32.png", "Compile");
         EditButtonPro(some.btnConvert, null, "/images/Properties_32x32.png", "Convert");
         EditButtonPro(some.btnAvroraz, null, "/images/Avroraz_32x32.png", "Send to AvroraZ");
         EditButtonPro(some.btnMakeAll, null, "/images/Play_32x32.png", "Compile, convert and sent it to AvroraZ");
 
-        
         some.jToolBar1.add(Box.createHorizontalGlue());
         btn = ButtonPro("/images/Settings_32x32.png", "Options");
         some.jToolBar1.add(btn);
@@ -740,20 +800,20 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         btn = ButtonPro("/images/Help_32x32.png", "Help");
         some.jToolBar1.add(btn);
     }
+
     private static void btnAvroraz() {
-        
+
         //window.setModalExclusionType(Dialog.ModalExclusionType.NO_EXCLUDE);
-   
-        commandsAvroraZ jd = new commandsAvroraZ(some,true);
+        commandsAvroraZ jd = new commandsAvroraZ(some, true);
         //Opening in the center of the screen
-        Toolkit toolkit = Toolkit.getDefaultToolkit();  
-        Dimension screenSize = toolkit.getScreenSize(); 
-        int x = (screenSize.width - jd.getWidth()) / 2;  
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension screenSize = toolkit.getScreenSize();
+        int x = (screenSize.width - jd.getWidth()) / 2;
         int y = (screenSize.height - jd.getHeight()) / 2;
-        jd.setLocation(x, y); 
+        jd.setLocation(x, y);
         jd.setVisible(true);
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -763,8 +823,8 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
             /* Set the Nimbus look and feel */
             //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
             /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-            * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-            */
+             * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+             */
             try {
                 for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                     if ("Nimbus".equals(info.getName())) {
@@ -782,13 +842,13 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                 java.util.logging.Logger.getLogger(TabPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
             //</editor-fold>
-            
+
             /* Create and display the form */
             /*java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-            new TabPanel().setVisible(true);
-            }
-            });*/
+             public void run() {
+             new TabPanel().setVisible(true);
+             }
+             });*/
             doc = new DocumentNC();
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
@@ -804,7 +864,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                     some.tabs.addTab(null, new JScrollPane(ep));
                     // some.jTabbedPane1.addTab (null, null);
                     FlowLayout f = new FlowLayout(FlowLayout.CENTER, 5, 0);
-                    
+
                     // Make a small JPanel with the layout and make it non-opaque
                     final JPanel pnlTab = new JPanel(f);
                     pnlTab.setOpaque(false);
@@ -816,9 +876,9 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                     addTab.setFocusPainted(false);
                     addTab.setFocusable(false);
                     pnlTab.add(addTab);
-                    
+
                     some.tabs.setTabComponentAt(some.tabs.getTabCount() - 1, pnlTab);
-                    
+
                     ActionListener listener = new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -828,7 +888,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                                 some.tabs.addTab(null, new JScrollPane(ep));
                                 tabCounter++;
                                 some.tabs.setTabComponentAt(some.tabs.getTabCount() - 1, pnlTab);
-                                
+
                             } catch (IOException ex) {
                                 Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
                             } catch (Exception ex) {
@@ -842,21 +902,22 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                     some.setTitle("IDE-NesC 1.0");
                     some.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
                     some.setVisible(true);
-                    
+
                     UIManager.LookAndFeelInfo piel[] = UIManager.getInstalledLookAndFeels();
                     for (UIManager.LookAndFeelInfo piel1 : piel) {
                         System.out.println("Nombre Skin = " + piel1.getClassName());
                         //some.setVisible(true);
                     }
-                };/*
-                addTab.setFocusable(false);
-                addTab.addActionListener(listener);
-                some.tabs.setVisible(true);
-                some.setTitle("IDE-NesC 1.0");
-                some.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
-                some.setVisible(true);*/
+                }
+            ;/*
+             addTab.setFocusable(false);
+             addTab.addActionListener(listener);
+             some.tabs.setVisible(true);
+             some.setTitle("IDE-NesC 1.0");
+             some.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+             some.setVisible(true);*/
 
-            });
+        } );
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SAXException ex) {
@@ -869,6 +930,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem New;
+    private javax.swing.JButton btCheck;
     private javax.swing.JButton btnAvroraz;
     private javax.swing.JButton btnCompile;
     private javax.swing.JButton btnConvert;
@@ -894,6 +956,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
+    private javax.swing.JToolBar.Separator jSeparator5;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTextPane jtpConsole;
     private java.awt.Label label1;
