@@ -2,8 +2,8 @@
 /* ---------------Seccion de declaraciones preliminares--------------------*/
 package code; 
 
-/* Import the class java_cup.runtime.*  */
-import code.ast.*;
+import java_cup.runtime.*;
+
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,19 +13,12 @@ import java.util.logging.Logger;
 parser code {:
 
 
-    private Component component;
     private ParserError error = new ParserError();
 
     public ParserError getError(){
         return error;
     }
-    public void setComponent(Component component) {
-        this.component = component;
-    }
-    
-    public Component getComponent() {
-        return component;
-    }
+
      /* Change the method report_error so it will display the line
      * and column of where the error occurred in the input as well
      * as the reason for the error which is passed into the method
@@ -34,7 +27,7 @@ parser code {:
 
         /* Create a StringBuffer called 'm' with the string 'Error' in it. */
         StringBuffer m = new StringBuffer("Error");
-	int unexpectedToken = 0;
+		int unexpectedToken = 0;
         String value = "";
         /* Check if the information passed to the method is the same type
          * as the type java_cup.runtime.Symbol.  */ 
@@ -49,12 +42,12 @@ parser code {:
              * equal to zero.  */
             if (s.left >= 0) {
 
-		unexpectedToken = s.sym;
+				unexpectedToken = s.sym;
                 value = (String)s.value;
                 /* Add to the end of the StringBuffer error message the
                  * line number of the error in the input. */
                 m.append(" in line " + (s.left + 1));
-		error.setLine(s.left + 1);
+				error.setLine(s.left + 1);
 
                 /* Check if the column number in the input is greater
                  * or equal to zero */
@@ -67,16 +60,16 @@ parser code {:
                 }
             }
         }
-	HashMap<Integer, String> tokens=null;
-      try {
-          tokens = new Lexer().getTokens();
-      } catch (IllegalArgumentException ex) {
+		HashMap<Integer, String> tokens=null;
+   	    try {
+      	    tokens = new Lexer().getTokens();
+    	} catch (IllegalArgumentException ex) {
           Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-      } catch (IllegalAccessException ex) {
+     	} catch (IllegalAccessException ex) {
           Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-      }
-      String messageToken = (value!=null) ? tokens.get(unexpectedToken) +" <" +value +">"  : tokens.get(unexpectedToken)  ; 
-	error.setMessage(message + " Unspected Token: "  + messageToken);
+      	}
+      	String messageToken = (value!=null) ? tokens.get(unexpectedToken) +" <" +value +">"  : tokens.get(unexpectedToken)  ; 
+		error.setMessage(message + " Unspected Token: "  + messageToken);
         /* Add to the end of the StringBuffer error message created in this
            method the message that was passed into this method. */
         m.append(" : " + message);
@@ -85,13 +78,14 @@ parser code {:
          * error message out on a line. */
         //System.err.println(m);
     }
- public void report_fatal_error(String message, Object info) {
+
+ 	public void report_fatal_error(String message, Object info) {
         report_error(message, info);
         throw new Error("Parser Error");
-}
+	}
 :};
    
-/* ------------Declaration of Terminals and Non Terminals Section----------- */
+/* ------------Declaration of Terminals and non terminal Objects Section----------- */
 
 /* Terminals (tokens returned by the scanner).
  *
@@ -100,9 +94,9 @@ parser code {:
  * next line down.
  */ 
 //LENGUAJE C
-terminal IDENTIFIER;
-terminal CONSTANT;
-terminal STRING_LITERAL;
+terminal Object IDENTIFIER;
+terminal Object CONSTANT;
+terminal Object STRING_LITERAL;
 //terminal PTR_OP; 
 terminal INC_OP;
 terminal DEC_OP;
@@ -216,9 +210,9 @@ terminal WIRES_FROM;
 terminal AT;
 terminal ATTRIBUTE;
 
-terminal FALSE;
+terminal Object FALSE;
 terminal THIS;
-terminal TRUE;
+terminal Object TRUE;
 terminal USING;
 terminal NAMESPACE;
 terminal TYPENAME;
@@ -248,127 +242,127 @@ terminal ABSTRACT EXTENDS;
 
 
 
-/* Non Terminals used in the Grammar Section.
+/* non terminal Objects used in the Grammar Section.
  *
- * Non Terminals that have an object value are listed first and then Non
+ * non terminal Objects that have an object value are listed first and then Non
  * Terminals that have an integer value are listed.  An object value means
  * that it can be any type, it isn't set to a specific type.  So it could
  * be an integer or a String or whatever.
  */
 
 
-/*non terminal for c*/
-non terminal primary_expression;
-non terminal postfix_expression;
-non terminal argument_expression_list;
-non terminal unary_expression;
-non terminal unary_operator;
-non terminal cast_expression;
-non terminal multiplicative_expression;
-non terminal additive_expression;
-non terminal shift_expression;
-non terminal relational_expression;
-non terminal equality_expression;
-non terminal and_expression;
-non terminal exclusive_or_expression;
-non terminal inclusive_or_expression;
-non terminal logical_and_expression;
-non terminal logical_or_expression;
-non terminal conditional_expression;
-non terminal assignment_expression;
-non terminal assignment_operator;
-non terminal expression;
-non terminal constant_expression;
-non terminal declaration;
-non terminal declaration_specifiers;
-non terminal init_declarator_list;
-non terminal init_declarator;
-non terminal storage_class_specifier;
-non terminal type_specifier;
-non terminal struct_or_union_specifier;
-non terminal struct_or_union;
-non terminal struct_declaration_list;
-non terminal struct_declaration;
-non terminal specifier_qualifier_list;
-non terminal struct_declarator_list;
-non terminal struct_declarator;
-non terminal enum_specifier;
-non terminal enumerator_list;
-non terminal enumerator;
-non terminal type_qualifier;
-non terminal declarator;
-non terminal direct_declarator;
-non terminal pointer;
-non terminal type_qualifier_list;
-non terminal parameter_type_list;
-non terminal parameter_list;
-non terminal parameter_declaration;
-non terminal identifier_list;
-non terminal type_name;
-non terminal abstract_declarator;
-non terminal direct_abstract_declarator;
-non terminal initializer;
-non terminal initializer_list;
-non terminal statement;
-non terminal labeled_statement;
-non terminal compound_statement;
-non terminal declaration_list;
-non terminal statement_list;
-non terminal expression_statement;
-non terminal selection_statement;
-non terminal iteration_statement;
-non terminal jump_statement;
-non terminal translation_unit;
-non terminal external_declaration;
-non terminal function_definition;
+/*non terminal Object for c*/
+non terminal Object primary_expression;
+non terminal Object postfix_expression;
+non terminal Object argument_expression_list;
+non terminal Object unary_expression;
+non terminal Object unary_operator;
+non terminal Object cast_expression;
+non terminal Object multiplicative_expression;
+non terminal Object additive_expression;
+non terminal Object shift_expression;
+non terminal Object relational_expression;
+non terminal Object equality_expression;
+non terminal Object and_expression;
+non terminal Object exclusive_or_expression;
+non terminal Object inclusive_or_expression;
+non terminal Object logical_and_expression;
+non terminal Object logical_or_expression;
+non terminal Object conditional_expression;
+non terminal Object assignment_expression;
+non terminal Object assignment_operator;
+non terminal Object expression;
+non terminal Object constant_expression;
+non terminal Object declaration;
+non terminal Object declaration_specifiers;
+non terminal Object init_declarator_list;
+non terminal Object init_declarator;
+non terminal Object storage_class_specifier;
+non terminal Object type_specifier;
+non terminal Object struct_or_union_specifier;
+non terminal Object struct_or_union;
+non terminal Object struct_declaration_list;
+non terminal Object struct_declaration;
+non terminal Object specifier_qualifier_list;
+non terminal Object struct_declarator_list;
+non terminal Object struct_declarator;
+non terminal Object enum_specifier;
+non terminal Object enumerator_list;
+non terminal Object enumerator;
+non terminal Object type_qualifier;
+non terminal Object declarator;
+non terminal Object direct_declarator;
+non terminal Object pointer;
+non terminal Object type_qualifier_list;
+non terminal Object parameter_type_list;
+non terminal Object parameter_list;
+non terminal Object parameter_declaration;
+non terminal Object identifier_list;
+non terminal Object type_name;
+non terminal Object abstract_declarator;
+non terminal Object direct_abstract_declarator;
+non terminal Object initializer;
+non terminal Object initializer_list;
+non terminal Object statement;
+non terminal Object labeled_statement;
+non terminal Object compound_statement;
+non terminal Object declaration_list;
+non terminal Object statement_list;
+non terminal Object expression_statement;
+non terminal Object selection_statement;
+non terminal Object iteration_statement;
+non terminal Object jump_statement;
+non terminal Object translation_unit;
+non terminal Object external_declaration;
+non terminal Object function_definition;
 
 
-/*non terminal for nesC*/
-non terminal nesC_file;
-non terminal interface_definition;
-non terminal type_parameters;
-non terminal type_parameter_list;
-non terminal component;
-non terminal comp_kind;
-non terminal implementation;
-non terminal comp_parameters;
-non terminal component_parameter_list;
-non terminal component_parameter;
-non terminal module_implementation;
-non terminal configuration_implementation;
-non terminal configuration_element_list;
-non terminal configuration_element;
-non terminal components;
-non terminal component_line;
-non terminal instance_name;
-non terminal component_ref;
-non terminal component_argument_list;
-non terminal component_argument;
-non terminal connection;
-non terminal endpoint;
-non terminal identifier_path;
-non terminal component_specification;
-non terminal uses_provides_list;
-non terminal uses_provides;
-non terminal specification_element_list;
-non terminal specification_elements;
-non terminal specification_element;
-non terminal interface_type;
-non terminal type_arguments;
-non terminal type_arguments_list;
-non terminal instance_parameters;
-non terminal attributes;
-non terminal attribute;
+/*non terminal Object for nesC*/
+non terminal Object nesC_file;
+non terminal Object interface_definition;
+non terminal Object type_parameters;
+non terminal Object type_parameter_list;
+non terminal Object component;
+non terminal Object comp_kind;
+non terminal Object implementation;
+non terminal Object comp_parameters;
+non terminal Object component_parameter_list;
+non terminal Object component_parameter;
+non terminal Object module_implementation;
+non terminal Object configuration_implementation;
+non terminal Object configuration_element_list;
+non terminal Object configuration_element;
+non terminal Object components;
+non terminal Object component_line;
+non terminal Object instance_name;
+non terminal Object component_ref;
+non terminal Object component_argument_list;
+non terminal Object component_argument;
+non terminal Object connection;
+non terminal Object endpoint;
+non terminal Object identifier_path;
+non terminal Object component_specification;
+non terminal Object uses_provides_list;
+non terminal Object uses_provides;
+non terminal Object specification_element_list;
+non terminal Object specification_elements;
+non terminal Object specification_element;
+non terminal Object interface_type;
+non terminal Object type_arguments;
+non terminal Object type_arguments_list;
+non terminal Object instance_parameters;
+non terminal Object attributes;
+non terminal Object attribute;
 
-non terminal call_kind;
-non terminal atomic_statement;
+non terminal Object call_kind;
+non terminal Object atomic_statement;
 
-non terminal primary;
-non terminal constant;
+non terminal Object primary;
+non terminal Object constant;
 
 /* -------------Precedence and Associatively of Terminals Section----------- */
 
-/* Precedence of Non Terminals could be defined here.  If you do define
+/* Precedence of non terminal Objects could be defined here.  If you do define
  * precedence here you won't need to worry about precedence in the Grammar
  * Section.  i.e. that TIMES should have a higher precedence than PLUS.
  *
@@ -420,23 +414,29 @@ precedence left VOID,CHAR,SHORT,INT,LONG,FLOAT,DOUBLE,SIGNED,UNSIGNED;
 start with nesC_file;
 
 nesC_file    	        	   	::= 
-								component
+								component:c
+								{: System.err.println((String)c); :}
 								|
                     		    interface_definition
 								|
 								translation_unit interface_definition
                     		    |
-                    		    translation_unit component
+                    		    translation_unit component:c
+                    		    {: System.err.println((String)c); :}
 								;
 
 interface_definition			::=
-								INTERFACE IDENTIFIER type_parameters attributes OPEN_CURLY declaration_list CLOSE_CURLY
+								INTERFACE IDENTIFIER:i type_parameters attributes OPEN_CURLY declaration_list CLOSE_CURLY
+								{: System.err.println(sym.INTERFACE + " - - - " + i); :}
 								|
-								INTERFACE IDENTIFIER attributes OPEN_CURLY declaration_list CLOSE_CURLY
+								INTERFACE IDENTIFIER:i attributes OPEN_CURLY declaration_list CLOSE_CURLY
+								{: System.err.println(sym.INTERFACE + " - - - " + i); :}
 								|
-								INTERFACE IDENTIFIER type_parameters OPEN_CURLY declaration_list CLOSE_CURLY
+								INTERFACE IDENTIFIER:i type_parameters OPEN_CURLY declaration_list CLOSE_CURLY
+								{: System.err.println(sym.INTERFACE + " - - - " + i); :}
 								|
-								INTERFACE IDENTIFIER OPEN_CURLY declaration_list CLOSE_CURLY
+								INTERFACE IDENTIFIER:i OPEN_CURLY declaration_list CLOSE_CURLY
+								{: System.err.println(sym.INTERFACE + " - - - " + i); :}
 								;
 
 
@@ -445,57 +445,64 @@ type_parameters					::=
 								;
 
 type_parameter_list				::=
-								IDENTIFIER attributes
+								IDENTIFIER:i attributes
 								| 
-								IDENTIFIER
+								IDENTIFIER:i
 								|
-								type_parameter_list COMMA IDENTIFIER attributes
+								type_parameter_list COMMA IDENTIFIER:i attributes
 								|
-								type_parameter_list COMMA IDENTIFIER
+								type_parameter_list COMMA IDENTIFIER:i
 								;
 
 component 						::=
-								comp_kind IDENTIFIER comp_parameters attributes component_specification implementation
-								{: System.out.println("component: 11111111111111111111111111111111"); :}
+								comp_kind IDENTIFIER:i comp_parameters attributes component_specification implementation:im
+								{: RESULT = (Object)((String)i + " --- " +(String)im); :}
 								|
-								comp_kind IDENTIFIER attributes component_specification implementation
-								{: System.out.println("component: 2222222222222222222222222222222222222"); :}
+								comp_kind IDENTIFIER:i attributes component_specification implementation:im
+								{: RESULT = (Object)((String)i + " --- " +(String)im); :}
 								|
-								comp_kind IDENTIFIER comp_parameters component_specification implementation
-								{: System.out.println("component: 3333333333333333333333333333333"); :}
+								comp_kind IDENTIFIER:i comp_parameters component_specification implementation:im
+								{: RESULT = (Object)((String)i + " --- " +(String)im); :}
 								|
-								comp_kind IDENTIFIER comp_parameters attributes component_specification
-								{: System.out.println("component: 44444444444444444444444444444444444444444444444"); :}
+								comp_kind IDENTIFIER:i comp_parameters attributes component_specification
+								{: System.err.println("" + i); :}
 								|
-								comp_kind IDENTIFIER comp_parameters component_specification
-								{: System.out.println("component: 555555555555555555555555555555555555555"); :}
+								comp_kind IDENTIFIER:i comp_parameters component_specification
+								{: System.err.println("" + i); :}
 								|
-								comp_kind IDENTIFIER attributes component_specification
-								{: System.out.println("component: 666666666666666666666666666666666666"); :}
+								comp_kind IDENTIFIER:i attributes component_specification
+								{: System.err.println("" + i); :}
 								|
-								comp_kind IDENTIFIER component_specification implementation
-								{: System.out.println("component: 7777777777777777777777777777777777"); :}
+								comp_kind IDENTIFIER:i component_specification implementation:im
+								{: RESULT = (Object)((String)i + " --- " +(String)im); :}
 								|
-								comp_kind IDENTIFIER component_specification
-								{: System.out.println("component: 888888888888888888888888888888888"); :}
+								comp_kind IDENTIFIER:i component_specification
+								{: System.err.println("" + i  ); :}
 								;
 
 comp_kind						::=
 								MODULE
+								{: System.err.println("MOD " + sym.MODULE); :}
 								|
 								COMPONENT
+								{: System.err.println("COMP " + sym.MODULE);  :}
 								|
 								CONFIGURATION
+								{: System.err.println("CONF " + sym.MODULE);  :}
 								|
 								GENERIC MODULE
+								{: System.err.println("GM " + sym.MODULE);  :}
 								|
 								GENERIC CONFIGURATION
+								{: System.err.println("GC " + sym.MODULE);  :}
 								;
 
 implementation 					::=
-								module_implementation
+								module_implementation:m
+								{: RESULT = m; :}
 								|
-								configuration_implementation
+								configuration_implementation:c
+								{: RESULT = c; :}
 								;
 
 comp_parameters	 				::=
@@ -511,9 +518,9 @@ component_parameter_list		::=
 component_parameter 			::=
 								parameter_declaration
 								|
-								TYPEDEF IDENTIFIER attributes
+								TYPEDEF IDENTIFIER:i attributes
 								|
-								TYPEDEF IDENTIFIER
+								TYPEDEF IDENTIFIER:i
 								;
 
 module_implementation			::=
@@ -521,23 +528,28 @@ module_implementation			::=
 								;
 
 configuration_implementation	::=
-								IMPLEMENTATION OPEN_CURLY configuration_element_list CLOSE_CURLY
+								IMPLEMENTATION OPEN_CURLY configuration_element_list:c CLOSE_CURLY
+								{: RESULT = c; :}
 								|
 								IMPLEMENTATION OPEN_CURLY CLOSE_CURLY
 								;
 
 configuration_element_list		::=
-								configuration_element
+								configuration_element:e
+								{: RESULT = e; :}
 								|
-								configuration_element_list configuration_element
+								configuration_element_list:l configuration_element:c
+								{: RESULT = (Object)((String)l + " --- " + (String)c); :}
 								;
 
 configuration_element 			::=
 								components
 								|
-								connection
+								connection:c
+								{: RESULT = c; :}
 								|
-								declaration
+								declaration:d
+								{: RESULT = d; :}
 								;
 
 components 						::=
@@ -555,13 +567,13 @@ component_line 					::=
 								;
 
 instance_name					::=
-								AS IDENTIFIER
+								AS IDENTIFIER:i
 								;
 
 component_ref 					::=
-								IDENTIFIER
+								IDENTIFIER:i
 								|
-								NEW IDENTIFIER OPEN_PAREN component_argument_list CLOSE_PAREN
+								NEW IDENTIFIER:i OPEN_PAREN component_argument_list CLOSE_PAREN
 								;
 
 component_argument_list			::=
@@ -577,23 +589,30 @@ component_argument 				::=
 								;
 
 connection 						::=
-								endpoint EQUALS endpoint SEMI_COLON
+								endpoint:e EQUALS endpoint:p SEMI_COLON
+								{: RESULT = (Object)((String)e + " = " + (String)p); :}
 								|
-								endpoint WIRES_TO endpoint SEMI_COLON
+								endpoint:e WIRES_TO endpoint:p SEMI_COLON
+								{: RESULT = (Object)((String)e + " -> " + (String)p); :}
 								|
-								endpoint WIRES_FROM endpoint SEMI_COLON
+								endpoint:e WIRES_FROM endpoint:p SEMI_COLON
+								{: RESULT = (Object)((String)e + " <- " + (String)p); :}
 								;
 
 endpoint 						::=
-								identifier_path
+								identifier_path:i
+								{: RESULT = (Object)((String)i); :}
 								|
-								identifier_path OPEN_BRACE argument_expression_list CLOSE_BRACE
+								identifier_path:i OPEN_BRACE argument_expression_list:a CLOSE_BRACE
+								{: RESULT = (Object)((String)i + " --- " + (String)a); :}
 								;
 
-identifier_path 				::=
-								identifier_path DOT IDENTIFIER
+identifier_path					::=
+								identifier_path:p DOT IDENTIFIER:i
+								{: RESULT = (Object)((String)p + " --- " + (String)i); :}
 								|
-								IDENTIFIER
+								IDENTIFIER:i
+								{: RESULT = (Object)(String)i; :}
 								;
 
 component_specification 		::=
@@ -656,9 +675,9 @@ specification_element 			::=
 								;
 
 interface_type					::=|
-								INTERFACE IDENTIFIER SEMI_COLON
+								INTERFACE IDENTIFIER:i SEMI_COLON
 								|
-								INTERFACE IDENTIFIER type_arguments SEMI_COLON
+								INTERFACE IDENTIFIER:i type_arguments SEMI_COLON
 								;
 
 type_arguments 					::=
@@ -682,14 +701,14 @@ attributes						::=
 								;
 
 attribute 						::=
-								AT IDENTIFIER OPEN_PAREN initializer_list CLOSE_PAREN
+								AT IDENTIFIER:i OPEN_PAREN initializer_list CLOSE_PAREN
 								;
 
 
 primary::=
-    IDENTIFIER
+    IDENTIFIER:i
     {: :}
-  | IDENTIFIER DOT IDENTIFIER
+  | IDENTIFIER:i DOT IDENTIFIER:e
   | constant {: :}
   | OPEN_PAREN expression CLOSE_PAREN
     {: :}
@@ -698,12 +717,12 @@ primary::=
   |function_definition
     {: :}
     ;
-constant ::= CONSTANT | TRUE | FALSE | STRING_LITERAL;
+constant ::= CONSTANT:c | TRUE:c | FALSE:c | STRING_LITERAL:c;
 
 /*ANSI C*/
 
 primary_expression
-    ::= IDENTIFIER
+    ::= IDENTIFIER:i
     | constant
     | OPEN_PAREN expression CLOSE_PAREN
     ;
@@ -713,8 +732,8 @@ postfix_expression
     | postfix_expression OPEN_BRACE expression CLOSE_BRACE
     | postfix_expression OPEN_PAREN CLOSE_PAREN
     | postfix_expression OPEN_PAREN argument_expression_list CLOSE_PAREN
-    | postfix_expression DOT IDENTIFIER
-    | postfix_expression PTR_OP IDENTIFIER
+    | postfix_expression DOT IDENTIFIER:i
+    | postfix_expression PTR_OP IDENTIFIER:i
     | postfix_expression INC_OP
     | postfix_expression DEC_OP
     ;
@@ -723,13 +742,15 @@ postfix_expression
     postfix_expression
     ::= primary_expression
     | postfix_expression OPEN_BRACE expression CLOSE_BRACE
-    | call_kind primary OPEN_PAREN argument_expression_list CLOSE_PAREN
-    | primary OPEN_PAREN argument_expression_list CLOSE_PAREN
+    | call_kind primary OPEN_PAREN argument_expression_list:a CLOSE_PAREN
+     {: RESULT =  (Object)(String)a; :}
+    | primary OPEN_PAREN argument_expression_list:a CLOSE_PAREN
+    {: RESULT =  (Object)(String)a; :}
     | call_kind primary OPEN_PAREN CLOSE_PAREN
     | primary OPEN_PAREN CLOSE_PAREN
     | primary_expression OPEN_PAREN CLOSE_PAREN
-    | postfix_expression DOT IDENTIFIER
-    | postfix_expression WIRES_TO IDENTIFIER
+    | postfix_expression DOT IDENTIFIER:i
+    | postfix_expression WIRES_TO IDENTIFIER:i
     | postfix_expression INC_OP
     | postfix_expression DEC_OP
     ;
@@ -737,8 +758,10 @@ postfix_expression
     call_kind ::= CALL | SIGNAL | POST;
 
 argument_expression_list
-    ::= assignment_expression
-    | argument_expression_list COMMA assignment_expression
+    ::= assignment_expression:a
+    {: RESULT =  (Object)(String)a; :}
+    | argument_expression_list:e COMMA assignment_expression:a
+    {: RESULT =  (Object)((String)e + " --- " + (String)a); :}
     ;
 
 unary_expression
@@ -829,26 +852,29 @@ conditional_expression
 
 assignment_expression
     ::= conditional_expression
-    | unary_expression assignment_operator assignment_expression
+    | unary_expression assignment_operator:a assignment_expression:e
+    {:  RESULT =  (Object)((String)a + (String)e);  :}
     ;
 
 assignment_operator
-    ::= EQUALS
-    | MUL_ASSIGN
-    | DIV_ASSIGN
-    | MOD_ASSIGN
-    | ADD_ASSIGN
-    | SUB_ASSIGN
-    | LEFT_ASSIGN
-    | RIGHT_ASSIGN
-    | AND_ASSIGN
-    | XOR_ASSIGN
-    | OR_ASSIGN
+    ::= EQUALS {: RESULT = sym.EQUALS; :}
+    | MUL_ASSIGN {: RESULT = sym.MUL_ASSIGN; :}
+    | DIV_ASSIGN {: RESULT = sym.DIV_ASSIGN; :}
+    | MOD_ASSIGN {: RESULT = sym.MOD_ASSIGN; :}
+    | ADD_ASSIGN {: RESULT = sym.ADD_ASSIGN; :}
+    | SUB_ASSIGN {: RESULT = sym.SUB_ASSIGN; :}
+    | LEFT_ASSIGN {: RESULT = sym.LEFT_ASSIGN; :}
+    | RIGHT_ASSIGN {: RESULT = sym.RIGHT_ASSIGN; :}
+    | AND_ASSIGN {: RESULT = sym.AND_ASSIGN; :}
+    | XOR_ASSIGN {: RESULT = sym.XOR_ASSIGN; :}
+    | OR_ASSIGN {: RESULT = sym.OR_ASSIGN; :}
     ;
 
 expression
-    ::= assignment_expression
-    | expression COMMA assignment_expression
+    ::= assignment_expression:a
+    {: RESULT = (Object)((String)a); :}
+    | expression:e COMMA assignment_expression:a
+    {: RESULT = (Object)((String)e + "," + (String)a); :}
     ;
 
 constant_expression
@@ -935,16 +961,16 @@ type_specifier
     ;
 /* ansi c
 struct_or_union_specifier
-    ::= struct_or_union IDENTIFIER OPEN_CURLY struct_declaration_list CLOSE_CURLY
+    ::= struct_or_union IDENTIFIER:i OPEN_CURLY struct_declaration_list CLOSE_CURLY
     | struct_or_union OPEN_CURLY struct_declaration_list CLOSE_CURLY
-    | struct_or_union IDENTIFIER
+    | struct_or_union IDENTIFIER:i
     ;*/
 struct_or_union_specifier
-    ::= struct_or_union IDENTIFIER OPEN_CURLY struct_declaration_list CLOSE_CURLY
+    ::= struct_or_union IDENTIFIER:i OPEN_CURLY struct_declaration_list CLOSE_CURLY
     | struct_or_union OPEN_CURLY struct_declaration_list CLOSE_CURLY
-    | struct_or_union IDENTIFIER
-    | STRUCT AT IDENTIFIER attributes OPEN_CURLY struct_declaration_list CLOSE_CURLY
-    | struct_or_union IDENTIFIER attributes OPEN_CURLY struct_declaration_list CLOSE_CURLY
+    | struct_or_union IDENTIFIER:i
+    | STRUCT AT IDENTIFIER:i attributes OPEN_CURLY struct_declaration_list CLOSE_CURLY
+    | struct_or_union IDENTIFIER:i attributes OPEN_CURLY struct_declaration_list CLOSE_CURLY
     ;
 /*ansi c
 struct_or_union
@@ -996,15 +1022,15 @@ struct_declarator
 /*
 enum_specifier
     ::= ENUM OPEN_CURLY enumerator_list CLOSE_CURLY
-    | ENUM IDENTIFIER OPEN_CURLY enumerator_list CLOSE_CURLY
-    | ENUM IDENTIFIER
+    | ENUM IDENTIFIER:i OPEN_CURLY enumerator_list CLOSE_CURLY
+    | ENUM IDENTIFIER:i
     ;*/
 
 enum_specifier
     ::= ENUM OPEN_CURLY enumerator_list CLOSE_CURLY
-    | ENUM IDENTIFIER OPEN_CURLY enumerator_list CLOSE_CURLY
-    | ENUM IDENTIFIER
-    | ENUM IDENTIFIER attributes OPEN_CURLY enumerator_list CLOSE_CURLY
+    | ENUM IDENTIFIER:i OPEN_CURLY enumerator_list CLOSE_CURLY
+    | ENUM IDENTIFIER:i
+    | ENUM IDENTIFIER:i attributes OPEN_CURLY enumerator_list CLOSE_CURLY
     ;  
 
 enumerator_list
@@ -1013,8 +1039,8 @@ enumerator_list
     ;
 
 enumerator
-    ::= IDENTIFIER
-    | IDENTIFIER EQUALS constant_expression
+    ::= IDENTIFIER:i
+    | IDENTIFIER:i EQUALS constant_expression
     ;
 /*ansi c
 type_qualifier
@@ -1036,7 +1062,7 @@ declarator
     ;
 /* ansi c 
 direct_declarator
-    ::= IDENTIFIER
+    ::= IDENTIFIER:i
     | OPEN_PAREN declarator CLOSE_PAREN
     | direct_declarator OPEN_BRACE constant_expression CLOSE_BRACE
     | direct_declarator OPEN_BRACE CLOSE_BRACE
@@ -1046,14 +1072,14 @@ direct_declarator
     ;
 */
 direct_declarator
-    ::= IDENTIFIER
+    ::= IDENTIFIER:i
     | OPEN_PAREN declarator CLOSE_PAREN
     | direct_declarator OPEN_BRACE constant_expression CLOSE_BRACE
     | direct_declarator OPEN_BRACE CLOSE_BRACE
     | direct_declarator OPEN_PAREN parameter_type_list CLOSE_PAREN
     | direct_declarator OPEN_PAREN identifier_list CLOSE_PAREN
     | direct_declarator OPEN_PAREN CLOSE_PAREN
-    | IDENTIFIER DOT IDENTIFIER
+    | IDENTIFIER:i DOT IDENTIFIER:e
     | direct_declarator instance_parameters OPEN_PAREN parameter_type_list CLOSE_PAREN
     ;
 pointer
@@ -1094,8 +1120,8 @@ parameter_declaration
 
 
 identifier_list
-    ::= IDENTIFIER
-    | identifier_list COMMA IDENTIFIER
+    ::= IDENTIFIER:i
+    | identifier_list COMMA IDENTIFIER:i
     ;
 
 type_name
@@ -1156,7 +1182,7 @@ atomic_statement ::= ATOMIC statement;
 /*end*/
 
 labeled_statement
-    ::= IDENTIFIER COLON statement
+    ::= IDENTIFIER:i COLON statement
     | CASE constant_expression COLON statement
     | DEFAULT COLON statement
     ;
@@ -1198,7 +1224,7 @@ iteration_statement
     ;
 
 jump_statement
-    ::= GOTO IDENTIFIER SEMI_COLON
+    ::= GOTO IDENTIFIER:i SEMI_COLON
     | CONTINUE SEMI_COLON
     | BREAK SEMI_COLON
     | RETURN SEMI_COLON
@@ -1255,11 +1281,11 @@ includes						::=
 								;
 
 interface						::=
-								INTERFACE IDENTIFIER OPEN_CURLY declaration_list CLOSE_CURLY
+								INTERFACE IDENTIFIER:i OPEN_CURLY declaration_list CLOSE_CURLY
 								;
 
 module							::=
-								MODULE IDENTIFIER specification module_implementation
+								MODULE IDENTIFIER:i specification module_implementation
 								;
 
 module_implementation			::=
@@ -1267,7 +1293,7 @@ module_implementation			::=
 								;
 
 configuration					::=
-								CONFIGURATION IDENTIFIER specification configuration_implementation
+								CONFIGURATION IDENTIFIER:i specification configuration_implementation
 								;
 
 configuration_implementation	::=
@@ -1287,15 +1313,15 @@ components						::=
 								;
 
 component_line					::=
-								renamed_identifier
+								renamed_IDENTIFIER:i
 								|
-								component_line COMMA renamed_identifier
+								component_line COMMA renamed_IDENTIFIER:i
 								;
 
-renamed_identifier				::=
-								IDENTIFIER
+renamed_IDENTIFIER:i				::=
+								IDENTIFIER:i
 								|
-								IDENTIFIER AS IDENTIFIER
+								IDENTIFIER:i AS IDENTIFIER:i
 								;
 
 connection_list					::=
@@ -1313,15 +1339,15 @@ connection						::=
 								;
 
 endpoint						::=
-								identifier_path
+								IDENTIFIER:i_path
 								|
-								identifier_path OPEN_BRACE argument_expression_list CLOSE_BRACE
+								identifier_pathOPEN_BRACE argument_expression_list CLOSE_BRACE
 								;
 
-identifier_path					::=
-								IDENTIFIER
+IDENTIFIER:i_path					::=
+								IDENTIFIER:i
 								|
-								identifier_path DOT IDENTIFIER
+								identifier_pathDOT IDENTIFIER:i
 								;
 
 specification					::=
@@ -1355,7 +1381,7 @@ specification_elements			::=
 specification_element			::=
 								declaration
 								|
-								INTERFACE renamed_identifier paramenters
+								INTERFACE renamed_IDENTIFIER:i paramenters
 								;
 
 paramenters						::=
@@ -1365,14 +1391,14 @@ paramenters						::=
 								;
 
 /*test c*//*
-identifier_list ::= identifier_list  IDENTIFIER COMMA | DOT;
-declaration_list ::= declaration_list  IDENTIFIER COMMA | DOT;
-translation_unit ::= translation_unit  IDENTIFIER COMMA | DOT;
-argument_expression_list ::= argument_expression_list  IDENTIFIER COMMA | DOT;
-uses_provides ::= uses_provides  IDENTIFIER COMMA | DOT;
-specifiaction_element ::= specifiaction_element  IDENTIFIER COMMA | DOT;
-declaration ::= declaration  IDENTIFIER COMMA | DOT;
-parameter_type_list ::= parameter_type_list  IDENTIFIER COMMA | DOT;*/
+identifier_list ::= identifier_list  IDENTIFIER:i COMMA | DOT;
+declaration_list ::= declaration_list  IDENTIFIER:i COMMA | DOT;
+translation_unit ::= translation_unit  IDENTIFIER:i COMMA | DOT;
+argument_expression_list ::= argument_expression_list  IDENTIFIER:i COMMA | DOT;
+uses_provides ::= uses_provides  IDENTIFIER:i COMMA | DOT;
+specifiaction_element ::= specifiaction_element  IDENTIFIER:i COMMA | DOT;
+declaration ::= declaration  IDENTIFIER:i COMMA | DOT;
+parameter_type_list ::= parameter_type_list  IDENTIFIER:i COMMA | DOT;*/
 /* changed rules C Gramatic for NesC */
 						
 /*
@@ -1384,7 +1410,7 @@ module_list                                   ::= module_list module_statement_l
 module_statement_list                         ::= PROVIDES OPEN_CURLY module_statement CLOSE_CURLY 
                                                 | USES OPEN_CURLY module_statement CLOSE_CURLY ;
 
-module_statement                              ::= module_statement INTERFACE IDENTIFIER SEMI_COLON
+module_statement                              ::= module_statement INTERFACE IDENTIFIER:i SEMI_COLON
                                                 | /*epsilon*//*
                                                 ;
 
@@ -1395,15 +1421,15 @@ implementation_content                        ::= components_list  statement_imp
 
 components_list                               ::= COMPONENTS component_list SEMI_COLON | /*epsilon*//*;
 
-component_list                                ::= component_list COMMA IDENTIFIER | IDENTIFIER;
+component_list                                ::= component_list COMMA IDENTIFIER:i | IDENTIFIER:i;
 
 statement_list                                ::= statement_list statement | statement;
 
 statement_advanced_implementation_list        ::= statement_advanced_implementation_list statement_advanced_implementation 
                                                 | statement_advanced_implementation;
 
-statement_advanced_implementation             ::= COMMAND RESULT_T IDENTIFIER DOT IDENTIFIER OPEN_PAREN identifier_value_list CLOSE_PAREN OPEN_CURLY statement_advanced_implementation_items CLOSE_CURLY 
-                                                | EVENT RESULT_T IDENTIFIER DOT IDENTIFIER OPEN_PAREN identifier_value_list CLOSE_PAREN OPEN_CURLY statement_advanced_implementation_items CLOSE_CURLY
+statement_advanced_implementation             ::= COMMAND RESULT_T IDENTIFIER:i DOT IDENTIFIER:i OPEN_PAREN IDENTIFIER:i_value_list CLOSE_PAREN OPEN_CURLY statement_advanced_implementation_items CLOSE_CURLY 
+                                                | EVENT RESULT_T IDENTIFIER:i DOT IDENTIFIER:i OPEN_PAREN IDENTIFIER:i_value_list CLOSE_PAREN OPEN_CURLY statement_advanced_implementation_items CLOSE_CURLY
                                                 ; 
 
 statement_advanced_implementation_items       ::= statement_advanced_implementation_items statement_advanced_implementation_return_item
@@ -1413,29 +1439,29 @@ statement_advanced_implementation_items       ::= statement_advanced_implementat
 
 statement_advanced_implementation_return_item ::= RETURN statement_advanced_implementation_item;
 
-statement_advanced_implementation_item        ::= CALL IDENTIFIER DOT IDENTIFIER OPEN_PAREN identifier_value_list CLOSE_PAREN SEMI_COLON 
-                                                | IDENTIFIER SEMI_COLON;
+statement_advanced_implementation_item        ::= CALL IDENTIFIER:i DOT IDENTIFIER:i OPEN_PAREN IDENTIFIER:i_value_list CLOSE_PAREN SEMI_COLON 
+                                                | IDENTIFIER:i SEMI_COLON;
 
-identifier_value_list                         ::= identifier_value_list COMMA IDENTIFIER 
-                                                | identifier_value_list COMMA values_set 
+IDENTIFIER:i_value_list                         ::= IDENTIFIER:i_value_list COMMA IDENTIFIER:i 
+                                                | IDENTIFIER:i_value_list COMMA values_set 
                                                 | values_set 
-                                                | IDENTIFIER 
+                                                | IDENTIFIER:i 
                                                 | /*epsilon*//*
                                                 ;
 
 values_set                                    ::= INTEGER | FLOAT | CHARACTER | STRING;
 statement                                     ::=  
-                                                  COMMAND RESULT_T IDENTIFIER OPEN_PAREN type_list CLOSE_PAREN SEMI_COLON
+                                                  COMMAND RESULT_T IDENTIFIER:i OPEN_PAREN type_list CLOSE_PAREN SEMI_COLON
 					          {:
 							System.out.println("statement");
     						  :}
-   						| EVENT RESULT_T IDENTIFIER OPEN_PAREN type_list CLOSE_PAREN SEMI_COLON
+   						| EVENT RESULT_T IDENTIFIER:i OPEN_PAREN type_list CLOSE_PAREN SEMI_COLON
 						{:
 							System.out.println("statement");
 					        :}
 					        ;
 
-type_list                                     ::= type_list COMMA types_set IDENTIFIER | types_set IDENTIFIER | /*epsilon*/ /*;
+type_list                                     ::= type_list COMMA types_set IDENTIFIER:i | types_set IDENTIFIER:i | /*epsilon*/ /*;
 
 types_set                                     ::= CHAR | UINT8_T | UINT16_T | UINT32_T | INT8_T | INT16_T | INT32_T |EXPLICIT | EXPORT 
 						|INLINE | ERROR_T | RESULT_T | PACKET_T | MESSAGE_T | STRUCT | ENUM | BOOL | INT;
@@ -1443,13 +1469,13 @@ types_set                                     ::= CHAR | UINT8_T | UINT16_T | UI
 statement_implementation_list                 ::= statement_implementation_list statement_implementation | statement_implementation;
 
 statement_implementation                      ::=
-						identifier_pro WIRES_TO identifier_pro SEMI_COLON
+						IDENTIFIER:i_pro WIRES_TO IDENTIFIER:i_pro SEMI_COLON
 						{:
 						System.out.println("statement");
 						:}
 						;
 
-identifier_pro                                ::= identifier_pro DOT IDENTIFIER | IDENTIFIER  ;
+IDENTIFIER:i_pro                                ::= IDENTIFIER:i_pro DOT IDENTIFIER:i | IDENTIFIER:i  ;
     
 */
 /* vim: :set ft=java: */

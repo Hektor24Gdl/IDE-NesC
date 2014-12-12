@@ -8,7 +8,9 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +25,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
@@ -54,6 +57,8 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
      */
     public TabPanel() {
         initComponents();
+        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+
     }
 
     /**
@@ -114,7 +119,6 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tabs = new javax.swing.JTabbedPane();
         info = new javax.swing.JToolBar();
         label1 = new java.awt.Label();
         jToolBar1 = new javax.swing.JToolBar();
@@ -135,8 +139,10 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         btnMakeAll = new javax.swing.JButton();
         jSeparator5 = new javax.swing.JToolBar.Separator();
         btCheck = new javax.swing.JButton();
+        jSplitPane1 = new javax.swing.JSplitPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtpConsole = new javax.swing.JTextPane();
+        tabs = new javax.swing.JTabbedPane();
         menu = new javax.swing.JMenuBar();
         file = new javax.swing.JMenu();
         New = new javax.swing.JMenuItem();
@@ -152,6 +158,9 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         jMenuItem3 = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -297,7 +306,15 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         jToolBar1.add(btCheck);
         btCheck.getAccessibleContext().setAccessibleName("btCheck");
 
+        jSplitPane1.setDividerLocation(500);
+        jSplitPane1.setDividerSize(13);
+        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        jSplitPane1.setOneTouchExpandable(true);
+
         jScrollPane1.setViewportView(jtpConsole);
+
+        jSplitPane1.setRightComponent(jScrollPane1);
+        jSplitPane1.setLeftComponent(tabs);
 
         file.setText("File");
 
@@ -364,25 +381,42 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
 
         menu.add(run);
 
+        jMenu1.setText("Test");
+
+        jMenuItem5.setText("O.K.");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem5);
+
+        jMenuItem6.setText("Fail");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem6);
+
+        menu.add(jMenu1);
+
         setJMenuBar(menu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(info, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 854, Short.MAX_VALUE)
-            .addComponent(tabs)
-            .addComponent(jScrollPane1)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -417,9 +451,9 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         String pathFile = null;
         fileChooser.setFileFilter(new FileNameExtensionFilter("NesC Files (*.nc)", "nc"));
         // Response to button click
-        if (((Triplet) hmAreas.get(Integer.parseInt(s1))).get1() != null && !as) {
+        if (((Triplet) hmAreas.get(Integer.parseInt(s1))).get2() != null && !as) {
             flag = true;
-            pathFile = (String) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get1();
+            pathFile = (String) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get2();
         } else {
             selection = fileChooser.showSaveDialog(this);
         }
@@ -432,8 +466,8 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
             }
             try {
                 fileManagement.saveFile(file.getPath(), ((JTextPane) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get3()).getText());
-                ((Triplet) hmAreas.get(Integer.parseInt(s1))).set1(file.getPath());
-                ((Triplet) hmAreas.get(Integer.parseInt(s1))).set2(true);
+                ((Triplet) hmAreas.get(Integer.parseInt(s1))).set2(file.getPath());
+                ((Triplet) hmAreas.get(Integer.parseInt(s1))).set1(true);
                 ImageIcon iconjl = null;
                 try {
                     iconjl = iconjl = createImageIcon("/images/saved.png");
@@ -457,6 +491,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
 
     private void openFile() {
         JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new FileNameExtensionFilter("od Files (*.od)", "od"));
         fileChooser.setFileFilter(new FileNameExtensionFilter("NesC Files (*.nc)", "nc"));
         int selection = fileChooser.showOpenDialog(this);
         if (selection == JFileChooser.APPROVE_OPTION) {
@@ -470,9 +505,25 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
             }
         }
     }
+
+    private void openFile(String path) {
+        try {
+            File file = new File(path);
+            addTab(some.tabs,file );
+            
+        } catch (IOException ex) {
+            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private static void addTab(JTabbedPane jTP) throws Exception {
+        addTab(jTP, new File(""));
+    }
     private void NewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewActionPerformed
         try {
-            addTab(some.tabs, new File(""));
+            addTab(some.tabs);
         } catch (IOException ex) {
             Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
@@ -503,7 +554,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         // TODO add your handling code here:
         try {
-            addTab(some.tabs, new File(""));
+            addTab(some.tabs);
         } catch (IOException ex) {
             Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
@@ -534,12 +585,12 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
     }//GEN-LAST:event_btnSaveAllActionPerformed
 
     private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompileActionPerformed
-        File file = new File("/home/hector/TinyOSCodeSample/SimpleAppC.nc");
+        File file = new File("/home/linux/TinyOSCodeSample/SimpleAppC.nc");
         compile(file.getParentFile().getAbsolutePath());
     }//GEN-LAST:event_btnCompileActionPerformed
 
     private void btnConvertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConvertActionPerformed
-        File file = new File("/home/hector/TinyOSCodeSample/SimpleAppC.nc");
+        File file = new File("/home/linux/TinyOSCodeSample/SimpleAppC.nc");
         convert(file.getParentFile().getAbsolutePath());
     }//GEN-LAST:event_btnConvertActionPerformed
 
@@ -549,7 +600,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
     }//GEN-LAST:event_btnAvrorazActionPerformed
 
     private void btnMakeAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMakeAllActionPerformed
-        File file = new File("/home/hector/TinyOSCodeSample/SimpleAppC.nc");
+        File file = new File("/home/linux/TinyOSCodeSample/SimpleAppC.nc");
         String workingDir = file.getParentFile().getAbsolutePath();
         compile(workingDir);
         convert(workingDir);
@@ -563,18 +614,40 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
             saveFile(false, some.tabs.getSelectedIndex());
             JTextPane textp = (JTextPane) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get3();
 
-            textp = doc.lexer(new File((String) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get1()), (JTextPane) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get3(), some.jtpConsole);
+            textp = doc.lexer(new File((String) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get2()), (JTextPane) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get3(), some.jtpConsole);
 
             some.pack();
             some.revalidate();
             some.repaint();
             some.setVisible(true);
-        } catch (NumberFormatException ex) {
-            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
+        } catch (NumberFormatException | FileNotFoundException ex) {
             Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btCheckActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        ArrayList<String> files = new ArrayList<>();
+        files.add("src/test/resources/avroraz/test.txt");
+        files.add("src/test/resources/avroraz/test.txt");
+        files.add("src/test/resources/avroraz/test.txt");
+        files.add("src/test/resources/avroraz/test.txt");
+        for (String file : files) {
+            openFile(file);
+        }
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // TODO add your handling code here:
+        ArrayList<String> files = new ArrayList<>();
+        files.add("src/test/resources/avroraz/invalidId.txt");
+        files.add("src/test/resources/avroraz/invalidSquareBrackets.txt");
+        files.add("src/test/resources/avroraz/invalidType.txt");
+        files.add("src/test/resources/avroraz/invalidVariable.txt");
+        for (String file : files) {
+            openFile(file);
+        }
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void compile(String workingDir) {
         Runtime runtime = Runtime.getRuntime();
@@ -620,7 +693,10 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         //JEditorPane ep = new JEditorPane();
         //JTextArea ep = new JTextArea();
         JTextPane ep = new JTextPane();
-        doc.lexer(new File(TabPanel.class.getResource("/empty_templates/empty.nc").getFile()), ep, some.jtpConsole);
+        /*if(!"".equals(file.getPath()) )
+         doc.lexer(file, ep, some.jtpConsole);
+         else
+         doc.lexer(new File(TabPanel.class.getResource("/empty_templates/empty.nc").getFile()), ep, some.jtpConsole);*/
         TextLineNumber tln = new TextLineNumber(ep);
 
         ImageIcon icon;
@@ -630,13 +706,11 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         ep.setFont(new Font("Courier New", 0, 14));
         boolean flagOld = false;
         String urlFile = null;
-        if (file != null) {
-            if (!"".equals(file.getName())) {
-                icon = createImageIcon("/images/saved.png");
-                label = new JLabel(file.getName());
-                urlFile = file.getPath();
-                ep.setText(fileManagement.readFile(file));
-            }
+        if (file.isFile()) {
+            icon = createImageIcon("/images/saved.png");
+            label = new JLabel(file.getName());
+            urlFile = file.getPath();
+            ep.setText(fileManagement.readFile(file));
             flagOld = true;
         }
 
@@ -684,13 +758,15 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
             }
         };
         ep.getDocument().addDocumentListener(dl);
+        
         JScrollPane jScroll = new JScrollPane(ep);
         jScroll.setRowHeaderView(tln);
         tp.addTab(null, jScroll);
 
         JButton tabCloseButton = ButtonPro("/images/closeTabButton.png", "Close");
         tabCloseButton.setActionCommand("" + (tabCounter));
-        hmAreas.put(tabCounter, new Triplet(urlFile, flagOld, ep));
+
+        hmAreas.put(tabCounter, new Triplet(flagOld, urlFile, ep));
 
         ActionListener al;
         al = new ActionListener() {
@@ -725,7 +801,8 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         }
 
         tabCounter++;
-        if (flagOld) {
+        
+        //if (flagOld) {
             final JPanel pnlTab = (JPanel) some.tabs.getTabComponentAt(some.tabs.getTabCount() - 2);
             some.tabs.remove(some.tabs.getTabCount() - 2);
             JEditorPane jEditor = new JEditorPane();
@@ -733,7 +810,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
             some.tabs.addTab(null, new JScrollPane(jEditor));
             tabCounter++;
             some.tabs.setTabComponentAt(some.tabs.getTabCount() - 1, pnlTab);
-        }
+        //}
     }
 
     /**
@@ -858,6 +935,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                     } catch (IOException ex) {
                         Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    ;
                     final JTextPane ep = new JTextPane();
                     ep.setEditable(false);
                     some.jtpConsole.setEditable(false);
@@ -884,7 +962,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                         public void actionPerformed(ActionEvent e) {
                             try {
                                 some.tabs.remove(some.tabs.getTabCount() - 1);
-                                addTab(some.tabs, null);
+                                addTab(some.tabs);
                                 some.tabs.addTab(null, new JScrollPane(ep));
                                 tabCounter++;
                                 some.tabs.setTabComponentAt(some.tabs.getTabCount() - 1, pnlTab);
@@ -900,6 +978,8 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                     addTab.addActionListener(listener);
                     some.tabs.setVisible(true);
                     some.setTitle("IDE-NesC 1.0");
+
+                    some.setMinimumSize(new Dimension(600, 400));
                     some.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
                     some.setVisible(true);
 
@@ -947,16 +1027,20 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JToolBar.Separator jSeparator5;
+    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTextPane jtpConsole;
     private java.awt.Label label1;

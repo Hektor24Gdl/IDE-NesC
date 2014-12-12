@@ -1,13 +1,11 @@
-command void interfaz2.i2c1() {
-    int v1 = 5;
-    int v2;
-    v2 = v1;
+module SimpleC{
+    uses interface Boot;
 }
 
-command uint16_t interfaz2.i2c2(int c) {
-    return (uint16_t)2*c;
-}
-
-command uint16_t interfaz2.i2c3(char d) {
-    return (uint16_t)d*d*d;
-}
+implementation{
+    event void Boot.booted()
+    {
+int 	test;
+	//The entry point of the program
+    }
+}  

@@ -14,21 +14,22 @@
             <Keywords name="common-nesc">provides components as uses atomic</Keywords>
             <LexerStyle>
                  <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="804000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
+                 <WordsStyle name="IDENTIFIER" styleID="19" fgColor="088A29" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
                  <WordsStyle name="DEFAULT" styleID="11" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
-                 <WordsStyle name="INSTRUCTION WORD" styleID="5" fgColor="FF0000" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" keywordClass="instre-c instre-nesc" />
-                 <WordsStyle name="TYPE WORD" styleID="16" fgColor="0000FF" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" keywordClass="type-c type-nesc" />
+                 <WordsStyle name="INSTRUCTION WORD" styleID="5" fgColor="0404B4" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" keywordClass="instre-c instre-nesc" />
+                 <WordsStyle name="TYPE WORD" styleID="16" fgColor="0404B4" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" keywordClass="type-c type-nesc" />
                  <WordsStyle name="NUMBER" styleID="4" fgColor="FF8000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
-                 <WordsStyle name="STRING" styleID="6" fgColor="808080" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
-                 <WordsStyle name="CHARACTER" styleID="7" fgColor="808080" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
+                 <WordsStyle name="STRING" styleID="6" fgColor="FE9A2E" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
+                 <WordsStyle name="CHARACTER" styleID="7" fgColor="FE9A2E" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
                  <WordsStyle name="OPERATOR" styleID="10" fgColor="000080" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" />
                  <WordsStyle name="VERBATIM" styleID="13" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
                  <WordsStyle name="REGEX" styleID="14" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" />
-                 <WordsStyle name="COMMENT" styleID="1" fgColor="008000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
-                 <WordsStyle name="COMMENT LINE" styleID="2" fgColor="008000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
-                 <WordsStyle name="COMMENT DOC" styleID="3" fgColor="008080" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
-                 <WordsStyle name="COMMENT LINE DOC" styleID="15" fgColor="008080" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
-                 <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="008080" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" />
-                <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="008080" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
+                 <WordsStyle name="COMMENT" styleID="1" fgColor="6E6E6E" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
+                 <WordsStyle name="COMMENT LINE" styleID="2" fgColor="6E6E6E" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
+                 <WordsStyle name="COMMENT DOC" styleID="3" fgColor="6E6E6E" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
+                 <WordsStyle name="COMMENT LINE DOC" styleID="15" fgColor="6E6E6E" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
+                 <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="6E6E6E" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" />
+                <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="6E6E6E" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
            </LexerStyle>
 	</Language>
     </Languages>

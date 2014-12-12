@@ -91,17 +91,7 @@ public class ReadXML {
                     //System.err.println((String)triplet.get1());
                     AttributeSet localAttr = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, Color.decode("0x" + result.getAttribute("fgColor")));
                     triplet.set2(localAttr);
-                    switch(result.getAttribute("name")){
-                        case "COMMENT":  case "COMMENT LINE": 
-                        case "COMMENT LINE DOC": case "COMMENT DOC": {
-                            
-                            triplet.set1("/*( [^*] | \\*+ [^/*] )**/");
-                            break;
-                        }
-                        case "INSTRUCTION WORD": case "TYPE WORD":
-                            triplet.set1("(\\W)*(" + (String)triplet.get1() + ")");
-                    }
-                       this.attributes.put(result.getAttribute("name"), triplet);
+                    this.attributes.put(result.getAttribute("name"), triplet);
                     //System.out.println(result.getAttribute("name"));
                     //System.out.println(result.getAttribute("bgColor"));
                     

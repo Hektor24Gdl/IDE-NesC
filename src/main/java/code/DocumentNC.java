@@ -15,9 +15,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java_cup.runtime.Symbol;
 import javax.swing.JTextPane;
+import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
@@ -56,7 +58,9 @@ public class DocumentNC {
 
         StyledDocument doc = textPane.getStyledDocument();
         Style style = textPane.addStyle("I'm a Style", null);
+        String idStyle = "";
 
+        
         StyledDocument docConsole = console.getStyledDocument();
         Style styleConsole = console.addStyle("I'm a Style", null);
 
@@ -104,42 +108,53 @@ public class DocumentNC {
             if (token != null) {
                 switch (lx.getKeywordClass()) {
                     case "COMMENT": {
-                        StyleConstants.setForeground(style, Color.GRAY);
+                        idStyle = "COMMENT";
+                        //StyleConstants.setForeground(style, Color.GRAY);
                         break;
                     }
-                    case "common_define":
+                    case "common_define": {
+                        idStyle = "INSTRUCTION WORD";
+                        //StyleConstants.setForeground(style, Color.BLUE);
+                        break;
+                    }
                     case "type": {
-                        StyleConstants.setForeground(style, Color.BLUE);
+                        idStyle = "TYPE WORD";
+                        //StyleConstants.setForeground(style, Color.BLUE);
                         break;
                     }
                     case "String":
                     case "Character":{
-                        StyleConstants.setForeground(style, Color.ORANGE);
+                        idStyle = "STRING";
+                        //StyleConstants.setForeground(style, Color.ORANGE);
                         break;
                     }
                     case "Char": {
-                        StyleConstants.setForeground(style, Color.ORANGE);
+                        idStyle = "STRING";
+                        //StyleConstants.setForeground(style, Color.ORANGE);
                         break;
                     }
                     case "ID": {
-                        //System.err.println((String)((Triplet)styles.get("INSTRUCTION WORD")).get1() + "|" + (String)((Triplet)styles.get("INSTRUCTION WORD")).get1());
-                        if ((lx.getKeyword()).matches((String) ((Triplet) styles.get("INSTRUCTION WORD")).get1() + "|" + (String) ((Triplet) styles.get("TYPE WORD")).get1())) {
-                            StyleConstants.setForeground(style, Color.BLUE);
-                        } else {
-                            StyleConstants.setForeground(style, Color.BLACK);
-                        }
-                        StyleConstants.setForeground(style, Color.GREEN);
+                        idStyle = "IDENTIFIER";
+                        //StyleConstants.setForeground(style, Color.GREEN);
                         break;
 
                     }
                     default: {
-                        StyleConstants.setForeground(style, Color.BLACK);
+                        idStyle = "DEFAULT";
+                        //StyleConstants.setForeground(style, Color.BLACK);
                         break;
                     }
                 }
 
                 try {
-                    doc.insertString(doc.getLength(), lx.yytext(), style);
+                    //doc.insertString(doc.getLength(), lx.yytext(), style);
+                    if(!"".equals(idStyle))
+                        doc.insertString(doc.getLength(), lx.yytext(), (AttributeSet)((Triplet) styles.get(idStyle)).get2());
+                    else{
+                        StyleConstants.setForeground(style, Color.BLACK);
+                        doc.insertString(doc.getLength(), lx.yytext(), style);
+                    }
+                        
                     /*if(token.sym != -2){
                      StyleConstants.setForeground(styleConsole, Color.BLACK);
                      docConsole.insertString(docConsole.getLength(), "Class: " + lx.getKeywordClass() + " Keyword: <" + lx.yytext() + ">\n", styleConsole); 
@@ -160,8 +175,10 @@ public class DocumentNC {
                 Logger.getLogger(DocumentNC.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
-                lx = new Lexer(new FileReader(file.getPath()));
+                lx = new Lexer(new FileReader(file.getAbsolutePath()));
                 lx.setToParser(true);
+                StyleConstants.setForeground(styleConsole, Color.GREEN);
+                docConsole.insertString(docConsole.getLength(), "  --Lexer >> " + file.getAbsolutePath(), styleConsole);
                 ParserError pError = new ParserError();
                 pError = this.parser(lx, console);
             } catch (Exception ex) {
