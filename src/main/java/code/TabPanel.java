@@ -672,7 +672,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         }
         try {
             //Java Process doesn't support the ">" redirect as bash shell does. So, ProcessBuilder is needed
-            ProcessBuilder pb = new ProcessBuilder("avr-objdump", "-D", workingDir + "/build/micaz/main.exe");
+            ProcessBuilder pb = new ProcessBuilder("avr-objdump", "-h", "-D", workingDir + "/build/micaz/main.exe");
             pb.redirectOutput(new File(workingDir + "/build/objdump/main.od"));
             Process commandProcess = pb.start();
             commandProcess.waitFor();

@@ -40,7 +40,7 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
-                                              <Component id="actionComboBox" min="-2" pref="199" max="-2" attributes="0"/>
+                                              <Component id="cboxAction" min="-2" pref="199" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                                               <Component id="rbFColors" min="-2" max="-2" attributes="0"/>
@@ -236,11 +236,6 @@
                                       </Group>
                                   </Group>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="cbNodecount" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="tfNodecount" min="-2" pref="176" max="-2" attributes="0"/>
-                                      </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="cbMonitors" min="-2" max="-2" attributes="0"/>
@@ -262,6 +257,14 @@
                                               <Component id="tfTopology" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
                                               <Component id="tfPlatform" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
                                               <Component id="tfMonitors" min="-2" pref="176" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="cbNodecount" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="btRun" max="32767" attributes="0"/>
+                                              <Component id="tfNodecount" pref="176" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -373,7 +376,7 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="actionComboBox" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cboxAction" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -472,6 +475,7 @@
                           <Component id="btnResetConfigFile" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnHelpConfigFile" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnOpenConfigFile" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btRun" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
                   </Group>
@@ -640,7 +644,7 @@
     <Component class="javax.swing.JCheckBox" name="cbBanner">
       <Properties>
         <Property name="text" type="java.lang.String" value="-banner:"/>
-        <Property name="name" type="java.lang.String" value="lbBanner" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="cbBanner" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnHelpBanner">
@@ -716,11 +720,8 @@
     <Component class="javax.swing.JCheckBox" name="cbAction">
       <Properties>
         <Property name="text" type="java.lang.String" value="-action:"/>
-        <Property name="name" type="java.lang.String" value="lbAction" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="cbAction" noResource="true"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="lbAction"/>
-      </AccessibilityProperties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
@@ -838,7 +839,7 @@
         <Property name="name" type="java.lang.String" value="cbStatus" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="actionComboBox">
+    <Component class="javax.swing.JComboBox" name="cboxAction">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
@@ -998,6 +999,17 @@
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="tfOutput"/>
       </AccessibilityProperties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btRun">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Run"/>
+      </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="btRun"/>
+      </AccessibilityProperties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btRunActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -9,8 +9,11 @@ import static code.TabPanel.EditButtonPro;
 import static code.TabPanel.currentConfig;
 import java.awt.Component;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -46,9 +49,9 @@ public class commandsAvroraZ extends javax.swing.JDialog {
 
         //Customizing row Action
         this.cbAction.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("action")).get1());
-        actionComboBox.removeAllItems();
+        cboxAction.removeAllItems();
         for (String input : (String[]) ((Triplet) currentConfig.avroraZCommands.get("action")).get2()) {
-            this.actionComboBox.addItem(input);
+            this.cboxAction.addItem(input);
         }
         EditButtonPro(this.btnHelpAction, null, "/images/Help_24x24.png", "Help");
         EditButtonPro(this.btnResetAction, null, "/images/Eraser_24x24.png", "Reset");
@@ -189,7 +192,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         rbTStatus = new javax.swing.JRadioButton();
         btnResetAction = new javax.swing.JButton();
         cbStatus = new javax.swing.JCheckBox();
-        actionComboBox = new javax.swing.JComboBox();
+        cboxAction = new javax.swing.JComboBox();
         tfMonitors = new javax.swing.JTextField();
         tfPlatform = new javax.swing.JTextField();
         tfTopology = new javax.swing.JTextField();
@@ -216,6 +219,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         lbConfigFile = new javax.swing.JLabel();
         lbOutput = new javax.swing.JLabel();
         tfOutput = new javax.swing.JTextField();
+        btRun = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(938, 692));
@@ -326,7 +330,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         });
 
         cbBanner.setText("-banner:");
-        cbBanner.setName("lbBanner"); // NOI18N
+        cbBanner.setName("cbBanner"); // NOI18N
 
         btnHelpBanner.setText(" ");
         btnHelpBanner.addActionListener(new java.awt.event.ActionListener() {
@@ -375,7 +379,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         btnHelpExtra.setText(" ");
 
         cbAction.setText("-action:");
-        cbAction.setName("lbAction"); // NOI18N
+        cbAction.setName("cbAction"); // NOI18N
 
         tfExtra.setColumns(20);
         tfExtra.setRows(5);
@@ -443,8 +447,8 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         cbStatus.setText("-status:");
         cbStatus.setName("cbStatus"); // NOI18N
 
-        actionComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        actionComboBox.setName("cbAction"); // NOI18N
+        cboxAction.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboxAction.setName("cbAction"); // NOI18N
 
         tfMonitors.setName("tfMonitors"); // NOI18N
 
@@ -511,6 +515,13 @@ public class commandsAvroraZ extends javax.swing.JDialog {
 
         lbOutput.setText("output file");
 
+        btRun.setText("Run");
+        btRun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRunActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -528,7 +539,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGap(102, 102, 102)
-                                                .addComponent(actionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(cboxAction, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                 .addComponent(rbFColors)
                                                 .addGroup(layout.createSequentialGroup()
@@ -671,10 +682,6 @@ public class commandsAvroraZ extends javax.swing.JDialog {
                                             .addComponent(tfSecondsPrecision, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(cbNodecount)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(tfNodecount, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(cbMonitors)
                                                 .addComponent(cbPlatform)
@@ -692,7 +699,13 @@ public class commandsAvroraZ extends javax.swing.JDialog {
                                                 .addComponent(tfNoise, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(tfTopology, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(tfPlatform, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(tfMonitors, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                                .addComponent(tfMonitors, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(cbNodecount)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(btRun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(tfNodecount, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)))))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
@@ -777,7 +790,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
                                         .addComponent(cbAction))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
-                                        .addComponent(actionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(cboxAction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(23, 23, 23)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnHelpBanner)
@@ -852,14 +865,15 @@ public class commandsAvroraZ extends javax.swing.JDialog {
                             .addComponent(txtConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnResetConfigFile)
                             .addComponent(btnHelpConfigFile)
-                            .addComponent(btnOpenConfigFile))
+                            .addComponent(btnOpenConfigFile)
+                            .addComponent(btRun))
                         .addGap(117, 117, 117))))
         );
 
-        cbAction.getAccessibleContext().setAccessibleName("lbAction");
         cbCommand.getAccessibleContext().setAccessibleName("cbCommand");
         lbOutput.getAccessibleContext().setAccessibleName("lbOutput");
         tfOutput.getAccessibleContext().setAccessibleName("tfOutput");
+        btRun.getAccessibleContext().setAccessibleName("btRun");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -911,7 +925,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
     private void btnResetActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionActionPerformed
         // TODO add your handling code here:
         this.cbAction.setSelected((boolean) ((Triplet) currentConfig.avroraZCommands.get("action")).get1());
-        actionComboBox.setSelectedItem("simulate");
+        cboxAction.setSelectedItem("simulate");
     }//GEN-LAST:event_btnResetActionActionPerformed
 
     private void btnResetBannerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetBannerActionPerformed
@@ -1006,6 +1020,118 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         showHelp("verbose", bundle.getString("verbose"));
     }//GEN-LAST:event_btnHelpVerboseActionPerformed
 
+    private void btRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRunActionPerformed
+        Component[] components = this.getContentPane().getComponents();
+        String command = "";
+        for (Component component : components) {
+            if (component.getName() != null && component.getName().contains("cb") && component instanceof JCheckBox) {
+                JCheckBox cb = (JCheckBox) component;
+                if(cb.isSelected()){
+                    List<String> data = getType(cb.getName());
+                    if(data.size()== 1){
+                        command = String.format(command + " %s", data.get(0));
+                    }else{
+                        
+                    }
+                }
+            }
+        }   
+    }//GEN-LAST:event_btRunActionPerformed
+
+    /**
+     * Retorna una lista con el tipo de componente que contiene la información
+     * de entrada que el usuario introdujo en la GUI y el nombre del comando para 
+     * avroraz.
+     * cbox: javax.swing.JComboBox
+     * rb: javax.swing.JRadioButton
+     * tf: javax.swing.JTextField
+     * @return La lista con la información
+     */
+    private List<String> getType(String cbName){
+        List<String> data = new ArrayList<>();
+        switch(cbName){
+            case "cbAction":
+                data.add("cbox");
+                data.add("-action");
+                break;
+            case "cbBanner":
+                data.add("rb");
+                data.add("-banner");
+                break;
+            case "cbColors":
+                data.add("rb");
+                data.add("-colors");
+                break;
+            case "cbHtml":
+                data.add("rb");
+                data.add("-html");
+                break;
+            case "cbInput":
+                data.add("cbox");
+                data.add("-input");
+                break;
+            case "cbLicense":
+                data.add("rb");
+                data.add("-license");
+                break;
+            case "cbStatus":
+                data.add("rb");
+                data.add("-status");
+                break;
+            case "cbVerbose":
+                data.add("tf");
+                data.add("-verbose");
+                break;
+            case "cbMonitors":
+                data.add("tf");
+                data.add("-monitors");
+                break;
+            case "cbPlatform":
+                data.add("tf");
+                data.add("-platform");
+                break;
+            case "cbTopology":
+                data.add("tf");
+                data.add("-topology");
+                break;
+            case "cbNoise":
+                data.add("tf");
+                data.add("-noise");
+                break;
+            case "cbUpdateNodeId":
+                data.add("rb");
+                data.add("-update-node-id");
+                break;
+            case "cbStaggerStart":
+                data.add("tf");
+                data.add("-stagger-start");
+                break;
+            case "cbReportSeconds":
+                data.add("-report-seconds");
+                break;
+            case "cbRealTime":
+                data.add("-real-time");
+                break;
+            case "cbSecondsPrecision":
+                data.add("tf");
+                data.add("-seconds-precision");
+                break;
+            case "cbSeconds":
+                data.add("tf");
+                data.add("-seconds");
+                break;
+            case "cbSimulation":
+                data.add("tf");
+                data.add("-simulation");
+                break;
+            case "cbNodecount":
+                data.add("tf");
+                data.add("-nodecount");
+                break; 
+        }
+        return data;
+    }
+    
     private void showHelp(String function, String helpText) {
         if (help == null) {
             help = new Help((java.awt.Frame) this.getParent(), true);
@@ -1061,7 +1187,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox actionComboBox;
+    private javax.swing.JButton btRun;
     private javax.swing.JButton btnHelpAction;
     private javax.swing.JButton btnHelpBanner;
     private javax.swing.JButton btnHelpColors;
@@ -1104,6 +1230,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
     private javax.swing.JCheckBox cbTopology;
     private javax.swing.JCheckBox cbUpdateNodeId;
     private javax.swing.JCheckBox cbVerbose;
+    private javax.swing.JComboBox cboxAction;
     private javax.swing.JComboBox cboxInput;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
