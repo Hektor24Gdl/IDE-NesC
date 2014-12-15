@@ -6,6 +6,7 @@
 package generator;
 
 import code.*;
+import exceptions.LexerError;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -148,7 +149,11 @@ public class main {
         while (true) {
             Symbol token = null;
             try {
-                token = lx.next_token();
+                try {
+                    token = lx.next_token();
+                } catch (LexerError ex) {
+                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } catch (Error e) {
                 System.err.println(e.getMessage());
 

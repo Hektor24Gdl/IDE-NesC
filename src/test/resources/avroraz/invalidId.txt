@@ -1,5 +1,5 @@
 command void interfaz2.i2c1() {
-    int 1v1 = 5;
+    int v1 = 5;
     int v2;
     v2 = v1;
 }

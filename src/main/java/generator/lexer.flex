@@ -5,6 +5,8 @@ package code;
 import java_cup.runtime.*;
 import java.lang.reflect.Field;
 import java.util.HashMap;
+
+import exceptions.*;
       
 %% //inicio de opciones
    
@@ -31,6 +33,7 @@ import java.util.HashMap;
 */
 
 %function next_token
+%scanerror LexerError
 
 /*
     Declaraciones
@@ -75,7 +78,7 @@ import java.util.HashMap;
     public String getKeyword(){
         return this.keyword;
     }
-    private Symbol symbol(int type, String keywordClass) {
+    private Symbol symbol(int type, String keywordClass)  throws LexerError{
         //System.err.println("get1: " + beforeToken.get1() + " type: " +type + " keyword: " + keywordClass);
 	if(beforeToken.get1() != null && ((int)beforeToken.get1() == sym.CONSTANT || (int)beforeToken.get1() == sym.CONSTANT) && ("type".equals(keywordClass) || sym.IDENTIFIER ==  type )){
 	    this.lexerError.setLine(((int)beforeToken.get3()));
@@ -84,7 +87,7 @@ import java.util.HashMap;
             String error = (String)beforeToken.get2();
             beforeToken = new Triplet(null,null,null);
 	    this.lexerError.setMessage("Illegal character <"+ error + yytext()+">");
-	    throw new Error("Illegal character <"+ error + yytext()+">");
+	    throw new LexerError("Illegal character <"+ error + yytext()+">");
 	}	
 	
 	
@@ -97,7 +100,7 @@ import java.util.HashMap;
     
     /* Generamos un Symbol para el tipo de token encontrado 
        junto con su valor */
-    private Symbol symbol(int type, Object value,String keywordClass) {
+    private Symbol symbol(int type, Object value,String keywordClass) throws LexerError {
         if(beforeToken.get1() != null && ((int)beforeToken.get1() == sym.CONSTANT || (int)beforeToken.get1() == sym.CONSTANT) && ("type".equals(keywordClass) || sym.IDENTIFIER ==  type )){
 	    this.lexerError.setLine(((int)beforeToken.get3()));
 	    this.lexerError.setColumn(yycolumn);
@@ -105,7 +108,7 @@ import java.util.HashMap;
             String error = (String)beforeToken.get2();
             beforeToken = new Triplet(null,null,null);
 	    this.lexerError.setMessage("Illegal character <"+ error + yytext()+">");
-	    throw new Error("Illegal character <"+ error + yytext()+">");
+	    throw new LexerError("Illegal character <"+ error + yytext()+">");
 	}
         
 	this.keyword = yytext();
@@ -311,14 +314,14 @@ Invalid_Brace           = ("[" {s_char_sequence} {newline})
         this.lexerError.setLine(yyline);
         this.lexerError.setColumn(yycolumn);
         this.lexerError.setMessage("Illegal String <" +yytext()+ ">");  
-            throw new Error("Illegal String <"+ yytext()+">");
+            throw new LexerError("Illegal String <"+ yytext()+">");
         
     }   
     {Invalid_Character} {
         this.lexerError.setLine(yyline);
         this.lexerError.setColumn(yycolumn);
         this.lexerError.setMessage("Illegal character <"+ yytext()+">");    
-        throw new Error("Illegal character <"+ yytext()+">");
+        throw new LexerError("Illegal character <"+ yytext()+">");
     }
 
     //OPERADORES
@@ -456,6 +459,6 @@ Invalid_Brace           = ("[" {s_char_sequence} {newline})
     this.lexerError.setLine(((int)beforeToken.get3())+1);
 this.lexerError.setColumn(yycolumn);
     this.lexerError.setMessage("Illegal character <"+ yytext()+">");    
-    throw new Error("Illegal character <"+ yytext()+">");
+    throw new LexerError("Illegal character <"+ yytext()+">");
 }
 /* vim: :set ft=java: */

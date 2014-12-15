@@ -1,5 +1,6 @@
 package code;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -7,27 +8,37 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.accessibility.Accessible;
+import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
+import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
+import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
@@ -37,6 +48,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.DefaultEditorKit;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
@@ -48,16 +60,18 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
     static int tabCounter = 1;
     final static TabPanel some = new TabPanel();
     static FileManagement fileManagement = new FileManagement();
-    static HashMap hmAreas = new HashMap();
+    private static HashMap hmAreas = new HashMap();
     public static CurrentConfig currentConfig = new CurrentConfig();
-    static DocumentNC doc;
+    private static DocumentNC doc;
+    private static Console console;
+    private Object areaTexto;
 
     /**
      * Creates new form TabPanel
      */
     public TabPanel() {
         initComponents();
-        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        this.console = new Console(this.jtpConsole);
 
     }
 
@@ -99,6 +113,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
      *
      * @param file
      * @return
+     * @throws java.io.IOException
      */
     protected static ImageIcon createImageIcon(String file) throws IOException {
         ImageIcon imgi = new ImageIcon(TabPanel.class.getResource(file));
@@ -306,9 +321,10 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         jToolBar1.add(btCheck);
         btCheck.getAccessibleContext().setAccessibleName("btCheck");
 
-        jSplitPane1.setDividerLocation(500);
+        jSplitPane1.setDividerLocation(400);
         jSplitPane1.setDividerSize(13);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        jSplitPane1.setResizeWeight(1.0);
         jSplitPane1.setOneTouchExpandable(true);
 
         jScrollPane1.setViewportView(jtpConsole);
@@ -472,6 +488,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                 try {
                     iconjl = iconjl = createImageIcon("/images/saved.png");
                 } catch (IOException ex) {
+                    this.console.writeUnexpectedError(ex.getMessage());
                     Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 JPanel pnl = new JPanel();
@@ -484,11 +501,15 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                 some.tabs.setTabComponentAt(some.tabs.getSelectedIndex(), pnl);
 
             } catch (IOException ex) {
+                this.console.writeUnexpectedError(ex.getMessage());
                 Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
+    /**
+     * Function that open a existing file with a jFileChooser
+     */
     private void openFile() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileFilter(new FileNameExtensionFilter("od Files (*.od)", "od"));
@@ -497,43 +518,58 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         if (selection == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
             try {
-                addTab(some.tabs, file);
+                newTab(some.tabs, file);
             } catch (IOException ex) {
+                this.console.writeUnexpectedError(ex.getMessage());
                 Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
+                this.console.writeUnexpectedError(ex.getMessage());
                 Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
-
+    /**
+     * Function that open a file
+     * @param path
+     */
     private void openFile(String path) {
         try {
             File file = new File(path);
-            addTab(some.tabs,file );
+            newTab(some.tabs,file );
             
         } catch (IOException ex) {
+            this.console.writeUnexpectedError(ex.getMessage());
             Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
+            this.console.writeUnexpectedError(ex.getMessage());
             Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    private static void addTab(JTabbedPane jTP) throws Exception {
-        addTab(jTP, new File(""));
-    }
+    
+    /*
+     * Function that open a new tab with a blank document.
+     * @param jTP
+     * @throws Exception 
+     */
+   /* private static void newTab(JTabbedPane jTP) throws Exception {
+        newTabb(jTP, );
+    }*/
+    
+    /**
+     * Function for the new file in the gui
+     * @param evt 
+     */
     private void NewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewActionPerformed
         try {
-            addTab(some.tabs);
-        } catch (IOException ex) {
-            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+            newTab(some.tabs,new File(""));
         } catch (Exception ex) {
+            this.console.writeUnexpectedError(ex.getMessage());
             Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_NewActionPerformed
     /**
      * Function that correspond to the new file in the menu. This function add a
      * new tab in the JTabPane
-     *
      * @param evt
      */
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -541,6 +577,10 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         saveFile(false, some.tabs.getSelectedIndex());
     }//GEN-LAST:event_btnSaveActionPerformed
 
+    /**
+     * Function for the open a file in the gui
+     * @param evt 
+     */
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
         // TODO add your handling code here:
         openFile();
@@ -554,58 +594,133 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         // TODO add your handling code here:
         try {
-            addTab(some.tabs);
+            newTab(some.tabs,new File(""));
         } catch (IOException ex) {
+            this.console.writeUnexpectedError(ex.getMessage());
             Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
+            this.console.writeUnexpectedError(ex.getMessage());
             Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnNewActionPerformed
 
+    /**
+     * Function for the save as option in the menu
+     * @param evt 
+     */
     private void saveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAsActionPerformed
         // TODO add your handling code here:
         saveFile(true, some.tabs.getSelectedIndex());
     }//GEN-LAST:event_saveAsActionPerformed
 
+    /**
+     * Function for the save all option in the menu
+     * @param evt 
+     */
     private void saveAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAllActionPerformed
         // TODO add your handling code here:
-
-        for (int i = 0; i < some.tabs.getTabCount() - 1; i++) {
-            some.tabs.setSelectedIndex(i);
-            saveFile(false, i);
-        }
+        saveAll();
     }//GEN-LAST:event_saveAllActionPerformed
 
+    /**
+     * Function for the save all button in the gui
+     * @param evt 
+     */
     private void btnSaveAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveAllActionPerformed
         // TODO add your handling code here:
+        saveAll();
+    }//GEN-LAST:event_btnSaveAllActionPerformed
+    
+    /**
+     * Function that save all files opened 
+     */
+    private void saveAll(){
         for (int i = 0; i < some.tabs.getTabCount() - 1; i++) {
             some.tabs.setSelectedIndex(i);
             saveFile(false, i);
         }
-    }//GEN-LAST:event_btnSaveAllActionPerformed
-
+    }
+    /**
+     * Function for the compile buton in the gui
+     * @param evt 
+     */
     private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompileActionPerformed
-        File file = new File("/home/linux/TinyOSCodeSample/SimpleAppC.nc");
-        compile(file.getParentFile().getAbsolutePath());
+        //File file = new File("/home/linux/TinyOSCodeSample/SimpleAppC.nc");
+        // compile(file.getParentFile().getAbsolutePath());
+        
+        
+        JPanel pnlTab = (JPanel) some.tabs.getTabComponentAt(some.tabs.getSelectedIndex());
+        String s1 = ((JButton) pnlTab.getComponent(2)).getActionCommand();
+        if(!(Boolean)((Triplet) hmAreas.get(Integer.parseInt(s1))).get1()){
+            int dialogButton = JOptionPane.YES_NO_OPTION;
+            int dialogResult = JOptionPane.showConfirmDialog (null, "Would You Like to Save All Files First?","Warning",dialogButton);
+            if(dialogResult == JOptionPane.YES_OPTION){
+                this.saveAll();
+            }
+        }
+        File aux = new File((String) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get2());
+        compile(aux.getParentFile().getAbsolutePath());
     }//GEN-LAST:event_btnCompileActionPerformed
 
+    /**
+     * Function for the convert button in the gui
+     * @param evt 
+     */
     private void btnConvertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConvertActionPerformed
-        File file = new File("/home/linux/TinyOSCodeSample/SimpleAppC.nc");
-        convert(file.getParentFile().getAbsolutePath());
+        //File file = new File("/home/linux/TinyOSCodeSample/SimpleAppC.nc");
+        //convert(file.getParentFile().getAbsolutePath());
+        
+        JPanel pnlTab = (JPanel) some.tabs.getTabComponentAt(some.tabs.getSelectedIndex());
+        String s1 = ((JButton) pnlTab.getComponent(2)).getActionCommand();
+        if(!(Boolean)((Triplet) hmAreas.get(Integer.parseInt(s1))).get1()){
+            int dialogButton = JOptionPane.YES_NO_OPTION;
+            int dialogResult = JOptionPane.showConfirmDialog (null, "Would You Like to Save This Files First?","Warning",dialogButton);
+            if(dialogResult == JOptionPane.YES_OPTION){
+                this.saveFile(false, some.tabs.getSelectedIndex());
+            }
+        }
+        File aux = new File((String) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get2());
+        convert(aux.getParentFile().getAbsolutePath());
     }//GEN-LAST:event_btnConvertActionPerformed
 
+    /**
+     * Function for the avroraz button in the gui
+     * @param evt 
+     */
     private void btnAvrorazActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvrorazActionPerformed
         // TODO add your handling code here:
         btnAvroraz();
     }//GEN-LAST:event_btnAvrorazActionPerformed
 
+    /**
+     * Function for the make all button in the gui
+     * @param evt 
+     */
     private void btnMakeAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMakeAllActionPerformed
-        File file = new File("/home/linux/TinyOSCodeSample/SimpleAppC.nc");
-        String workingDir = file.getParentFile().getAbsolutePath();
+        //File file = new File("/home/linux/TinyOSCodeSample/SimpleAppC.nc");
+        //String workingDir = file.getParentFile().getAbsolutePath();
+        //compile(workingDir);
+        //convert(workingDir);
+        JPanel pnlTab = (JPanel) some.tabs.getTabComponentAt(some.tabs.getSelectedIndex());
+        String s1 = ((JButton) pnlTab.getComponent(2)).getActionCommand();
+        
+        if(!(Boolean)((Triplet) hmAreas.get(Integer.parseInt(s1))).get1()){
+            int dialogButton = JOptionPane.YES_NO_OPTION;
+            int dialogResult = JOptionPane.showConfirmDialog (null, "Would You Like to Save All Files First?","Warning",dialogButton);
+            if(dialogResult == JOptionPane.YES_OPTION){
+                this.saveAll();
+            }
+        }
+        File aux = new File((String) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get2());
+        String workingDir = aux.getParentFile().getAbsolutePath();
         compile(workingDir);
         convert(workingDir);
     }//GEN-LAST:event_btnMakeAllActionPerformed
 
+    /**
+     * Function for the check button in the gui
+     * @param evt 
+     */
     private void btCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCheckActionPerformed
         // TODO add your handling code here:
         JPanel pnlTab = (JPanel) some.tabs.getTabComponentAt(some.tabs.getSelectedIndex());
@@ -621,10 +736,15 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
             some.repaint();
             some.setVisible(true);
         } catch (NumberFormatException | FileNotFoundException ex) {
+            some.console.writeUnexpectedError(ex.getMessage());
             Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btCheckActionPerformed
 
+    /**
+     * 
+     * @param evt 
+     */
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
         ArrayList<String> files = new ArrayList<>();
@@ -649,17 +769,48 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         }
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+    /**
+     * Function for compile nesc 
+     * @param workingDir 
+     */
     private void compile(String workingDir) {
         Runtime runtime = Runtime.getRuntime();
+        ProcessBuilder pb = new ProcessBuilder("make", "-C", workingDir, "micaz");
+        Process commandProcess = null;
         try {
+            //Java Process doesn't support the ">" redirect as bash shell does. So, ProcessBuilder is needed
+            commandProcess = pb.start();
+            commandProcess.waitFor();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(commandProcess.getErrorStream()));
+            StringBuilder builder = new StringBuilder();
+            String line = null;
+            while ( (line = reader.readLine()) != null) {
+               builder.append(line);
+               builder.append(System.getProperty("line.separator"));
+            }
+            String result = builder.toString();
+            Color color;
+            color = (commandProcess.exitValue()==0) ? Color.decode("0x04B404") : Color.RED;
+            if("".equals(result) && commandProcess.exitValue()==0 ) result = "SUCCESS";
+            this.console.write("  --Compiler >> " + result, color);
+        } catch (IOException | InterruptedException ex) {
+            this.console.writeUnexpectedError(ex.getMessage());
+            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        /**try {
             String command = String.format("make -C %s micaz", workingDir);
+            System.out.println(command);
             Process process = runtime.exec(command);
             process.waitFor();
         } catch (IOException | InterruptedException ex) {
             Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }
 
+    /**
+     * Function for the conver function 
+     * @param workingDir 
+     */
     private void convert(String workingDir) {
         Runtime runtime = Runtime.getRuntime();
         try {
@@ -667,7 +818,9 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
             Process createDirProcess = runtime.exec(createDir);
             createDirProcess.waitFor();
             Thread.sleep(200);
+            
         } catch (IOException | InterruptedException ex) {
+            this.console.writeUnexpectedError(ex.getMessage());
             Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
@@ -676,11 +829,25 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
             pb.redirectOutput(new File(workingDir + "/build/objdump/main.od"));
             Process commandProcess = pb.start();
             commandProcess.waitFor();
+            
+            BufferedReader reader = new BufferedReader(new InputStreamReader(commandProcess.getErrorStream()));
+            StringBuilder builder = new StringBuilder();
+            String line = null;
+            while ( (line = reader.readLine()) != null) {
+               builder.append(line);
+               builder.append(System.getProperty("line.separator"));
+            }
+            String result = builder.toString();
+            Color color;
+            color = (commandProcess.exitValue()==0) ? Color.decode("0x04B404") : Color.RED;
+             if("".equals(result) && commandProcess.exitValue()==0 ) result = "SUCCESS";
+            this.console.write("  --Converter >> " + result, color);
         } catch (IOException | InterruptedException ex) {
+            this.console.writeUnexpectedError(ex.getMessage());
             Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     /**
      * Function that add a tab in the main JTabPane.
      *
@@ -689,14 +856,54 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
      * @throws IOException
      * @throws Exception
      */
-    static void addTab(final JTabbedPane tp, File file) throws IOException, Exception {
+    static void newTab(final JTabbedPane tp, File file) throws IOException, Exception {
         //JEditorPane ep = new JEditorPane();
         //JTextArea ep = new JTextArea();
-        JTextPane ep = new JTextPane();
-        /*if(!"".equals(file.getPath()) )
-         doc.lexer(file, ep, some.jtpConsole);
-         else
-         doc.lexer(new File(TabPanel.class.getResource("/empty_templates/empty.nc").getFile()), ep, some.jtpConsole);*/
+        final JTextPane ep = new JTextPane();
+        try{
+            ActionMap actions = ep.getActionMap();
+            final JPopupMenu popUpMenu = new JPopupMenu();
+            final JMenuItem cutItem,copyItem,pasteItem;
+            JSeparator separador =new JSeparator();
+
+            copyItem = new JMenuItem();
+            copyItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,InputEvent.CTRL_MASK));
+            copyItem.setAction(actions.get(DefaultEditorKit.copyAction));
+            copyItem.setText("Copy");
+            copyItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,InputEvent.CTRL_MASK));
+            popUpMenu.add(copyItem); 
+            
+            popUpMenu.add(separador);
+            
+            cutItem=new JMenuItem();
+            cutItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,InputEvent.CTRL_MASK));
+            cutItem.setAction(actions.get(DefaultEditorKit.cutAction));
+            cutItem.setText("Cut");
+            cutItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,InputEvent.CTRL_MASK));
+            popUpMenu.add(cutItem);         
+            
+            popUpMenu.add(separador);
+            
+            pasteItem = new JMenuItem();
+            pasteItem.setAction(actions.get(DefaultEditorKit.pasteAction));
+            pasteItem.setText("Paste");
+            pasteItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V,InputEvent.CTRL_MASK));
+            popUpMenu.add(pasteItem);    
+            
+            ep.addMouseListener(new MouseAdapter(){
+                public void mousePressed(MouseEvent ev){
+                   boolean textoSeleccionado = ep.getSelectedText()!=null;
+                    cutItem.setEnabled(textoSeleccionado);
+                    copyItem.setEnabled(textoSeleccionado);
+                    if(ev.getButton()==MouseEvent.BUTTON3)
+                       popUpMenu.show(ep,ev.getX(),ev.getY());   
+                }
+            });
+
+        }catch( Exception ex){
+           // some.console.writeUnexpectedError( ex.toString() );
+        }
+        
         TextLineNumber tln = new TextLineNumber(ep);
 
         ImageIcon icon;
@@ -706,21 +913,25 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         ep.setFont(new Font("Courier New", 0, 14));
         boolean flagOld = false;
         String urlFile = null;
-        if (file.isFile()) {
-            icon = createImageIcon("/images/saved.png");
-            label = new JLabel(file.getName());
-            urlFile = file.getPath();
-            ep.setText(fileManagement.readFile(file));
+        if (file != null) {
+            if (!"".equals(file.getName())) {
+                icon = createImageIcon("/images/saved.png");
+                label = new JLabel(file.getName());
+                urlFile = file.getPath();
+                ep.setText(fileManagement.readFile(file));
+            }
             flagOld = true;
         }
 
         ep.setEditable(true);
-
+        
         DocumentListener dl;
         dl = new DocumentListener() {
 
             public void insertUpdate(DocumentEvent e) {
                 JPanel pnlTab = (JPanel) some.tabs.getTabComponentAt(some.tabs.getSelectedIndex());
+                
+                String s1 = ((JButton) pnlTab.getComponent(2)).getActionCommand();
                 ImageIcon iconjl = null;
                 try {
                     iconjl = iconjl = createImageIcon("/images/unsaved.png");
@@ -734,10 +945,13 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                 pnl.add(pnlTab.getComponent(0));
                 pnl.add(pnlTab.getComponent(0));
                 some.tabs.setTabComponentAt(some.tabs.getSelectedIndex(), pnl);
+                ((Triplet) hmAreas.get(Integer.parseInt(s1))).set1(false);
             }
 
             public void removeUpdate(DocumentEvent e) {
                 JPanel pnlTab = (JPanel) some.tabs.getTabComponentAt(some.tabs.getSelectedIndex());
+                
+                String s1 = ((JButton) pnlTab.getComponent(2)).getActionCommand();
                 ImageIcon iconjl = null;
                 try {
                     iconjl = iconjl = createImageIcon("/images/unsaved.png");
@@ -751,6 +965,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                 pnl.add(pnlTab.getComponent(0));
                 pnl.add(pnlTab.getComponent(0));
                 some.tabs.setTabComponentAt(some.tabs.getSelectedIndex(), pnl);
+                ((Triplet) hmAreas.get(Integer.parseInt(s1))).set1(false);
             }
 
             public void changedUpdate(DocumentEvent e) {
@@ -759,6 +974,11 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         };
         ep.getDocument().addDocumentListener(dl);
         
+        
+        
+         
+         
+         
         JScrollPane jScroll = new JScrollPane(ep);
         jScroll.setRowHeaderView(tln);
         tp.addTab(null, jScroll);
@@ -802,15 +1022,15 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
 
         tabCounter++;
         
-        //if (flagOld) {
+        if (flagOld) {
             final JPanel pnlTab = (JPanel) some.tabs.getTabComponentAt(some.tabs.getTabCount() - 2);
             some.tabs.remove(some.tabs.getTabCount() - 2);
-            JEditorPane jEditor = new JEditorPane();
+            JTextPane jEditor = new JTextPane();
             jEditor.setEditable(false);
             some.tabs.addTab(null, new JScrollPane(jEditor));
             tabCounter++;
             some.tabs.setTabComponentAt(some.tabs.getTabCount() - 1, pnlTab);
-        //}
+        }
     }
 
     /**
@@ -962,7 +1182,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                         public void actionPerformed(ActionEvent e) {
                             try {
                                 some.tabs.remove(some.tabs.getTabCount() - 1);
-                                addTab(some.tabs);
+                                newTab(some.tabs, null);
                                 some.tabs.addTab(null, new JScrollPane(ep));
                                 tabCounter++;
                                 some.tabs.setTabComponentAt(some.tabs.getTabCount() - 1, pnlTab);
@@ -998,13 +1218,11 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
              some.setVisible(true);*/
 
         } );
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXException ex) {
-            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (ParserConfigurationException | SAXException | IOException ex) {
             Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
     }
 

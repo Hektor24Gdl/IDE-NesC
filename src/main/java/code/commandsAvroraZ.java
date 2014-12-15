@@ -26,10 +26,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class commandsAvroraZ extends javax.swing.JDialog {
 
     private Help help;
-    private ResourceBundle bundle;
+    private final ResourceBundle bundle;
 
     /**
      * Creates new form commandsAvroraZ2
+     * @param parent the parent frame
+     * @param modal open as modal
      */
     public commandsAvroraZ(java.awt.Frame parent, boolean modal) {
         super(parent, modal);

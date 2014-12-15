@@ -5,6 +5,7 @@
  */
 package code;
 
+import exceptions.LexerError;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,7 +20,6 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
@@ -33,6 +33,7 @@ public class DocumentNC {
 
     ReadXML xml;
     static HashMap<String, Triplet> styles;
+    private Console console;
 
     public DocumentNC() throws ParserConfigurationException, SAXException, IOException {
         xml = new ReadXML();
@@ -43,14 +44,16 @@ public class DocumentNC {
      * Function that do the lexer and call the parser function.
      *
      * @param file to parse
-     * @param console
-     * @return jTextPane
+     * @param textPane the principal text pane
+     * @param console the console pane
+     * @return jTextPane 
      * @throws FileNotFoundException
-     * @throws Exception
      */
     public JTextPane lexer(File file, JTextPane textPane, JTextPane console) throws FileNotFoundException {
+        this.console = new Console(console);
         FileReader fileReader = new FileReader(file);
-        console.setText(null);
+        
+        this.console.clear();
         textPane.setText(null);
         //JTextPane textPane = new JTextPane();
         Lexer lx = new Lexer(fileReader);
@@ -60,48 +63,34 @@ public class DocumentNC {
         Style style = textPane.addStyle("I'm a Style", null);
         String idStyle = "";
 
-        
-        StyledDocument docConsole = console.getStyledDocument();
-        Style styleConsole = console.addStyle("I'm a Style", null);
+   
 
         //Lexer lx = new Lexer(new StringReader("int boolean true"));
         while (true) {
             Symbol token = null;
             try {
                 token = lx.next_token();
-            } catch (Error e) {
+            } catch (LexerError ex) {
                 try {
+                    flagErrorLexer = true;
+                    
                     StyleConstants.setForeground(style, Color.BLACK);
                     doc.insertString(doc.getLength(), lx.yytext(), style);
-                    StyleConstants.setForeground(styleConsole, Color.RED);
-                    System.out.println(lx.yytext());
-                    docConsole.insertString(docConsole.getLength(), "  --Lexer >> " + e.getMessage() + " Line: " + (lx.yyline() + 1) + "\n", styleConsole);
-                    System.out.println(lx.getLexerError().getMessage());
-                    flagErrorLexer = true;
-                } catch (BadLocationException ex) {
-                    Logger.getLogger(DocumentNC.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } catch (IOException ex) {
-                try {
-                    docConsole.insertString(docConsole.getLength(), ex.getMessage() + "\n", styleConsole);
-                } catch (BadLocationException ex2) {
-                    Logger.getLogger(DocumentNC.class.getName()).log(Level.SEVERE, null, ex2);
+                    
+                    this.console.writeLexerError( ex.getMessage() + " Line: " + (lx.yyline() + 1));
+                   // Logger.getLogger(DocumentNC.class.getName()).log(Level.SEVERE, null, ex);
+                    
+                } catch (BadLocationException ex1) {
+                    Logger.getLogger(DocumentNC.class.getName()).log(Level.SEVERE, null, ex1);
                 }
             }
-            /**
-             * while(!lx.ignore.isEmpty()){ int key = lx.ignore.size()-1; String
-             * extra = "";
-             * if("COMMENT".equals((String)lx.ignore.get(key).get3())){
-             * StyleConstants.setForeground(style, Color.GRAY); } else
-             * StyleConstants.setForeground(style, Color.BLACK); try {
-             * doc.insertString(doc.getLength(),
-             * (String)lx.ignore.get(key).get2(), style); } catch
-             * (BadLocationException e){} //System.err.println(lx.ignore);
-             * lx.ignore.remove(key); }
-             */
+            catch (IOException ex) {
+                flagErrorLexer = true;
+                this.console.writeUnexpectedError(ex.getMessage());
+                Logger.getLogger(DocumentNC.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             if (token != null && 1 >= token.sym && -2 != token.sym) {
-                // lx.ignore = new ArrayList<>();
                 break;
             }
 
@@ -109,79 +98,62 @@ public class DocumentNC {
                 switch (lx.getKeywordClass()) {
                     case "COMMENT": {
                         idStyle = "COMMENT";
-                        //StyleConstants.setForeground(style, Color.GRAY);
                         break;
                     }
                     case "common_define": {
                         idStyle = "INSTRUCTION WORD";
-                        //StyleConstants.setForeground(style, Color.BLUE);
                         break;
                     }
                     case "type": {
                         idStyle = "TYPE WORD";
-                        //StyleConstants.setForeground(style, Color.BLUE);
                         break;
                     }
                     case "String":
                     case "Character":{
                         idStyle = "STRING";
-                        //StyleConstants.setForeground(style, Color.ORANGE);
                         break;
                     }
                     case "Char": {
                         idStyle = "STRING";
-                        //StyleConstants.setForeground(style, Color.ORANGE);
                         break;
                     }
                     case "ID": {
                         idStyle = "IDENTIFIER";
-                        //StyleConstants.setForeground(style, Color.GREEN);
                         break;
 
                     }
                     default: {
                         idStyle = "DEFAULT";
-                        //StyleConstants.setForeground(style, Color.BLACK);
                         break;
                     }
                 }
 
                 try {
-                    //doc.insertString(doc.getLength(), lx.yytext(), style);
                     if(!"".equals(idStyle))
                         doc.insertString(doc.getLength(), lx.yytext(), (AttributeSet)((Triplet) styles.get(idStyle)).get2());
                     else{
                         StyleConstants.setForeground(style, Color.BLACK);
                         doc.insertString(doc.getLength(), lx.yytext(), style);
                     }
-                        
-                    /*if(token.sym != -2){
-                     StyleConstants.setForeground(styleConsole, Color.BLACK);
-                     docConsole.insertString(docConsole.getLength(), "Class: " + lx.getKeywordClass() + " Keyword: <" + lx.yytext() + ">\n", styleConsole); 
-                     }*/
-                } catch (BadLocationException e) {
+                } catch (BadLocationException ex) {
+                    this.console.writeUnexpectedError(ex.getMessage());
                 }
 
             }
-
-            //System.err.println(lx.getKeywordClass()+ " " + lx.yytext());
         }
         if (!flagErrorLexer) {
 
-            try {
-                StyleConstants.setForeground(styleConsole, Color.GREEN);
-                docConsole.insertString(docConsole.getLength(), "  --Lexer >> SUCCES\n", styleConsole);
-            } catch (BadLocationException ex) {
-                Logger.getLogger(DocumentNC.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            this.console.writeLexerSuccess();
+            
             try {
                 lx = new Lexer(new FileReader(file.getAbsolutePath()));
                 lx.setToParser(true);
-                StyleConstants.setForeground(styleConsole, Color.GREEN);
-                docConsole.insertString(docConsole.getLength(), "  --Lexer >> " + file.getAbsolutePath(), styleConsole);
+                
                 ParserError pError = new ParserError();
-                pError = this.parser(lx, console);
+                pError = this.parser(lx);
+                
             } catch (Exception ex) {
+                this.console.writeUnexpectedError(ex.getMessage());
                 Logger.getLogger(DocumentNC.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -197,27 +169,23 @@ public class DocumentNC {
      * @throws FileNotFoundException
      * @throws Exception
      */
-    private ParserError parser(Lexer lx, JTextPane console) throws FileNotFoundException, Exception {
-        StyledDocument docConsole = console.getStyledDocument();
-        Style styleConsole = console.addStyle("I'm a Style", null);
-        StyleConstants.setForeground(styleConsole, Color.RED);
+    private ParserError parser(Lexer lx) {
 
         Parser parser = new Parser(lx);
         try {
-            Symbol result = parser.parse();
+            try {
+                Symbol result = parser.parse();
+            } catch (Exception ex) {
+                this.console.writeUnexpectedError(ex.getMessage());
+                Logger.getLogger(DocumentNC.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             if (parser.getError().getLine() == 0) {
-                try {
-                    StyleConstants.setForeground(styleConsole, Color.GREEN);
-                    docConsole.insertString(docConsole.getLength(), "  --Parser >> SUCCES\n", styleConsole);
-                } catch (BadLocationException ex) {
-                    Logger.getLogger(DocumentNC.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                this.console.writeParserSuccess();
             }
         } catch (Error e) {
-            docConsole.insertString(docConsole.getLength(), "  --Parser >> " + parser.getError().toString(), styleConsole);
-            return parser.getError();
-        } catch (IOException ex) {
-            docConsole.insertString(docConsole.getLength(), ex.getMessage(), styleConsole);
+            //docConsole.insertString(docConsole.getLength(), "  --Parser >> " + parser.getError().toString(), styleConsole);
+            this.console.writeParserError(parser.getError().toString());
             return parser.getError();
         }
         return null;

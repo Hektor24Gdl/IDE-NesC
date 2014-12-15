@@ -5,7 +5,7 @@ module SimpleC{
 implementation{
     event void Boot.booted()
     {
-int 	test;
+int test;
 	//The entry point of the program
     }
 }  

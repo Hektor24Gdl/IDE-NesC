@@ -7,6 +7,8 @@ package code;
 import java_cup.runtime.*;
 import java.lang.reflect.Field;
 import java.util.HashMap;
+
+import exceptions.*;
       
 
 /**
@@ -993,7 +995,7 @@ public class Lexer implements java_cup.runtime.Scanner {
     public String getKeyword(){
         return this.keyword;
     }
-    private Symbol symbol(int type, String keywordClass) {
+    private Symbol symbol(int type, String keywordClass)  throws LexerError{
         //System.err.println("get1: " + beforeToken.get1() + " type: " +type + " keyword: " + keywordClass);
 	if(beforeToken.get1() != null && ((int)beforeToken.get1() == sym.CONSTANT || (int)beforeToken.get1() == sym.CONSTANT) && ("type".equals(keywordClass) || sym.IDENTIFIER ==  type )){
 	    this.lexerError.setLine(((int)beforeToken.get3()));
@@ -1002,7 +1004,7 @@ public class Lexer implements java_cup.runtime.Scanner {
             String error = (String)beforeToken.get2();
             beforeToken = new Triplet(null,null,null);
 	    this.lexerError.setMessage("Illegal character <"+ error + yytext()+">");
-	    throw new Error("Illegal character <"+ error + yytext()+">");
+	    throw new LexerError("Illegal character <"+ error + yytext()+">");
 	}	
 	
 	
@@ -1015,7 +1017,7 @@ public class Lexer implements java_cup.runtime.Scanner {
     
     /* Generamos un Symbol para el tipo de token encontrado 
        junto con su valor */
-    private Symbol symbol(int type, Object value,String keywordClass) {
+    private Symbol symbol(int type, Object value,String keywordClass) throws LexerError {
         if(beforeToken.get1() != null && ((int)beforeToken.get1() == sym.CONSTANT || (int)beforeToken.get1() == sym.CONSTANT) && ("type".equals(keywordClass) || sym.IDENTIFIER ==  type )){
 	    this.lexerError.setLine(((int)beforeToken.get3()));
 	    this.lexerError.setColumn(yycolumn);
@@ -1023,7 +1025,7 @@ public class Lexer implements java_cup.runtime.Scanner {
             String error = (String)beforeToken.get2();
             beforeToken = new Triplet(null,null,null);
 	    this.lexerError.setMessage("Illegal character <"+ error + yytext()+">");
-	    throw new Error("Illegal character <"+ error + yytext()+">");
+	    throw new LexerError("Illegal character <"+ error + yytext()+">");
 	}
         
 	this.keyword = yytext();
@@ -1239,7 +1241,7 @@ public class Lexer implements java_cup.runtime.Scanner {
    *
    * @param   errorCode  the code of the errormessage to display
    */
-  private void zzScanError(int errorCode) {
+  private void zzScanError(int errorCode) throws LexerError {
     String message;
     try {
       message = ZZ_ERROR_MSG[errorCode];
@@ -1248,7 +1250,7 @@ public class Lexer implements java_cup.runtime.Scanner {
       message = ZZ_ERROR_MSG[ZZ_UNKNOWN_ERROR];
     }
 
-    throw new Error(message);
+    throw new LexerError(message);
   } 
 
 
@@ -1260,7 +1262,7 @@ public class Lexer implements java_cup.runtime.Scanner {
    * @param number  the number of characters to be read again.
    *                This number must not be greater than yylength()!
    */
-  public void yypushback(int number)  {
+  public void yypushback(int number)  throws LexerError {
     if ( number > yylength() )
       zzScanError(ZZ_PUSHBACK_2BIG);
 
@@ -1287,7 +1289,7 @@ public class Lexer implements java_cup.runtime.Scanner {
    * @return      the next token
    * @exception   java.io.IOException  if any I/O-Error occurs
    */
-  public java_cup.runtime.Symbol next_token() throws java.io.IOException {
+  public java_cup.runtime.Symbol next_token() throws java.io.IOException, LexerError {
     int zzInput;
     int zzAction;
 
@@ -1428,7 +1430,7 @@ public class Lexer implements java_cup.runtime.Scanner {
     this.lexerError.setLine(((int)beforeToken.get3())+1);
 this.lexerError.setColumn(yycolumn);
     this.lexerError.setMessage("Illegal character <"+ yytext()+">");    
-    throw new Error("Illegal character <"+ yytext()+">");
+    throw new LexerError("Illegal character <"+ yytext()+">");
           }
         case 150: break;
         case 2: 
@@ -1630,14 +1632,14 @@ this.lexerError.setColumn(yycolumn);
           { this.lexerError.setLine(yyline);
         this.lexerError.setColumn(yycolumn);
         this.lexerError.setMessage("Illegal character <"+ yytext()+">");    
-        throw new Error("Illegal character <"+ yytext()+">");
+        throw new LexerError("Illegal character <"+ yytext()+">");
           }
         case 194: break;
         case 46: 
           { this.lexerError.setLine(yyline);
         this.lexerError.setColumn(yycolumn);
         this.lexerError.setMessage("Illegal String <" +yytext()+ ">");  
-            throw new Error("Illegal String <"+ yytext()+">");
+            throw new LexerError("Illegal String <"+ yytext()+">");
           }
         case 195: break;
         case 47: 

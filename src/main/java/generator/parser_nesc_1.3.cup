@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import exceptions.*;
+
 /* Codigo del parser, se copia integramente a la clase final.
     Agregamos el manejo de errores. */
 parser code {:
@@ -79,9 +81,9 @@ parser code {:
         //System.err.println(m);
     }
 
- 	public void report_fatal_error(String message, Object info) {
+ 	public void report_fatal_error(String message, Object info){
         report_error(message, info);
-        throw new Error("Parser Error");
+        throw new Error(message);
 	}
 :};
    
@@ -617,6 +619,8 @@ identifier_path					::=
 
 component_specification 		::=
 								OPEN_CURLY uses_provides_list CLOSE_CURLY
+								|
+								OPEN_CURLY CLOSE_CURLY
 								;
 
 uses_provides_list 				::=

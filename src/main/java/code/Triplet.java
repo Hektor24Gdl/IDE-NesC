@@ -2,6 +2,9 @@ package code;
 
 /**
  * Generic class for a data structure triplet.
+ * @param <T1>
+ * @param <T2>
+ * @param <T3>
  */
 public class Triplet<T1,T2, T3> {
     private T1 Object1;
@@ -40,7 +43,7 @@ public class Triplet<T1,T2, T3> {
     
     /**
      * Update the first Object in the triplet
-     * @param Object1
+     * @param Objet1
      */
     public void set1(T1 Objet1) {
         this.Object1 = Objet1;
