@@ -8,14 +8,22 @@ package code;
 import static code.TabPanel.EditButtonPro;
 import static code.TabPanel.currentConfig;
 import java.awt.Component;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -228,7 +236,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         setResizable(false);
 
         cboxInput.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cboxInput.setName("cbInput"); // NOI18N
+        cboxInput.setName("cboxInput"); // NOI18N
 
         cbInput.setText("-input:");
         cbInput.setName("cbInput"); // NOI18N
@@ -450,7 +458,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         cbStatus.setName("cbStatus"); // NOI18N
 
         cboxAction.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cboxAction.setName("cbAction"); // NOI18N
+        cboxAction.setName("cboxAction"); // NOI18N
 
         tfMonitors.setName("tfMonitors"); // NOI18N
 
@@ -872,7 +880,19 @@ public class commandsAvroraZ extends javax.swing.JDialog {
                         .addGap(117, 117, 117))))
         );
 
+        cboxInput.getAccessibleContext().setAccessibleName("cboxInput");
+        rbFLicense.getAccessibleContext().setAccessibleName("rbFLicense");
+        rbTLicense.getAccessibleContext().setAccessibleName("rbTLicense");
+        rbFStatus.getAccessibleContext().setAccessibleName("rbFStatus");
+        rbFHtml.getAccessibleContext().setAccessibleName("rbFHtml");
+        rbTHtml.getAccessibleContext().setAccessibleName("rbTHtml");
+        rbTColors.getAccessibleContext().setAccessibleName("rbTColors");
+        rbFColors.getAccessibleContext().setAccessibleName("rbFColors");
+        rbTBanner.getAccessibleContext().setAccessibleName("rbTBanner");
+        rbFBanner.getAccessibleContext().setAccessibleName("rbFBanner");
         cbCommand.getAccessibleContext().setAccessibleName("cbCommand");
+        rbTStatus.getAccessibleContext().setAccessibleName("rbTStatus");
+        cboxAction.getAccessibleContext().setAccessibleName("cboxAction");
         lbOutput.getAccessibleContext().setAccessibleName("lbOutput");
         tfOutput.getAccessibleContext().setAccessibleName("tfOutput");
         btRun.getAccessibleContext().setAccessibleName("btRun");
@@ -1024,22 +1044,81 @@ public class commandsAvroraZ extends javax.swing.JDialog {
 
     private void btRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRunActionPerformed
         Component[] components = this.getContentPane().getComponents();
-        String command = "";
+        List<String> commands = new ArrayList<>();
+        File file = new File("/home/hector/TinyOSCodeSample/SimpleAppC.nc");
+        String workingDir = file.getParentFile().getAbsolutePath();
+        String urlSimulator = "/home/hector/Dropbox/IDE_nesC/Documentacion/Investigacion IDE-NesC/Info_Alejandro/avroraz.jar";
+        commands.add("java");
+        commands.add("-jar");
+        commands.add(urlSimulator);
+        commands.add(workingDir + "/build/objdump/main.od");
         for (Component component : components) {
             if (component.getName() != null && component.getName().contains("cb") && component instanceof JCheckBox) {
                 JCheckBox cb = (JCheckBox) component;
-                if(cb.isSelected()){
+                if(cb.isSelected() && !cb.getName().equals("cbCommand")){
                     List<String> data = getType(cb.getName());
                     if(data.size()== 1){
-                        command = String.format(command + " %s", data.get(0));
+                        commands.add(data.get(0));
                     }else{
-                        
+                        String type = data.get(0);
+                        switch(type){
+                            case "cbox":
+                                JComboBox cbox = (JComboBox) findComponent("cbox" + component.getName().substring(2));
+                                commands.add(data.get(1) + "=" + cbox.getSelectedItem().toString());
+                                break;
+                            case "rb":
+                                JRadioButton rb = (JRadioButton) findComponent("rbT" + component.getName().substring(2));
+                                String result = rb.isSelected() ? "true" : "false";
+                                commands.add(data.get(1) + "="  + result);                                
+                                break;
+                            case "tf":
+                                JTextField tf = (JTextField) findComponent("tf" + component.getName().substring(2));
+                                commands.add(data.get(1) + "=" + tf.getText());
+                                break;
+                        }
                     }
                 }
             }
-        }   
+        }
+        JCheckBox ccb = (JCheckBox) findComponent("cbCommand");
+        if(ccb.isSelected()){
+            JTextArea ctf = (JTextArea) findComponent("tfExtra");
+            commands.add(ctf.getText());
+        }
+        simulate(workingDir, commands);
     }//GEN-LAST:event_btRunActionPerformed
 
+    private Component findComponent(String name){
+        Component [] components = this.getContentPane().getComponents();
+        for(Component component : components){
+            if(component.getName() != null && component.getName().equalsIgnoreCase(name))
+                return component;
+        }
+        return null;
+    }
+    
+    private void simulate(String workingDir, List<String> command){
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            String createDir = String.format("mkdir %s/build/avroraz", workingDir);
+            Process createDirProcess = runtime.exec(createDir);
+            createDirProcess.waitFor();
+            Thread.sleep(200);
+        } catch (IOException | InterruptedException ex) {
+            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            //Java Process doesn't support the ">" redirect as bash shell does. So, ProcessBuilder is needed
+            ProcessBuilder pb = new ProcessBuilder(command);
+            pb.redirectOutput(new File(workingDir + "/build/avroraz/main.txt"));
+            Process commandProcess = pb.start();
+            commandProcess.waitFor();
+        } catch (IOException | InterruptedException ex) {
+            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     /**
      * Retorna una lista con el tipo de componente que contiene la información
      * de entrada que el usuario introdujo en la GUI y el nombre del comando para 

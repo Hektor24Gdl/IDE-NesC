@@ -495,8 +495,11 @@
             <StringItem index="3" value="Item 4"/>
           </StringArray>
         </Property>
-        <Property name="name" type="java.lang.String" value="cbInput" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="cboxInput" noResource="true"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="cboxInput"/>
+      </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="cbInput">
       <Properties>
@@ -517,6 +520,9 @@
         <Property name="text" type="java.lang.String" value="False"/>
         <Property name="name" type="java.lang.String" value="rbFLicense" noResource="true"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="rbFLicense"/>
+      </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="cbLicense">
       <Properties>
@@ -562,12 +568,18 @@
         <Property name="text" type="java.lang.String" value="True"/>
         <Property name="name" type="java.lang.String" value="rbTLicense" noResource="true"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="rbTLicense"/>
+      </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="rbFStatus">
       <Properties>
         <Property name="text" type="java.lang.String" value="False"/>
         <Property name="name" type="java.lang.String" value="rbFStatus" noResource="true"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="rbFStatus"/>
+      </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JButton" name="btnHelpConfigFile">
       <Properties>
@@ -603,6 +615,9 @@
         <Property name="text" type="java.lang.String" value="False"/>
         <Property name="name" type="java.lang.String" value="rbFHtml" noResource="true"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="rbFHtml"/>
+      </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JButton" name="btnHelpHtml">
       <Properties>
@@ -618,6 +633,9 @@
         <Property name="text" type="java.lang.String" value="True"/>
         <Property name="name" type="java.lang.String" value="rbTHtml" noResource="true"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="rbTHtml"/>
+      </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="cbHtml">
       <Properties>
@@ -668,6 +686,9 @@
         <Property name="text" type="java.lang.String" value="True"/>
         <Property name="name" type="java.lang.String" value="rbTColors" noResource="true"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="rbTColors"/>
+      </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JButton" name="btnHelpColors">
       <Properties>
@@ -682,6 +703,9 @@
         <Property name="text" type="java.lang.String" value="False"/>
         <Property name="name" type="java.lang.String" value="rbFColors" noResource="true"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="rbFColors"/>
+      </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JButton" name="btnResetColors">
       <Properties>
@@ -705,12 +729,18 @@
         <Property name="text" type="java.lang.String" value="True"/>
         <Property name="name" type="java.lang.String" value="rbTBanner" noResource="true"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="rbTBanner"/>
+      </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="rbFBanner">
       <Properties>
         <Property name="text" type="java.lang.String" value="False"/>
         <Property name="name" type="java.lang.String" value="rbFBanner" noResource="true"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="rbFBanner"/>
+      </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JButton" name="btnHelpExtra">
       <Properties>
@@ -824,6 +854,9 @@
         <Property name="text" type="java.lang.String" value="True"/>
         <Property name="name" type="java.lang.String" value="rbTStatus" noResource="true"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="rbTStatus"/>
+      </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JButton" name="btnResetAction">
       <Properties>
@@ -849,8 +882,11 @@
             <StringItem index="3" value="Item 4"/>
           </StringArray>
         </Property>
-        <Property name="name" type="java.lang.String" value="cbAction" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="cboxAction" noResource="true"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="cboxAction"/>
+      </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfMonitors">
       <Properties>
