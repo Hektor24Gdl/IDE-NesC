@@ -54,7 +54,7 @@ import exceptions.*;
     private Triplet beforeToken = new Triplet(null,null,null);
     private String keywordClass;
     private String keyword;
-    private ParserError lexerError = new ParserError();
+    private GenericError LexerError = new GenericError();
     private boolean toParser = false;
     //public ArrayList<Triplet> ignore = new ArrayList<>();
     /*public Lexer(File filename) throws FileNotFoundException {
@@ -66,8 +66,8 @@ import exceptions.*;
     public void setToParser(boolean toParser){
 	this.toParser = toParser;
     }
-    public ParserError getLexerError(){
-        return this.lexerError;
+    public GenericError getLexerError(){
+        return this.LexerError;
     }
     public int yyline(){
         return this.yyline;
@@ -81,12 +81,12 @@ import exceptions.*;
     private Symbol symbol(int type, String keywordClass)  throws LexerError{
         //System.err.println("get1: " + beforeToken.get1() + " type: " +type + " keyword: " + keywordClass);
 	if(beforeToken.get1() != null && ((int)beforeToken.get1() == sym.CONSTANT || (int)beforeToken.get1() == sym.CONSTANT) && ("type".equals(keywordClass) || sym.IDENTIFIER ==  type )){
-	    this.lexerError.setLine(((int)beforeToken.get3()));
-	    this.lexerError.setColumn(yycolumn);
+	    this.LexerError.setLine(((int)beforeToken.get3()));
+	    this.LexerError.setColumn(yycolumn);
             
             String error = (String)beforeToken.get2();
             beforeToken = new Triplet(null,null,null);
-	    this.lexerError.setMessage("Illegal character <"+ error + yytext()+">");
+	    this.LexerError.setMessage("Illegal character <"+ error + yytext()+">");
 	    throw new LexerError("Illegal character <"+ error + yytext()+">");
 	}	
 	
@@ -102,12 +102,12 @@ import exceptions.*;
        junto con su valor */
     private Symbol symbol(int type, Object value,String keywordClass) throws LexerError {
         if(beforeToken.get1() != null && ((int)beforeToken.get1() == sym.CONSTANT || (int)beforeToken.get1() == sym.CONSTANT) && ("type".equals(keywordClass) || sym.IDENTIFIER ==  type )){
-	    this.lexerError.setLine(((int)beforeToken.get3()));
-	    this.lexerError.setColumn(yycolumn);
+	    this.LexerError.setLine(((int)beforeToken.get3()));
+	    this.LexerError.setColumn(yycolumn);
             
             String error = (String)beforeToken.get2();
             beforeToken = new Triplet(null,null,null);
-	    this.lexerError.setMessage("Illegal character <"+ error + yytext()+">");
+	    this.LexerError.setMessage("Illegal character <"+ error + yytext()+">");
 	    throw new LexerError("Illegal character <"+ error + yytext()+">");
 	}
         
@@ -311,16 +311,16 @@ Invalid_Brace           = ("[" {s_char_sequence} {newline})
     {String}                { return symbol(sym.STRING_LITERAL, yytext(),"String"); }
 
     {Invalid_String} {
-        this.lexerError.setLine(yyline);
-        this.lexerError.setColumn(yycolumn);
-        this.lexerError.setMessage("Illegal String <" +yytext()+ ">");  
+        this.LexerError.setLine(yyline);
+        this.LexerError.setColumn(yycolumn);
+        this.LexerError.setMessage("Illegal String <" +yytext()+ ">");  
             throw new LexerError("Illegal String <"+ yytext()+">");
         
     }   
     {Invalid_Character} {
-        this.lexerError.setLine(yyline);
-        this.lexerError.setColumn(yycolumn);
-        this.lexerError.setMessage("Illegal character <"+ yytext()+">");    
+        this.LexerError.setLine(yyline);
+        this.LexerError.setColumn(yycolumn);
+        this.LexerError.setMessage("Illegal character <"+ yytext()+">");    
         throw new LexerError("Illegal character <"+ yytext()+">");
     }
 
@@ -401,12 +401,12 @@ Invalid_Brace           = ("[" {s_char_sequence} {newline})
 }
 
 <STRING> {
-    \" {
+    \" {/*"*/
         yybegin(YYINITIAL);
         return symbol(sym.STRING_LITERAL, string.toString(),"String");
     }
 
-    [^\n\r\"\\]+ {
+    [^\n\r\"\\]+ {/*"*/
         string.append( yytext() );
     }
 
@@ -422,7 +422,7 @@ Invalid_Brace           = ("[" {s_char_sequence} {newline})
         string.append('\r');
     }
 
-    \\\" {
+    \\\" {/*"*/
         string.append('\"');
     }
 
@@ -456,9 +456,9 @@ Invalid_Brace           = ("[" {s_char_sequence} {newline})
 .|\n {
     //return symbol(sym.error);
 
-    this.lexerError.setLine(((int)beforeToken.get3())+1);
-this.lexerError.setColumn(yycolumn);
-    this.lexerError.setMessage("Illegal character <"+ yytext()+">");    
+    this.LexerError.setLine(((int)beforeToken.get3())+1);
+this.LexerError.setColumn(yycolumn);
+    this.LexerError.setMessage("Illegal character <"+ yytext()+">");    
     throw new LexerError("Illegal character <"+ yytext()+">");
 }
 /* vim: :set ft=java: */

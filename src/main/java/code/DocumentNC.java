@@ -6,6 +6,7 @@
 package code;
 
 import exceptions.LexerError;
+import exceptions.SemanticError;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,6 +38,7 @@ public class DocumentNC {
 
     public DocumentNC() throws ParserConfigurationException, SAXException, IOException {
         xml = new ReadXML();
+        
         styles = xml.attributes;
     }
 
@@ -49,10 +51,12 @@ public class DocumentNC {
      * @return jTextPane 
      * @throws FileNotFoundException
      */
-    public JTextPane lexer(File file, JTextPane textPane, JTextPane console) throws FileNotFoundException {
+    public JTextPane lexer(File file, JTextPane textPane, JTextPane console) throws FileNotFoundException, IllegalArgumentException, IllegalAccessException {
         this.console = new Console(console);
         FileReader fileReader = new FileReader(file);
+        SymbolTable symbols = new SymbolTable(); 
         
+        boolean semantic = true;
         this.console.clear();
         textPane.setText(null);
         //JTextPane textPane = new JTextPane();
@@ -73,6 +77,8 @@ public class DocumentNC {
             } catch (LexerError ex) {
                 try {
                     flagErrorLexer = true;
+                    symbols.abort();
+                    semantic = false;
                     
                     StyleConstants.setForeground(style, Color.BLACK);
                     doc.insertString(doc.getLength(), lx.yytext(), style);
@@ -95,6 +101,9 @@ public class DocumentNC {
             }
 
             if (token != null) {
+                if(-2 != token.sym && semantic){
+                    symbols.addToken(token, lx.getKeywordClass(), this.console);
+                }
                 switch (lx.getKeywordClass()) {
                     case "COMMENT": {
                         idStyle = "COMMENT";
@@ -118,6 +127,7 @@ public class DocumentNC {
                         break;
                     }
                     case "ID": {
+                        
                         idStyle = "IDENTIFIER";
                         break;
 
@@ -127,7 +137,7 @@ public class DocumentNC {
                         break;
                     }
                 }
-
+                   
                 try {
                     if(!"".equals(idStyle))
                         doc.insertString(doc.getLength(), lx.yytext(), (AttributeSet)((Triplet) styles.get(idStyle)).get2());
@@ -149,8 +159,20 @@ public class DocumentNC {
                 lx = new Lexer(new FileReader(file.getAbsolutePath()));
                 lx.setToParser(true);
                 
-                ParserError pError = new ParserError();
-                pError = this.parser(lx);
+                GenericError pError = this.parser(lx);
+                if( pError!= null && !(pError.getLine()>=0)){
+                    symbols = null;
+                    semantic = false;
+                }
+                else{
+                    try{
+                    symbols.getErrors();
+                    }
+                    catch(SemanticError ex){
+                        this.console.write("  --Semantic >> " +ex.getMessage(), Color.red);
+                    }
+                }
+                    
                 
             } catch (Exception ex) {
                 this.console.writeUnexpectedError(ex.getMessage());
@@ -169,7 +191,7 @@ public class DocumentNC {
      * @throws FileNotFoundException
      * @throws Exception
      */
-    private ParserError parser(Lexer lx) {
+    private GenericError parser(Lexer lx) {
 
         Parser parser = new Parser(lx);
         try {

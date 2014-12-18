@@ -15,9 +15,9 @@ import exceptions.*;
 parser code {:
 
 
-    private ParserError error = new ParserError();
+    private GenericError error = new GenericError();
 
-    public ParserError getError(){
+    public GenericError getError(){
         return error;
     }
 
@@ -458,13 +458,13 @@ type_parameter_list				::=
 
 component 						::=
 								comp_kind IDENTIFIER:i comp_parameters attributes component_specification implementation:im
-								{: RESULT = (Object)((String)i + " --- " +(String)im); :}
+								{: /*RESULT = (Object)((String)i + " --- " +(String)im);*/ :}
 								|
 								comp_kind IDENTIFIER:i attributes component_specification implementation:im
-								{: RESULT = (Object)((String)i + " --- " +(String)im); :}
+								{: /* RESULT = (Object)((String)i + " --- " +(String)im); */:}
 								|
 								comp_kind IDENTIFIER:i comp_parameters component_specification implementation:im
-								{: RESULT = (Object)((String)i + " --- " +(String)im); :}
+								{: /*RESULT = (Object)((String)i + " --- " +(String)im); */:}
 								|
 								comp_kind IDENTIFIER:i comp_parameters attributes component_specification
 								{: System.err.println("" + i); :}
@@ -476,7 +476,7 @@ component 						::=
 								{: System.err.println("" + i); :}
 								|
 								comp_kind IDENTIFIER:i component_specification implementation:im
-								{: RESULT = (Object)((String)i + " --- " +(String)im); :}
+								{: /*RESULT = (Object)((String)i + " --- " +(String)im); */:}
 								|
 								comp_kind IDENTIFIER:i component_specification
 								{: System.err.println("" + i  ); :}
@@ -501,10 +501,10 @@ comp_kind						::=
 
 implementation 					::=
 								module_implementation:m
-								{: RESULT = m; :}
+								{: /*RESULT = m; */:}
 								|
 								configuration_implementation:c
-								{: RESULT = c; :}
+								{: /*RESULT = c; */:}
 								;
 
 comp_parameters	 				::=
@@ -531,27 +531,27 @@ module_implementation			::=
 
 configuration_implementation	::=
 								IMPLEMENTATION OPEN_CURLY configuration_element_list:c CLOSE_CURLY
-								{: RESULT = c; :}
+								{: /*RESULT = c;*/ :}
 								|
 								IMPLEMENTATION OPEN_CURLY CLOSE_CURLY
 								;
 
 configuration_element_list		::=
 								configuration_element:e
-								{: RESULT = e; :}
+								{: /*RESULT = e; */:}
 								|
 								configuration_element_list:l configuration_element:c
-								{: RESULT = (Object)((String)l + " --- " + (String)c); :}
+								{:/* RESULT = (Object)((String)l + " --- " + (String)c); */:}
 								;
 
 configuration_element 			::=
 								components
 								|
 								connection:c
-								{: RESULT = c; :}
+								{: /*RESULT = c; */:}
 								|
 								declaration:d
-								{: RESULT = d; :}
+								{: /*RESULT = d;*/ :}
 								;
 
 components 						::=
@@ -592,29 +592,29 @@ component_argument 				::=
 
 connection 						::=
 								endpoint:e EQUALS endpoint:p SEMI_COLON
-								{: RESULT = (Object)((String)e + " = " + (String)p); :}
+								{: /*RESULT = (Object)((String)e + " = " + (String)p); */:}
 								|
 								endpoint:e WIRES_TO endpoint:p SEMI_COLON
-								{: RESULT = (Object)((String)e + " -> " + (String)p); :}
+								{:/* RESULT = (Object)((String)e + " -> " + (String)p); */:}
 								|
 								endpoint:e WIRES_FROM endpoint:p SEMI_COLON
-								{: RESULT = (Object)((String)e + " <- " + (String)p); :}
+								{: /*RESULT = (Object)((String)e + " <- " + (String)p); */:}
 								;
 
 endpoint 						::=
 								identifier_path:i
-								{: RESULT = (Object)((String)i); :}
+								{: /*RESULT = (Object)((String)i); */:}
 								|
 								identifier_path:i OPEN_BRACE argument_expression_list:a CLOSE_BRACE
-								{: RESULT = (Object)((String)i + " --- " + (String)a); :}
+								{: /*RESULT = (Object)((String)i + " --- " + (String)a); */:}
 								;
 
 identifier_path					::=
 								identifier_path:p DOT IDENTIFIER:i
-								{: RESULT = (Object)((String)p + " --- " + (String)i); :}
+								{: /*RESULT = (Object)((String)p + " --- " + (String)i); */:}
 								|
 								IDENTIFIER:i
-								{: RESULT = (Object)(String)i; :}
+								{:/* RESULT = (Object)(String)i; */:}
 								;
 
 component_specification 		::=
@@ -747,9 +747,9 @@ postfix_expression
     ::= primary_expression
     | postfix_expression OPEN_BRACE expression CLOSE_BRACE
     | call_kind primary OPEN_PAREN argument_expression_list:a CLOSE_PAREN
-     {: RESULT =  (Object)(String)a; :}
+     {: /*RESULT =  (Object)(String)a; */:}
     | primary OPEN_PAREN argument_expression_list:a CLOSE_PAREN
-    {: RESULT =  (Object)(String)a; :}
+    {: /*RESULT =  (Object)(String)a; */:}
     | call_kind primary OPEN_PAREN CLOSE_PAREN
     | primary OPEN_PAREN CLOSE_PAREN
     | primary_expression OPEN_PAREN CLOSE_PAREN
@@ -763,9 +763,9 @@ postfix_expression
 
 argument_expression_list
     ::= assignment_expression:a
-    {: RESULT =  (Object)(String)a; :}
+    {: /*RESULT =  (Object)(String)a;*/ :}
     | argument_expression_list:e COMMA assignment_expression:a
-    {: RESULT =  (Object)((String)e + " --- " + (String)a); :}
+   // {: RESULT =  (Object)((String)e + " --- " + (String)a); :}
     ;
 
 unary_expression
@@ -857,28 +857,28 @@ conditional_expression
 assignment_expression
     ::= conditional_expression
     | unary_expression assignment_operator:a assignment_expression:e
-    {:  RESULT =  (Object)((String)a + (String)e);  :}
+    {: /* RESULT =  (Object)((String)a + (String)e);  */:}
     ;
 
 assignment_operator
-    ::= EQUALS {: RESULT = sym.EQUALS; :}
-    | MUL_ASSIGN {: RESULT = sym.MUL_ASSIGN; :}
-    | DIV_ASSIGN {: RESULT = sym.DIV_ASSIGN; :}
-    | MOD_ASSIGN {: RESULT = sym.MOD_ASSIGN; :}
-    | ADD_ASSIGN {: RESULT = sym.ADD_ASSIGN; :}
-    | SUB_ASSIGN {: RESULT = sym.SUB_ASSIGN; :}
-    | LEFT_ASSIGN {: RESULT = sym.LEFT_ASSIGN; :}
-    | RIGHT_ASSIGN {: RESULT = sym.RIGHT_ASSIGN; :}
-    | AND_ASSIGN {: RESULT = sym.AND_ASSIGN; :}
-    | XOR_ASSIGN {: RESULT = sym.XOR_ASSIGN; :}
-    | OR_ASSIGN {: RESULT = sym.OR_ASSIGN; :}
+    ::= EQUALS //{: RESULT = sym.EQUALS; :}
+    | MUL_ASSIGN //{: RESULT = sym.MUL_ASSIGN; :}
+    | DIV_ASSIGN //{: RESULT = sym.DIV_ASSIGN; :}
+    | MOD_ASSIGN //{: RESULT = sym.MOD_ASSIGN; :}
+    | ADD_ASSIGN //{: RESULT = sym.ADD_ASSIGN; :}
+    | SUB_ASSIGN //{: RESULT = sym.SUB_ASSIGN; :}
+    | LEFT_ASSIGN //{: RESULT = sym.LEFT_ASSIGN; :}
+    | RIGHT_ASSIGN //{: RESULT = sym.RIGHT_ASSIGN; :}
+    | AND_ASSIGN //{: RESULT = sym.AND_ASSIGN; :}
+    | XOR_ASSIGN //{: RESULT = sym.XOR_ASSIGN; :}
+    | OR_ASSIGN //{: RESULT = sym.OR_ASSIGN; :}
     ;
 
 expression
     ::= assignment_expression:a
-    {: RESULT = (Object)((String)a); :}
+    //{: RESULT = (Object)((String)a); :}
     | expression:e COMMA assignment_expression:a
-    {: RESULT = (Object)((String)e + "," + (String)a); :}
+    //{: RESULT = (Object)((String)e + "," + (String)a); :}
     ;
 
 constant_expression

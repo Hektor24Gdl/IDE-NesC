@@ -9,13 +9,21 @@ package code;
  * Class for interpret an error.
  * @author orlando
  */
-public class ParserError{
+public class GenericError{
     private int line;
     private int column;
     private String message;
 
-    public ParserError() {
+    public GenericError() {
     }
+
+    public GenericError(int line, int column, String message) {
+        this.line = line;
+        this.column = column;
+        this.message = message;
+    }
+    
+    
     /**
      * Function thar return the line number where the error has been occur.
      * @return line
@@ -69,7 +77,7 @@ public class ParserError{
 
     @Override
     public String toString() {
-        return "ParserError{" + "line=" + line + ", column=" + column + ", message=" + message + '}';
+        return "Error: Message=" + message  + ", Line=" + line + ", Column=" + column;
     }
     
 }

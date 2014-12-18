@@ -72,6 +72,51 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
     public TabPanel() {
         initComponents();
         this.console = new Console(this.jtpConsole);
+        try{
+            ActionMap actions = this.jtpConsole.getActionMap();
+            final JPopupMenu popUpMenu = new JPopupMenu();
+            final JMenuItem cutItem,copyItem,pasteItem;
+            JSeparator separador =new JSeparator();
+
+            copyItem = new JMenuItem();
+            copyItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,InputEvent.CTRL_MASK));
+            copyItem.setAction(actions.get(DefaultEditorKit.copyAction));
+            copyItem.setText("Copy");
+            copyItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,InputEvent.CTRL_MASK));
+            popUpMenu.add(copyItem); 
+            
+            popUpMenu.add(separador);
+            
+            cutItem=new JMenuItem();
+            cutItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,InputEvent.CTRL_MASK));
+            cutItem.setAction(actions.get(DefaultEditorKit.cutAction));
+            cutItem.setText("Cut");
+            cutItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,InputEvent.CTRL_MASK));
+            popUpMenu.add(cutItem);         
+            
+            popUpMenu.add(separador);
+            
+            pasteItem = new JMenuItem();
+            pasteItem.setAction(actions.get(DefaultEditorKit.pasteAction));
+            pasteItem.setText("Paste");
+            pasteItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V,InputEvent.CTRL_MASK));
+            popUpMenu.add(pasteItem);    
+            
+            this.jtpConsole.addMouseListener(new MouseAdapter(){
+                public void mousePressed(MouseEvent ev){
+                   boolean textoSeleccionado = jtpConsole.getSelectedText()!=null;
+                    //cutItem.setEnabled(textoSeleccionado);
+                    cutItem.setEnabled(false);
+                    pasteItem.setEnabled(false);
+                    copyItem.setEnabled(textoSeleccionado);
+                    if(ev.getButton()==MouseEvent.BUTTON3)
+                       popUpMenu.show(jtpConsole,ev.getX(),ev.getY());   
+                }
+            });
+
+        }catch( Exception ex){
+           // some.console.writeUnexpectedError( ex.toString() );
+        }
 
     }
 
@@ -736,6 +781,9 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
             some.repaint();
             some.setVisible(true);
         } catch (NumberFormatException | FileNotFoundException ex) {
+            some.console.writeUnexpectedError(ex.getMessage());
+            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException | IllegalAccessException ex) {
             some.console.writeUnexpectedError(ex.getMessage());
             Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
