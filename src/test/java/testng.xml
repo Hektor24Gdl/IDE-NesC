@@ -6,4 +6,9 @@
       <package name="com.idenesc.lexer" />
    </packages>
  </test>
+ <test name="Parser"   >
+    <packages>
+      <package name="com.idenesc.parser" />
+   </packages>
+ </test>
 </suite> 
