@@ -12,6 +12,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -75,7 +76,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         try{
             ActionMap actions = this.jtpConsole.getActionMap();
             final JPopupMenu popUpMenu = new JPopupMenu();
-            final JMenuItem cutItem,copyItem,pasteItem;
+            final JMenuItem copyItem, clearItem;
             JSeparator separador =new JSeparator();
 
             copyItem = new JMenuItem();
@@ -86,7 +87,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
             popUpMenu.add(copyItem); 
             
             popUpMenu.add(separador);
-            
+            /*
             cutItem=new JMenuItem();
             cutItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,InputEvent.CTRL_MASK));
             cutItem.setAction(actions.get(DefaultEditorKit.cutAction));
@@ -100,14 +101,47 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
             pasteItem.setAction(actions.get(DefaultEditorKit.pasteAction));
             pasteItem.setText("Paste");
             pasteItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V,InputEvent.CTRL_MASK));
-            popUpMenu.add(pasteItem);    
+            popUpMenu.add(pasteItem);*/
+            clearItem = new JMenuItem();
+            //clearItem.setAction(actions.get(DefaultEditorKit.pasteAction));
+            clearItem.setText("Clear");
+            //clearItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V,InputEvent.CTRL_MASK));
+            clearItem.addMouseListener(new MouseListener() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    // TODO Auto-generated method stub
+                    jtpConsole.setText("");
+                } 
+
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+        
+             });
+            popUpMenu.add(clearItem);
             
             this.jtpConsole.addMouseListener(new MouseAdapter(){
                 public void mousePressed(MouseEvent ev){
                    boolean textoSeleccionado = jtpConsole.getSelectedText()!=null;
                     //cutItem.setEnabled(textoSeleccionado);
-                    cutItem.setEnabled(false);
-                    pasteItem.setEnabled(false);
+                    //cutItem.setEnabled(false);
+                   // pasteItem.setEnabled(false);
                     copyItem.setEnabled(textoSeleccionado);
                     if(ev.getButton()==MouseEvent.BUTTON3)
                        popUpMenu.show(jtpConsole,ev.getX(),ev.getY());   

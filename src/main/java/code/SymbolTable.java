@@ -118,7 +118,7 @@ public class SymbolTable {
             if(!this.qVariables.isEmpty() && symbol.sym == sym.IDENTIFIER){
                 token.setType(this.qVariables.get(0));
             } 
-            else if(this.qVariables.isEmpty() && symbol.sym == sym.IDENTIFIER && (this.beforeToken.get(this.beforeToken.size()-2).getToken().sym != sym.DOT)){
+            else if(this.qVariables.isEmpty() && symbol.sym == sym.IDENTIFIER && this.beforeToken.size()>3 && (this.beforeToken.get(this.beforeToken.size()-2).getToken().sym != sym.DOT)){
                 if(!this.isDefined(symbol, this.qScopes)){
                     this.errorList.add(new GenericError(symbol.left,symbol.right,"Undifinied Variable <"+symbol.value+">"));
                     //console.write("Undifinied Variable <"+symbol.value+">", Color.RED);
