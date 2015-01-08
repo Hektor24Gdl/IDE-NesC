@@ -1,6 +1,6 @@
 command void interfaz2.i2c1() {
     int v1 = 5;
-    int v2;
+    int 2332dssddssd;
     v2 = v1;
 }
 

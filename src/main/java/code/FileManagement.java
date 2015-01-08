@@ -22,19 +22,7 @@ public class FileManagement {
     public String readFile(File file) throws InvalidFileExeption {
         FileReader fr = null;
         BufferedReader br = null;
-        String returned = "";
-        
-        ///TODO: Se agrego codigo para pruebas
-        String ext = FileManagement.getExtension(file);
-        if(ext.isEmpty())
-        {
-            throw new InvalidFileExeption();
-        }
-        else if(!("nc".equals(ext) || "ob".equals(ext)))
-        {
-            throw new InvalidFileExeption();
-        }
-        
+        String returned = "";        
         try {
          // Apertura del fichero y creacion de BufferedReader para poder
             // hacer una lectura comoda (disponer del metodo readLine()).
