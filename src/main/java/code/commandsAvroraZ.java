@@ -7,6 +7,7 @@ package code;
 
 import static code.TabPanel.EditButtonPro;
 import static code.TabPanel.currentConfig;
+import exceptions.InvalidFileExeption;
 import java.awt.Component;
 import java.io.BufferedReader;
 import java.io.File;
@@ -905,37 +906,41 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         JFileChooser configFileChooser = new JFileChooser();
         configFileChooser.setFileFilter(new FileNameExtensionFilter("AvroraZ Config (*.txt)", "txt"));
         if (configFileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            this.txtConfigFile.setText(configFileChooser.getSelectedFile().getPath());
-
-            //Get file info
-            FileManagement fileManagement = new FileManagement();
-            String fileConfig = fileManagement.readFile(new File(this.txtConfigFile.getText()));
-            String[] lines = fileConfig.split("\n");
-
-            Component[] components = this.getContentPane().getComponents();
-            for (String line : lines) {
-                if (!line.startsWith("#")) {
-                    String[] params = line.split("=");
-                    JPanel pn = new JPanel();
-                    pn.setVisible(true);
-                    pn.setLayout(null);
-
-                    if (params.length == 2) {
-                        if (params[0].equals("update-node-id")) {
-                            if (params[1].equalsIgnoreCase("true")) {
-                                rbTUpdateNodeId.setSelected(true);
-                            } else {
-                                rbTUpdateNodeId.setSelected(false);
+            try {
+                this.txtConfigFile.setText(configFileChooser.getSelectedFile().getPath());
+                
+                //Get file info
+                FileManagement fileManagement = new FileManagement();
+                String fileConfig = fileManagement.readFile(new File(this.txtConfigFile.getText()));
+                String[] lines = fileConfig.split("\n");
+                
+                Component[] components = this.getContentPane().getComponents();
+                for (String line : lines) {
+                    if (!line.startsWith("#")) {
+                        String[] params = line.split("=");
+                        JPanel pn = new JPanel();
+                        pn.setVisible(true);
+                        pn.setLayout(null);
+                        
+                        if (params.length == 2) {
+                            if (params[0].equals("update-node-id")) {
+                                if (params[1].equalsIgnoreCase("true")) {
+                                    rbTUpdateNodeId.setSelected(true);
+                                } else {
+                                    rbTUpdateNodeId.setSelected(false);
+                                }
                             }
-                        }
-                        for (Component component : components) {
-                            if (component.getName() != null && component.getName().equalsIgnoreCase("tf" + params[0].replace("-", ""))) {
-                                JTextField aux = (JTextField) component;
-                                aux.setText(params[1]);
+                            for (Component component : components) {
+                                if (component.getName() != null && component.getName().equalsIgnoreCase("tf" + params[0].replace("-", ""))) {
+                                    JTextField aux = (JTextField) component;
+                                    aux.setText(params[1]);
+                                }
                             }
                         }
                     }
                 }
+            } catch (InvalidFileExeption ex) {
+                Logger.getLogger(commandsAvroraZ.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_btnOpenConfigFileActionPerformed

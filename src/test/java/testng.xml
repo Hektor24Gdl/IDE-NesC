@@ -10,5 +10,10 @@
     <packages>
       <package name="com.idenesc.parser" />
    </packages>
+ </test> 
+ <test name="FileManagement">
+    <packages>
+      <package name="com.idenesc.file" />
+   </packages>
  </test>
 </suite> 
