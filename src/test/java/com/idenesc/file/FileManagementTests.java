@@ -71,6 +71,17 @@ public class FileManagementTests {
         String sPath = oUrl.getPath();
         File oFile = new File(sPath);
         
+        ///TODO: Se agrego codigo para pruebas
+        String ext = FileManagement.getExtension(oFile);
+        if(ext.isEmpty())
+        {
+            throw new InvalidFileExeption();
+        }
+        else if(!("nc".equals(ext) || "ob".equals(ext)))
+        {
+            throw new InvalidFileExeption();
+        }
+        
         FileManagement oFileManagement = new FileManagement();
         oFileManagement.readFile(oFile);
     }
