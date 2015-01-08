@@ -396,8 +396,8 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         tfExtra.setRows(5);
         tfExtra.setName("tfExtra"); // NOI18N
         jScrollPane1.setViewportView(tfExtra);
+        tfExtra.getAccessibleContext().setAccessibleName("tfExtra");
 
-        cbCommand.setSelected(true);
         cbCommand.setText("command");
         cbCommand.setName("cbCommand"); // NOI18N
 
@@ -1050,13 +1050,13 @@ public class commandsAvroraZ extends javax.swing.JDialog {
     private void btRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRunActionPerformed
         Component[] components = this.getContentPane().getComponents();
         List<String> commands = new ArrayList<>();
-        File file = new File("/home/hector/TinyOSCodeSample/SimpleAppC.nc");
+        File file = new File("/home/hector/Dropbox/IDE_nesC/Documentacion/Investigacion IDE-NesC/Info_Alejandro/nodeD.od");
         String workingDir = file.getParentFile().getAbsolutePath();
         String urlSimulator = "/home/hector/Dropbox/IDE_nesC/Documentacion/Investigacion IDE-NesC/Info_Alejandro/avroraz.jar";
         commands.add("java");
         commands.add("-jar");
         commands.add(urlSimulator);
-        commands.add(workingDir + "/build/objdump/main.od");
+        /*commands.add(workingDir + "/build/objdump/main.od");*/
         for (Component component : components) {
             if (component.getName() != null && component.getName().contains("cb") && component instanceof JCheckBox) {
                 JCheckBox cb = (JCheckBox) component;
@@ -1116,7 +1116,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         try {
             //Java Process doesn't support the ">" redirect as bash shell does. So, ProcessBuilder is needed
             ProcessBuilder pb = new ProcessBuilder(command);
-            pb.redirectOutput(new File(workingDir + "/build/avroraz/main.txt"));
+            pb.redirectOutput(new File(tfOutput.getText()));
             Process commandProcess = pb.start();
             commandProcess.waitFor();
         } catch (IOException | InterruptedException ex) {
