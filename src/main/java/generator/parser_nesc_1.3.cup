@@ -361,6 +361,7 @@ non terminal Object atomic_statement;
 
 non terminal Object primary;
 non terminal Object constant;
+non terminal Object include_list;
 
 /* -------------Precedence and Associatively of Terminals Section----------- */
 
@@ -416,15 +417,22 @@ precedence left VOID,CHAR,SHORT,INT,LONG,FLOAT,DOUBLE,SIGNED,UNSIGNED;
 start with nesC_file;
 
 nesC_file    	        	   	::= 
-								component:c
+								include_list component:c
 								{: System.err.println((String)c); :}
 								|
-                    		    interface_definition
+                    		    include_list interface_definition
 								|
-								translation_unit interface_definition
+								include_list translation_unit interface_definition
                     		    |
-                    		    translation_unit component:c
+                    		    include_list translation_unit component:c
                     		    {: System.err.println((String)c); :}
+								;
+
+include_list 					::=
+								include_list INCLUDE STRING_LITERAL
+								|
+								INCLUDE STRING_LITERAL
+								|/*epsilon*/
 								;
 
 interface_definition			::=
@@ -509,6 +517,8 @@ implementation 					::=
 
 comp_parameters	 				::=
 								OPEN_PAREN component_parameter_list CLOSE_PAREN
+								|
+								OPEN_PAREN  CLOSE_PAREN
 								;
 
 component_parameter_list		::=
@@ -576,6 +586,8 @@ component_ref 					::=
 								IDENTIFIER:i
 								|
 								NEW IDENTIFIER:i OPEN_PAREN component_argument_list CLOSE_PAREN
+								|
+								NEW IDENTIFIER:i OPEN_PAREN CLOSE_PAREN
 								;
 
 component_argument_list			::=
@@ -678,14 +690,22 @@ specification_element 			::=
 								{: System.out.println("specification_element: 9999999999999999999999999999999999999"); :}
 								;
 
-interface_type					::=|
+interface_type					::=
 								INTERFACE IDENTIFIER:i SEMI_COLON
+								|
+								INTERFACE IDENTIFIER:i instance_name SEMI_COLON
 								|
 								INTERFACE IDENTIFIER:i type_arguments SEMI_COLON
 								;
 
 type_arguments 					::=
 								LESS_THAN type_arguments_list GREATER_THAN
+								|
+								LESS_THAN IDENTIFIER GREATER_THAN
+								|
+								LESS_THAN type_arguments_list GREATER_THAN instance_name
+								|
+								LESS_THAN IDENTIFIER GREATER_THAN instance_name
 								;
 
 type_arguments_list 			::=
@@ -706,6 +726,8 @@ attributes						::=
 
 attribute 						::=
 								AT IDENTIFIER:i OPEN_PAREN initializer_list CLOSE_PAREN
+								|
+								AT IDENTIFIER:i OPEN_PAREN CLOSE_PAREN
 								;
 
 
@@ -930,7 +952,7 @@ storage_class_specifier
     ::= STATIC 
     ;
 */
-    storage_class_specifier
+storage_class_specifier
     ::= STATIC | COMMAND | EVENT | ASYNC | TASK | NORACE
     ;
 type_specifier

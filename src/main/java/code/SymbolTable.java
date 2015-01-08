@@ -157,6 +157,7 @@ public class SymbolTable {
         int c = 2;
         Token aux = this.beforeToken.get(this.beforeToken.size()-c);
         //this.console.write((String)aux.getType(), Color.yellow);
+        if( aux.getToken().sym == sym.INCLUDE) return true;
         while(aux.getType() == null && aux.getToken().sym != sym.CONSTANT && aux.getToken().sym != sym.STRING_LITERAL){
             //this.console.write((String)aux.toString(), Color.yellow);
             if(!(aux.getToken().sym == sym.PLUS || aux.getToken().sym == sym.MINUS || aux.getToken().sym == sym.MULTIPLICATION || 
