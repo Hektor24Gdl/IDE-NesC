@@ -1,5 +1,6 @@
 package code;
 
+import exceptions.InvalidFileExeption;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -1000,7 +1001,11 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                 icon = createImageIcon("/images/saved.png");
                 label = new JLabel(file.getName());
                 urlFile = file.getPath();
-                ep.setText(fileManagement.readFile(file));
+                try {
+                    ep.setText(fileManagement.readFile(file));
+                } catch (InvalidFileExeption ex) {
+                    Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             flagOld = true;
         }

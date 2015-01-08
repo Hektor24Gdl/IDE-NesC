@@ -3,6 +3,7 @@ package com.idenesc.parser;
 import code.Lexer;
 import code.Parser;
 import exceptions.LexerError;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import org.testng.annotations.*;
@@ -44,6 +45,11 @@ public class ParserTests {
     @Test(groups = {s})
     public void successRadioCountToLedsC_1() throws LexerError, Exception {
         ejecutar(ParserTests.class.getResourceAsStream("/valid/RadioCountToLedsC_1.nc"));
+    }
+    
+    @Test(groups = {s})
+    public void RadioCountToLedsAppC() throws LexerError, Exception {
+        ejecutar(ParserTests.class.getResourceAsStream("/valid/RadioCountToLedsAppC.nc"));
     }
     
     @Test(groups = {s})
@@ -90,13 +96,42 @@ public class ParserTests {
     public void successPowerNetBaseP() throws LexerError, Exception {
         ejecutar(ParserTests.class.getResourceAsStream("/valid/PowerNetBaseP.nc"));
     }
-
-    /*@Test(groups = {e}, expectedExceptions = Error.class, description = "Identificar inválido. int 1v1 = 5;")
-    public void invalidIdentifier() throws IOException, LexerError, Exception {
-        ejecutar(ParserTests.class.getResourceAsStream("/avroraz/invalidId.txt"));
-    }*/
     
-    public void ejecutar(InputStream file) throws LexerError, Exception {
+    @Test(groups = {s})
+    public void CC2420RssiC() throws LexerError, Exception {
+        ejecutar(ParserTests.class.getResourceAsStream("/valid/CC2420RssiC.nc"));
+    }
+    
+    @Test(groups = {s})
+    public void NoiseAppC() throws LexerError, Exception {
+        ejecutar(ParserTests.class.getResourceAsStream("/valid/NoiseAppC.nc"));
+    }
+    
+    @Test(groups = {s})
+    public void NoiseSampleP() throws LexerError, Exception {
+        ejecutar(ParserTests.class.getResourceAsStream("/valid/NoiseSampleP.nc"));
+    }
+    
+    @Test(groups = {s})
+    public void StdControl() throws LexerError, Exception {
+        ejecutar(ParserTests.class.getResourceAsStream("/valid/StdControl.nc"));
+    }
+    
+    @Test(groups = {s})
+    public void Timer() throws LexerError, Exception {
+        ejecutar(ParserTests.class.getResourceAsStream("/valid/Timer.nc"));
+    }
+
+    @Test(groups = {e}, expectedExceptions = FileNotFoundException.class, description = "Archivo no valido")
+    public void invalidIdentifier() throws LexerError, Exception {
+        ejecutar(ParserTests.class.getResourceAsStream("/invalid/invalidId.nc"));
+    }
+    
+    public void ejecutar(InputStream file) throws FileNotFoundException, LexerError, Exception {
+        if(file == null)
+        {
+            throw new FileNotFoundException("Error el archivo no existe.");
+        }
         Lexer lx = new Lexer(new InputStreamReader(file));
         lx.setToParser(true);
         Parser parser = new Parser(lx);
