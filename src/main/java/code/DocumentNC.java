@@ -38,7 +38,7 @@ public class DocumentNC {
 
     public DocumentNC() throws ParserConfigurationException, SAXException, IOException {
         xml = new ReadXML();
-        
+
         styles = xml.attributes;
     }
 
@@ -48,10 +48,111 @@ public class DocumentNC {
      * @param file to parse
      * @param textPane the principal text pane
      * @param console the console pane
-     * @return jTextPane 
+     * @return jTextPane
      * @throws FileNotFoundException
+     * @throws java.lang.IllegalAccessException
      */
     public JTextPane lexer(File file, JTextPane textPane, JTextPane console) throws FileNotFoundException, IllegalArgumentException, IllegalAccessException {
+        int caretPosition = textPane.getCaretPosition(); //Posision del cursor
+
+        this.console = new Console(console);
+        this.console.clear();
+        textPane.setText(null);
+
+        //Crear lexer
+        FileReader fileReader = new FileReader(file);
+        Lexer lx = new Lexer(fileReader);
+        boolean flagErrorLexer = false;
+
+        StyledDocument doc = textPane.getStyledDocument();
+        Style style = textPane.addStyle("I'm a Style", null);
+        String idStyle;
+
+        while (true) {
+            Symbol token = null;
+            try {
+                token = lx.next_token();
+            } 
+            catch (LexerError ex) {
+                try {
+                    //Se inserta la cadena con errores
+                    flagErrorLexer = true;
+                    StyleConstants.setForeground(style, Color.BLACK);
+                    doc.insertString(doc.getLength(), lx.yytext(), style);
+                    this.console.writeLexerError(ex.getMessage() + " Line: " + (lx.yyline() + 1));
+
+                } catch (BadLocationException ex1) {
+                    Logger.getLogger(DocumentNC.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+            } 
+            catch (IOException ex) {
+                flagErrorLexer = true;
+                this.console.writeUnexpectedError(ex.getMessage());
+                Logger.getLogger(DocumentNC.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            if (token != null && 1 >= token.sym && -2 != token.sym) {
+                break;
+            }
+
+            //Se pinta el token
+            if (token != null) {
+                switch (lx.getKeywordClass()) {
+                    case "COMMENT": {
+                        idStyle = "COMMENT";
+                        break;
+                    }
+                    case "common_define": {
+                        idStyle = "INSTRUCTION WORD";
+                        break;
+                    }
+                    case "type": {
+                        idStyle = "TYPE WORD";
+                        break;
+                    }
+                    case "String":
+                    case "Character": {
+                        idStyle = "STRING";
+                        break;
+                    }
+                    case "Char": {
+                        idStyle = "STRING";
+                        break;
+                    }
+                    case "ID": {
+                        idStyle = "IDENTIFIER";
+                        break;
+                    }
+                    default: {
+                        idStyle = "DEFAULT";
+                        break;
+                    }
+                }
+
+                try {
+                    if (!"".equals(idStyle)) {
+                        doc.insertString(doc.getLength(), lx.yytext(), (AttributeSet) ((Triplet) styles.get(idStyle)).get2());
+                    } else {
+                        StyleConstants.setForeground(style, Color.BLACK);
+                        doc.insertString(doc.getLength(), lx.yytext(), style);
+                    }
+                } 
+                catch (BadLocationException ex) {
+                    this.console.writeUnexpectedError(ex.getMessage());
+                }
+            }
+        }
+        if (!flagErrorLexer) {
+            this.console.writeLexerSuccess();
+        }
+        textPane.setCaretPosition(caretPosition);
+        return textPane;
+
+    }
+
+    public JTextPane parser(File file, JTextPane textPane, JTextPane console) throws FileNotFoundException, IllegalArgumentException, IllegalAccessException {
+        int caretPosition = textPane.getCaretPosition(); //Posision del cursor
+
         this.console = new Console(console);
         FileReader fileReader = new FileReader(file);
         SymbolTable symbols = new SymbolTable(); 
@@ -159,7 +260,7 @@ public class DocumentNC {
                 lx = new Lexer(new FileReader(file.getAbsolutePath()));
                 lx.setToParser(true);
                 
-                GenericError pError = this.parser(lx);
+                GenericError pError = this.doParser(lx);
                 if( pError!= null && !(pError.getLine()>=0)){
                     symbols = null;
                     semantic = false;
@@ -179,6 +280,8 @@ public class DocumentNC {
                 Logger.getLogger(DocumentNC.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+        textPane.setCaretPosition(caretPosition);
         return textPane;
 
     }
@@ -191,22 +294,19 @@ public class DocumentNC {
      * @throws FileNotFoundException
      * @throws Exception
      */
-    private GenericError parser(Lexer lx) {
-
+    private GenericError doParser(Lexer lx) {
         Parser parser = new Parser(lx);
         try {
             try {
-                Symbol result = parser.parse();
+                parser.parse();
             } catch (Exception ex) {
                 this.console.writeUnexpectedError(ex.getMessage());
                 Logger.getLogger(DocumentNC.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
             if (parser.getError().getLine() == 0) {
                 this.console.writeParserSuccess();
             }
         } catch (Error e) {
-            //docConsole.insertString(docConsole.getLength(), "  --Parser >> " + parser.getError().toString(), styleConsole);
             this.console.writeParserError(parser.getError().toString());
             return parser.getError();
         }

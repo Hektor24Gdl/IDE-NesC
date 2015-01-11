@@ -4,8 +4,13 @@ module SimpleC{
 
 implementation{
     event void Boot.booted()
-    {
-int test;
-	//The entry point of the program
+    { 
+	int test;
+	int testt;
+         int d = 39;
+	int d = "d";   
+	int s;  
+	int esdd;  
     }
-}  
+} 
+                  

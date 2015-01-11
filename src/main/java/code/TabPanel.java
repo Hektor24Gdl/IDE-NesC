@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -50,6 +51,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultEditorKit;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
@@ -138,6 +140,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
             popUpMenu.add(clearItem);
             
             this.jtpConsole.addMouseListener(new MouseAdapter(){
+                @Override
                 public void mousePressed(MouseEvent ev){
                    boolean textoSeleccionado = jtpConsole.getSelectedText()!=null;
                     //cutItem.setEnabled(textoSeleccionado);
@@ -536,7 +539,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
      * @param as
      * @param selectedIndex
      */
-    private void saveFile(boolean as, int selectedIndex) {
+    public static void saveFile(boolean as, int selectedIndex) {
         // Create a file chooser
 
         final JFileChooser fileChooser = new JFileChooser();
@@ -551,7 +554,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
             flag = true;
             pathFile = (String) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get2();
         } else {
-            selection = fileChooser.showSaveDialog(this);
+            selection = fileChooser.showSaveDialog(pnlTab);
         }
         if (selection == JFileChooser.APPROVE_OPTION || flag) {
             File file;
@@ -568,7 +571,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                 try {
                     iconjl = iconjl = createImageIcon("/images/saved.png");
                 } catch (IOException ex) {
-                    this.console.writeUnexpectedError(ex.getMessage());
+                    console.writeUnexpectedError(ex.getMessage());
                     Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 JPanel pnl = new JPanel();
@@ -581,7 +584,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                 some.tabs.setTabComponentAt(some.tabs.getSelectedIndex(), pnl);
 
             } catch (IOException ex) {
-                this.console.writeUnexpectedError(ex.getMessage());
+                console.writeUnexpectedError(ex.getMessage());
                 Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -720,6 +723,50 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
             saveFile(false, i);
         }
     }
+    
+    public static void doLexer() {
+        // TODO add your handling code here:
+        JPanel pnlTab = (JPanel) some.tabs.getTabComponentAt(some.tabs.getSelectedIndex());
+        String s1 = ((JButton) pnlTab.getComponent(2)).getActionCommand();
+        try {
+            saveFile(false, some.tabs.getSelectedIndex());
+            JTextPane textp = (JTextPane) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get3();
+
+            textp = doc.lexer(new File((String) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get2()), (JTextPane) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get3(), some.jtpConsole);
+
+            some.revalidate();
+            some.repaint();
+            some.setVisible(true);
+        } catch (NumberFormatException | FileNotFoundException ex) {
+            some.console.writeUnexpectedError(ex.getMessage());
+            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException | IllegalAccessException ex) {
+            some.console.writeUnexpectedError(ex.getMessage());
+            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void doParser() {
+        // TODO add your handling code here:
+        JPanel pnlTab = (JPanel) some.tabs.getTabComponentAt(some.tabs.getSelectedIndex());
+        String s1 = ((JButton) pnlTab.getComponent(2)).getActionCommand();
+        try {
+            saveFile(false, some.tabs.getSelectedIndex());
+            JTextPane textp = (JTextPane) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get3();
+
+            textp = doc.parser(new File((String) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get2()), (JTextPane) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get3(), some.jtpConsole);
+
+            some.revalidate();
+            some.repaint();
+            some.setVisible(true);
+        } catch (NumberFormatException | FileNotFoundException ex) {
+            some.console.writeUnexpectedError(ex.getMessage());
+            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException | IllegalAccessException ex) {
+            some.console.writeUnexpectedError(ex.getMessage());
+            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * Function for the compile buton in the gui
      * @param evt 
@@ -802,26 +849,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
      * @param evt 
      */
     private void btCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCheckActionPerformed
-        // TODO add your handling code here:
-        JPanel pnlTab = (JPanel) some.tabs.getTabComponentAt(some.tabs.getSelectedIndex());
-        String s1 = ((JButton) pnlTab.getComponent(2)).getActionCommand();
-        try {
-            saveFile(false, some.tabs.getSelectedIndex());
-            JTextPane textp = (JTextPane) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get3();
-
-            textp = doc.lexer(new File((String) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get2()), (JTextPane) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get3(), some.jtpConsole);
-
-            some.pack();
-            some.revalidate();
-            some.repaint();
-            some.setVisible(true);
-        } catch (NumberFormatException | FileNotFoundException ex) {
-            some.console.writeUnexpectedError(ex.getMessage());
-            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalArgumentException | IllegalAccessException ex) {
-            some.console.writeUnexpectedError(ex.getMessage());
-            Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        doParser();
     }//GEN-LAST:event_btCheckActionPerformed
 
     /**
@@ -982,11 +1010,11 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                        popUpMenu.show(ep,ev.getX(),ev.getY());   
                 }
             });
-
-        }catch( Exception ex){
+        }
+        catch( Exception ex){
            // some.console.writeUnexpectedError( ex.toString() );
         }
-        
+    
         TextLineNumber tln = new TextLineNumber(ep);
 
         ImageIcon icon;
@@ -1011,18 +1039,47 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         }
 
         ep.setEditable(true);
+
+        ep.addKeyListener(new KeyListener() {
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                int key = e.getKeyCode();
+                if (key == KeyEvent.VK_ENTER) {
+                    doParser();
+                } else /*if (key == KeyEvent.VK_SPACE)*/ {
+                    doLexer();
+                }
+            }
+        });
         
         DocumentListener dl;
         dl = new DocumentListener() {
-
+            @Override
             public void insertUpdate(DocumentEvent e) {
+                /*
+                try {
+                    System.out.println( e.getDocument().getText(0, e.getDocument().getLength() - 1));
+                } catch (BadLocationException ex) {
+                    Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }*/
+                
                 JPanel pnlTab = (JPanel) some.tabs.getTabComponentAt(some.tabs.getSelectedIndex());
                 
                 String s1 = ((JButton) pnlTab.getComponent(2)).getActionCommand();
                 ImageIcon iconjl = null;
                 try {
                     iconjl = iconjl = createImageIcon("/images/unsaved.png");
-                } catch (IOException ex) {
+                } 
+                catch (IOException ex) {
                     Logger.getLogger(TabPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 JPanel pnl = new JPanel();
@@ -1035,6 +1092,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                 ((Triplet) hmAreas.get(Integer.parseInt(s1))).set1(false);
             }
 
+            @Override
             public void removeUpdate(DocumentEvent e) {
                 JPanel pnlTab = (JPanel) some.tabs.getTabComponentAt(some.tabs.getSelectedIndex());
                 
@@ -1055,17 +1113,13 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                 ((Triplet) hmAreas.get(Integer.parseInt(s1))).set1(false);
             }
 
+            @Override
             public void changedUpdate(DocumentEvent e) {
                 //Plain text components don't fire these events.
             }
         };
         ep.getDocument().addDocumentListener(dl);
         
-        
-        
-         
-         
-         
         JScrollPane jScroll = new JScrollPane(ep);
         jScroll.setRowHeaderView(tln);
         tp.addTab(null, jScroll);
@@ -1118,6 +1172,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
             tabCounter++;
             some.tabs.setTabComponentAt(some.tabs.getTabCount() - 1, pnlTab);
         }
+        doParser();
     }
 
     /**
