@@ -1055,7 +1055,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                 int key = e.getKeyCode();
                 if (key == KeyEvent.VK_ENTER) {
                     doParser();
-                } else /*if (key == KeyEvent.VK_SPACE)*/ {
+                } else if (key == KeyEvent.VK_SPACE || key == KeyEvent.VK_TAB) {
                     doLexer();
                 }
             }
@@ -1345,11 +1345,11 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
                     some.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
                     some.setVisible(true);
 
-                    UIManager.LookAndFeelInfo piel[] = UIManager.getInstalledLookAndFeels();
+                    /*UIManager.LookAndFeelInfo piel[] = UIManager.getInstalledLookAndFeels();
                     for (UIManager.LookAndFeelInfo piel1 : piel) {
                         System.out.println("Nombre Skin = " + piel1.getClassName());
                         //some.setVisible(true);
-                    }
+                    }*/
                 }
             ;/*
              addTab.setFocusable(false);
