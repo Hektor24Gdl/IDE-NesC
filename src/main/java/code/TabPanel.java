@@ -842,6 +842,7 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         String workingDir = aux.getParentFile().getAbsolutePath();
         compile(workingDir);
         convert(workingDir);
+        btnAvroraz();
     }//GEN-LAST:event_btnMakeAllActionPerformed
 
     /**
@@ -1251,6 +1252,11 @@ public class TabPanel extends javax.swing.JFrame implements Accessible {
         int y = (screenSize.height - jd.getHeight()) / 2;
         jd.setLocation(x, y);
         jd.setVisible(true);
+        /*JPanel pnlTab = (JPanel) some.tabs.getTabComponentAt(some.tabs.getSelectedIndex());
+        String s1 = ((JButton) pnlTab.getComponent(2)).getActionCommand();
+        File aux = new File((String) ((Triplet) hmAreas.get(Integer.parseInt(s1))).get2());
+        jd.setWorkingDir(aux.getParentFile().getAbsolutePath());
+        System.out.println(aux.getParentFile().getAbsolutePath());*/
     }
 
     /**

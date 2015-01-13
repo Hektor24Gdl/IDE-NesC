@@ -36,6 +36,8 @@ public class commandsAvroraZ extends javax.swing.JDialog {
 
     private Help help;
     private final ResourceBundle bundle;
+    private static final String urlSimulator = "/home/hector/Dropbox/IDE_nesC/Documentacion/Investigacion IDE-NesC/Info_Alejandro/avroraz.jar";
+    private String workingDir;
 
     /**
      * Creates new form commandsAvroraZ2
@@ -142,6 +144,9 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         this.setSize(730, 550);
     }
 
+    public void setWorkingDir(String workingDir){
+        this.workingDir = workingDir;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1050,9 +1055,8 @@ public class commandsAvroraZ extends javax.swing.JDialog {
     private void btRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRunActionPerformed
         Component[] components = this.getContentPane().getComponents();
         List<String> commands = new ArrayList<>();
-        File file = new File("/home/hector/Dropbox/IDE_nesC/Documentacion/Investigacion IDE-NesC/Info_Alejandro/nodeD.od");
-        String workingDir = file.getParentFile().getAbsolutePath();
-        String urlSimulator = "/home/hector/Dropbox/IDE_nesC/Documentacion/Investigacion IDE-NesC/Info_Alejandro/avroraz.jar";
+        /*File file = new File("/home/hector/Dropbox/IDE_nesC/Documentacion/Investigacion IDE-NesC/Info_Alejandro/nodeD.od");
+        String workingDir = file.getParentFile().getAbsolutePath();*/
         commands.add("java");
         commands.add("-jar");
         commands.add(urlSimulator);
@@ -1090,7 +1094,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
             JTextArea ctf = (JTextArea) findComponent("tfExtra");
             commands.add(ctf.getText());
         }
-        simulate(workingDir, commands);
+        simulate(commands);
     }//GEN-LAST:event_btRunActionPerformed
 
     private Component findComponent(String name){
@@ -1102,10 +1106,11 @@ public class commandsAvroraZ extends javax.swing.JDialog {
         return null;
     }
     
-    private void simulate(String workingDir, List<String> command){
+    private void simulate(List<String> command){
         Runtime runtime = Runtime.getRuntime();
         try {
             String createDir = String.format("mkdir %s/build/avroraz", workingDir);
+            System.out.println(createDir);
             Process createDirProcess = runtime.exec(createDir);
             createDirProcess.waitFor();
             Thread.sleep(200);
@@ -1117,6 +1122,7 @@ public class commandsAvroraZ extends javax.swing.JDialog {
             //Java Process doesn't support the ">" redirect as bash shell does. So, ProcessBuilder is needed
             ProcessBuilder pb = new ProcessBuilder(command);
             pb.redirectOutput(new File(tfOutput.getText()));
+            System.out.println(tfOutput.getText());
             Process commandProcess = pb.start();
             commandProcess.waitFor();
         } catch (IOException | InterruptedException ex) {

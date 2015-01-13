@@ -7,10 +7,11 @@ package code;
 
 import java.awt.Color;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.StyleConstants;
@@ -46,7 +47,7 @@ public class ReadXML {
     public  ReadXML() throws FileNotFoundException, ParserConfigurationException, SAXException, IOException{
         HashMap<String, Triplet> localAttributes = new HashMap<>();
         try {
-        File file = new File(ReadXML.class.getResource("/configurations/nesc.xml").getPath());
+        InputStream file = ReadXML.class.getResourceAsStream("/configurations/nesc.xml");
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
         Document doc = db.parse(file);

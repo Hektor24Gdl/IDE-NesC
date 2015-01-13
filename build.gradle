@@ -32,6 +32,16 @@ dependencies {
     compile group: 'net.sf.squirrel-sql.thirdparty.non-maven', name: 'java-cup', version: '0.11a'
 }
 
+jar {
+    into('lib') {
+        from configurations.compile
+    }
+    manifest {
+        attributes 'Main-Class': 'code.TabPanel',
+                   'Class-Path': configurations.runtime.files.collect { 'lib/' + it.name }.join(' ')
+    }
+}
+
 test {
   // enable TestNG support (default is JUnit)
   useTestNG()
